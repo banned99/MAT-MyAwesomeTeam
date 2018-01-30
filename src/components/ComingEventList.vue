@@ -8,12 +8,14 @@
         <th>Position</th>
     </tr>
     <EventListItem v-for="(event, index) in joinedevents" :key="event.id" :event="event" :index="index" />
+    <CreateNewEventItem />
   </table>
 </template>
 
 <script>
 import { database } from '../utils/firebase'
 import EventListItem from '../components/EventListItem'
+import CreateNewEventItem from '../components/CreateNewEventItem'
 
 export default {
   name: 'comingeventlist',
@@ -23,7 +25,7 @@ export default {
     }
   },
   components: {
-    EventListItem
+    EventListItem, CreateNewEventItem
   }
 }
 </script>
