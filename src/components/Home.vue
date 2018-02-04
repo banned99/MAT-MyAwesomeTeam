@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="ComingEv">
         <!-- <Nav/>
         <SideMenu/> -->
         <ComingEventList/>
@@ -15,4 +15,8 @@ export default {
   }
 }
 </script>
-
+<style media="screen">
+body {
+    text-align: center;
+}
+</style>
