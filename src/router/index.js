@@ -1,18 +1,23 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
 import Home from '../components/Home'
 import Event from '../components/Event'
+import Login from '@/components/Login'
+import SignUp from '@/components/SignUp'
 import CreateNewEvent from '../components/CreateNewEvent'
 
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
-      name: 'Hello',
-      component: Hello
+      redirect: '/login'
+    },
+    {
+      path: '*',
+      redirect: '/login'
     },
     {
       path: '/home',
@@ -28,6 +33,16 @@ export default new Router({
       path: '/event/:eventId',
       name: 'Event',
       component: Event
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/signup',
+      name: 'SignUp',
+      component: SignUp
     }
   ]
 })

@@ -1,5 +1,5 @@
 <template>
-  <tr v-on:click="toEventHome(event['.key'])">
+  <tr @click="toEventHome(event['.key'])">
       <td>{{ index+1 }}</td>
       <td>{{ event.name }}</td>
       <td>{{ event.date.start }} - {{ event.date.end }}</td>
