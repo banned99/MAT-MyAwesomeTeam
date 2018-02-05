@@ -1,9 +1,9 @@
 <template>
-    <div>
-      <!-- <Nav/>
-      <SideMenu/> -->
-      <ComingEventList/>
-      <SignOut />
+    <div id="ComingEv">
+        <!-- <Nav/>
+        <SideMenu/> -->
+        <ComingEventList/>
+        <SignOut />
     </div>
 </template>
 
@@ -18,4 +18,8 @@ export default {
   }
 }
 </script>
-
+<style media="screen">
+body {
+    text-align: center;
+}
+</style>
