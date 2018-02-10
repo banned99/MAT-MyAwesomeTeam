@@ -51,7 +51,7 @@ export default {
     },
     signup: function () {
       auth.createUserWithEmailAndPassword(this.user.email, this.password).catch(
-        function (err) {
+        (err) => {
           this.errorMessage = err.message
         }
       )
@@ -65,9 +65,9 @@ export default {
           displayName: this.user.displayName,
           photoURL: this.user.imgUrl
         })
+        console.log(this)
+        this.$router.push('/home')
       }
-
-      this.$router.replace('home')
     }
   }
 }

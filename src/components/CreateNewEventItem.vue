@@ -9,7 +9,7 @@ export default {
   name: 'createneweventitem',
   methods: {
     toEventCreate: function () {
-      this.$router.replace('createnewevent')
+      this.$router.push('createnewevent')
     }
   }
 }

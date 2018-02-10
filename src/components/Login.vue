@@ -27,15 +27,16 @@ export default {
   methods: {
     login: function () {
       auth.signInWithEmailAndPassword(this.email, this.pass).catch(function (err) {
-        if (err) {
-          this.errorMessage = err.message
-        }
+        // if (err) {
+        //   this.errorMessage = err.message
+        // }
+        console.log(err)
       })
 
       var user = auth.currentUser
 
       if (user) {
-        this.$router.replace('home')
+        this.$router.push('home')
       }
     }
   }

@@ -6,9 +6,11 @@ import Login from '@/components/Login'
 import SignUp from '@/components/SignUp'
 import CreateNewEvent from '../components/CreateNewEvent'
 
+import { auth } from '../utils/firebase'
+
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   routes: [
     {
@@ -22,17 +24,20 @@ export default new Router({
     {
       path: '/home',
       name: 'Home',
-      component: Home
+      component: Home,
+      meta: { requiredAuth: true }
     },
     {
       path: '/createnewevent',
       name: 'CreateNewEvent',
-      component: CreateNewEvent
+      component: CreateNewEvent,
+      meta: { requiredAuth: true }
     },
     {
       path: '/event/:eventId',
       name: 'Event',
-      component: Event
+      component: Event,
+      meta: { requiredAuth: true }
     },
     {
       path: '/login',
@@ -46,3 +51,26 @@ export default new Router({
     }
   ]
 })
+
+const match = (to, from, next) => {
+  if (to.matched.some(x => x.meta.requiredAuth)) {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        next()
+      } else {
+        next({path: '/login'})
+      }
+    })
+  } else {
+    if (!to.matched.some(x => x.meta.requiredAuth)) {
+
+    }
+    next()
+  }
+}
+
+router.beforeEach((to, from, next) => {
+  match(to, from, next)
+})
+
+export default router

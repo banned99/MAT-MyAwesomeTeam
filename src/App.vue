@@ -11,9 +11,9 @@
     <span></span>
     <span></span>
     <ul id="menu">
-      <a href="#"><li>My Profile</li></a>
-      <a href="#"><li>My Event</li></a>
-      <a href="#"><li>Event History</li></a>
+      <a href="#"><li>My Profile</li></a><br>
+      <a href="#"><li>My Event</li></a><br>
+      <a href="#"><li>Event History</li></a><br>
       <a href="#"><li>Logout</li></a>
     </ul>
   </div>

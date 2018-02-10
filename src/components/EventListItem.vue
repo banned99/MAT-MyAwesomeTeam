@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     toEventHome: function (eventId) {
-      this.$router.replace('event/' + eventId)
+      this.$router.push('event/' + eventId)
     }
   }
 }
