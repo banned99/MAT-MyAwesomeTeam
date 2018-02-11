@@ -1,5 +1,5 @@
 <template>
-  <button @click='signout'>Sign Out</button>
+  <a @click='signout'>Sign Out</a>
 </template>
 
 <script>
@@ -17,3 +17,9 @@ export default {
   }
 }
 </script>
+
+<style media="screen">
+  a{
+    cursor: pointer;
+  }
+</style>

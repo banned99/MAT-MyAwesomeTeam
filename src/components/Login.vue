@@ -109,7 +109,11 @@ padding: 12px;
   font-size: 0.95em;
 }
 
-.login-container input[type="email"],
+.login-container input[type="email"]{
+  background: #fff;
+  border-color: #bbb;
+  color: #555;
+}
 .login-container input[type="password"] {
   background: #fff;
   border-color: #bbb;
