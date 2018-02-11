@@ -14,7 +14,6 @@
       <a href="#"><li>My Profile</li></a><br>
       <a href="#"><li>My Event</li></a><br>
       <a href="#"><li>Event History</li></a><br>
-      <a href="#"><li>Logout</li></a>
     </ul>
   </div>
 </nav>
@@ -87,6 +86,8 @@ header span {
 
 body
 {
+  background: #456;
+  font-family: 'Open Sans', sans-serif;
   margin: 0;
   padding: 0;
 }

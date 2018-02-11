@@ -1,7 +1,7 @@
 <template>
   <div>
     {{ error }}
-    <button @click='signout'>Sign Out</button>
+    <a @click='signout'>Sign Out</a>
   </div>
 </template>
 
@@ -35,3 +35,9 @@ export default {
   }
 }
 </script>
+
+<style media="screen">
+  a{
+    cursor: pointer;
+  }
+</style>

@@ -32,8 +32,4 @@ export default {
 </script>
 
 <style media="screen">
-  table{
-    border-style: solid;
-    border-color: black;
-  }
 </style>
