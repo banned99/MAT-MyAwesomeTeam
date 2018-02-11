@@ -13,16 +13,17 @@
 </template>
 
 <script>
-import { database } from '../utils/firebase'
+import firebase from '../utils/firebase'
 import EventListItem from '../components/EventListItem'
 import CreateNewEventItem from '../components/CreateNewEventItem'
 
 export default {
   name: 'comingeventlist',
-  firebase: {
-    joinedevents: {
-      source: database.ref('users/' + '0fWeAs2z9NT3D2CGJ3u6PY1nEuk1' + '/eventsJoined')
-    }
+  created: function () {
+    var uid = (this.$store.getters.getCurrentUser).uid
+    var ref = firebase.database().ref('users/' + uid + '/eventsJoined')
+
+    this.$bindAsArray('joinedevents', ref)
   },
   components: {
     EventListItem, CreateNewEventItem

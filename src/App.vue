@@ -26,8 +26,18 @@
 </template>
 
 <script>
+import store from './vuex/store'
+import Vuex from 'vuex'
+global.vuex = Vuex
+
 export default {
-  name: 'app'
+  store,
+  name: 'app',
+  computed: {
+    isAuthenticated () {
+      return this.$store.getters.getCurrentUser !== null && this.$store.getters.getCurrentUser !== undefined
+    }
+  }
 }
 </script>
 

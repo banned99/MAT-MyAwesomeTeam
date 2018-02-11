@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '../components/Home'
-import Event from '../components/Event'
+import EventHome from '../components/EventHome'
 import Login from '@/components/Login'
 import SignUp from '@/components/SignUp'
 import CreateNewEvent from '../components/CreateNewEvent'
+import NotFound from '../components/NotFound'
 
-import { auth } from '../utils/firebase'
+import firebase from '../utils/firebase'
 
 Vue.use(Router)
 
@@ -19,7 +20,7 @@ const router = new Router({
     },
     {
       path: '*',
-      redirect: '/login'
+      component: NotFound
     },
     {
       path: '/home',
@@ -35,8 +36,8 @@ const router = new Router({
     },
     {
       path: '/event/:eventId',
-      name: 'Event',
-      component: Event,
+      name: 'EventHome',
+      component: EventHome,
       meta: { requiredAuth: true }
     },
     {
@@ -53,20 +54,11 @@ const router = new Router({
 })
 
 const match = (to, from, next) => {
-  if (to.matched.some(x => x.meta.requiredAuth)) {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        next()
-      } else {
-        next({path: '/login'})
-      }
-    })
-  } else {
-    if (!to.matched.some(x => x.meta.requiredAuth)) {
-
-    }
-    next()
-  }
+  const requiredAuth = to.matched.some(record => record.meta.requiredAuth)
+  const user = firebase.auth().currentUser
+  if (requiredAuth && !user) next('/login')
+  else if (!requiredAuth && user) next('/home')
+  else next()
 }
 
 router.beforeEach((to, from, next) => {

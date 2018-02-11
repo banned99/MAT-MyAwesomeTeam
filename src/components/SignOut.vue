@@ -1,18 +1,36 @@
 <template>
-  <button @click='signout'>Sign Out</button>
+  <div>
+    {{ error }}
+    <button @click='signout'>Sign Out</button>
+  </div>
 </template>
 
 <script>
-import { auth } from '../utils/firebase'
 export default {
   name: 'signout',
+  computed: {
+    error: function () {
+      return this.$store.getters.getError
+    },
+    loading: function () {
+      return this.$store.getters.getLoading
+    }
+  },
   methods: {
     signout: function () {
-      auth.signOut().catch(function (err) {
-        console.log(err.message)
-      })
-
-      this.$router.replace('/login')
+      this.$store.dispatch('userSignOut')
+    }
+  },
+  watch: {
+    error: function (value) {
+      if (value) {
+        this.alert = true
+      }
+    },
+    alert: function (value) {
+      if (!value) {
+        this.$store.dispatch('setError', null)
+      }
     }
   }
 }

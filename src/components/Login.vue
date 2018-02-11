@@ -1,42 +1,51 @@
 <template>
   <div>
     <h1>Login</h1>
-    <input v-model="email" type="text" placeholder="Email"/>
-    <input v-model="pass" type="password" placeholder="Password"/>
-    <button @click="login">Login</button>
+    <div v-if="alert">
+      {{ error }}
+    </div>
+    <input v-model="email" type="text" placeholder="Email" required/>
+    <input v-model="pass" type="password" placeholder="Password" required/>
+    <button @click="login" :disabled='loading'>Login</button>
     Don't have a username? <router-link to="/signup">Sign Up Here!</router-link>
-    {{ errorMessage }}
   </div>
 </template>
 
 <script>
-import { auth } from '../utils/firebase'
-
 export default {
   name: 'login',
   data: () => {
     return {
       email: '',
       pass: '',
-      errorMessage: ''
+      alert: false
     }
   },
   computed: {
-    // add input validation
+    error: function () {
+      return this.$store.getters.getError
+    },
+    loading: function () {
+      return this.$store.getters.getLoading
+    }
   },
   methods: {
     login: function () {
-      auth.signInWithEmailAndPassword(this.email, this.pass).catch(function (err) {
-        // if (err) {
-        //   this.errorMessage = err.message
-        // }
-        console.log(err)
+      this.$store.dispatch('userEmailSignIn', {
+        email: this.email,
+        password: this.pass
       })
-
-      var user = auth.currentUser
-
-      if (user) {
-        this.$router.push('home')
+    }
+  },
+  watch: {
+    error (value) {
+      if (value) {
+        this.alert = true
+      }
+    },
+    alert (value) {
+      if (!value) {
+        this.$store.dispatch('setError', null)
       }
     }
   }
