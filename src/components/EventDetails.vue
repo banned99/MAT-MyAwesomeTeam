@@ -1,9 +1,9 @@
 <template>
   <div>
-    Name: <input type="text" v-model="event.name" :disabled="!editing"> Create Date: {{ event.createDate }}<br/>
-    Description: <textarea v-model="event.desc" :disabled="!editing"></textarea> <br/>
-    Date: <input type="date" v-model="event.date.start" :disabled="!editing">
-    to <input type="date" v-model="event.date.end" :disabled="!editing"> <br/>
+    Name: <input type="text" v-model="newEvent.name" :disabled="!editing"> Create Date: {{ event.createDate }}<br/>
+    Description: <textarea v-model="newEvent.desc" :disabled="!editing"></textarea> <br/>
+    Date: <input type="date" v-model="newEvent.date.start" :disabled="!editing">
+    to <input type="date" v-model="newEvent.date.end" :disabled="!editing"> <br/>
     Head (Owner): {{ ownerName }}
     <button @click="toggleEdit" v-show="!editing">Edit</button>
     <button @click="attemptDelete" v-show="!editing">Delete</button>
@@ -25,6 +25,7 @@ export default {
   created: function () {
     var ref = firebase.database().ref('events/' + this.$route.params.eventId)
     this.$bindAsObject('event', ref)
+    this.$bindAsObject('newEvent', ref)
   },
   computed: {
     error: function () {
@@ -34,11 +35,7 @@ export default {
       return this.$store.getters.getLoading
     },
     ownerName: function () {
-      firebase.database().ref('users/' + this.event.owner).once('value').then(
-        snapshot => {
-          return snapshot.val()
-        }
-      )
+      return (firebase.database().ref('users/' + this.event.owner)).displayName
     }
   },
   methods: {
@@ -58,13 +55,15 @@ export default {
     confirmEdit: function () {
       if (confirm('Are you sure to EDIT this event? This action cannot be undone')) {
         this.$store.dispatch('updateEvent', {
-          edit: this.edit,
+          newEvent: this.newEvent,
           eventId: this.$route.params.eventId
         })
       }
+      this.editing = false
     },
     cancelEdit: function () {
       this.editing = false
+      this.newEvent = this.event
     }
   }
 }

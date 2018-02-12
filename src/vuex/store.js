@@ -149,18 +149,18 @@ const actions = {
         commit('setLoading', false)
       })
   },
-  editEvent ({commit}, payload) {
+  updateEvent ({commit}, payload) {
     commit('setLoading', true)
-    firebase.database().ref('events').child(payload.eventId).set({
-      name: payload.name,
-      desc: payload.desc,
-      date: {
-        start: payload.date.start,
-        end: payload.date.end
-      }
+    firebase.database().ref('events/' + payload.eventId).update({
+      name: payload.newEvent.name,
+      desc: payload.newEvent.desc,
+      date: payload.newEvent.date
     }).then(() => {
       commit('setLoading', false)
       this.router.replace('event/' + payload.eventId)
+    }).catch(err => {
+      commit('setError', err.message)
+      commit('setLoading', false)
     })
   }
 }
