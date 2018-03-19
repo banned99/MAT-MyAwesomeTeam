@@ -3,12 +3,15 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import Vuefire from 'vuefire'
-import store from './vuex/store'
-import firebase from './utils/firebase'
+import VueFire from 'vuefire'
+import store from './vuex'
+import firebase from 'firebase'
+import { firebaseConfig } from './config'
+
+Vue.use(VueFire)
 
 Vue.config.productionTip = false
-Vue.use(Vuefire)
+Vue.prototype.$firebase = firebase.initializeApp(firebaseConfig)
 
 /* eslint-disable no-new */
 const unsubscibe = firebase.auth().onAuthStateChanged((user) => {
@@ -19,7 +22,17 @@ const unsubscibe = firebase.auth().onAuthStateChanged((user) => {
     template: '<App/>',
     components: { App },
     created () {
-      store.dispatch('autoSignIn', user)
+      this.$firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          store.dispatch('setAuthFromAuto', user)
+          store.dispatch('setUserFromAuto', user)
+          this.$router.push('/home')
+        } else {
+          store.dispatch('resetAuthState')
+          store.dispatch('resetUser')
+          this.$router.push('/signin')
+        }
+      })
     }
   })
   unsubscibe()
