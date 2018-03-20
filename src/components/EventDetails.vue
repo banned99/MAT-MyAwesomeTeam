@@ -1,10 +1,42 @@
 <template>
   <div>
-    Name: <input type="text" v-model="newEvent.name" :disabled="!editing"> Create Date: {{ event.createDate }}<br/>
-    Description: <textarea v-model="newEvent.desc" :disabled="!editing"></textarea> <br/>
-    Date: <input type="date" v-model="newEvent.date.start" :disabled="!editing">
-    to <input type="date" v-model="newEvent.date.end" :disabled="!editing"> <br/>
-    Head (Owner): {{ ownerName }}
+    <h1>Event Details</h1>
+    <div>
+      <label>Event Name</label>
+      <p v-show="!editing">{{ getEvent.name }}</p>
+      <input type="text" v-model="event.name" v-show="editing" />
+    </div>
+    <div>
+      <label>Description</label>
+      <p v-show="!editing && getEvent.desc !== ''">{{ getEvent.desc }}</p>
+      <p v-show="!editing && getEvent.desc === ''">------- No description. -------</p>
+      <textarea v-model="event.desc" cols="30" rows="10" v-show="editing" ></textarea>
+    </div>
+    <div>
+      <label>Date</label>
+      <p v-if="!editing">{{ getEvent.date.start }} to {{ getEvent.date.end }}</p>
+      <div v-if="editing">
+        <input type="date" v-model="event.date.start" :min="new Date().toISOString()" max="31/12/2099"/> 
+        to 
+        <input type="date" v-model="event.date.end" :min="new Date().toISOString()" max="31/12/2099" />
+      </div>
+    </div>
+    <div>
+      <label>Create Date</label>
+      <p>{{ getEvent.createDate }}</p>
+    </div>
+    <div>
+      <label>Owner</label>
+      <p>{{ getEvent.owner.name }}</p>
+    </div>
+    <div>
+      <label>Total Staffs</label>
+      {{ getEvent.staffs.length }}
+    </div>
+    <div>
+      <label>Total Teams</label>
+      {{ Object.keys(getEvent.teams).length }}
+    </div><br>
     <button @click="toggleEdit" v-show="!editing">Edit</button>
     <button @click="attemptDelete" v-show="!editing">Delete</button>
     <button @click="confirmEdit" v-show="editing">Confirm</button>
@@ -13,58 +45,76 @@
 </template>
 
 <script>
-import firebase from '../utils/firebase'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'eventdetails',
   data: () => {
     return {
+      event: {
+        name: '',
+        createDate: '',
+        owner: {
+          uid: '',
+          name: ''
+        },
+        date: {
+          start: '',
+          end: ''
+        },
+        desc: '',
+        staffs: [],
+        teams: {},
+        milestone: [],
+        flow: {},
+        chatHistory: [],
+        voiceHistory: [],
+        fileHistory: []
+      },
       editing: false
     }
   },
-  created: function () {
-    var ref = firebase.database().ref('events/' + this.$route.params.eventId)
-    this.$bindAsObject('event', ref)
-    this.$bindAsObject('newEvent', ref)
-  },
   computed: {
-    error: function () {
-      return this.$store.getters.getError
-    },
-    loading: function () {
-      return this.$store.getters.getLoading
-    },
-    ownerName: function () {
-      return (firebase.database().ref('users/' + this.event.owner)).displayName
-    }
+    ...mapGetters(['getEvent', 'getUserUID', 'getEventToken'])
   },
   methods: {
+    ...mapActions(['deleteEvent', 'updateEvent', 'deleteJoinedEvents']),
     toggleEdit: function () {
       this.editing = true
+      this.event = this.getEvent
     },
     attemptDelete: function () {
+      this.event = this.getEvent
       if (confirm('Are you sure to DELETE this event? This action cannot be undone')) {
         var eventName = prompt('Insert event name', '')
         if (eventName === this.event.name) {
-          this.$store.dispatch('deleteEvent', {
-            eventId: this.$route.params.eventId
+          this.deleteEvent({
+            uid: this.getUserUID,
+            eventId: this.getEventToken
+          })
+          this.deleteJoinedEvents({
+            token: this.getEventToken
           })
         }
       }
     },
     confirmEdit: function () {
       if (confirm('Are you sure to EDIT this event? This action cannot be undone')) {
-        this.$store.dispatch('updateEvent', {
-          newEvent: this.newEvent,
-          eventId: this.$route.params.eventId
+        this.updateEvent({
+          event: this.event,
+          eventId: this.getEventToken
         })
       }
       this.editing = false
     },
     cancelEdit: function () {
       this.editing = false
-      this.newEvent = this.event
+      this.event = this.getEvent
     }
   }
 }
 </script>
+
+<style>
+
+</style>
