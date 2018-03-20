@@ -10,7 +10,6 @@
 
 <script>
 import EventDetails from '../components/EventDetails'
-
 export default {
   name: 'event',
   components: {

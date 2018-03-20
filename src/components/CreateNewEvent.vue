@@ -6,7 +6,7 @@
     <input type="date" v-model="event.date.start" placeholder="Event Start Date">
     <input type="date" v-model="event.date.end" placeholder="Event End Date">
     <textarea v-model="event.desc" rows="4" cols="50" placeholder="Event Description"/>
-    <h2>Add Departs</h2>
+    <h2>Add Teams</h2>
     <DepartInput @add="addDepart" @remove="removeDepart" :departlist="departnamelist"/>
     <button @click="createEvent" :disabled="loading">Create Event</button>
   </div>
@@ -75,7 +75,6 @@ export default {
         }
       }
       this.event.members.push(eventmember)
-
       let departmember = {
         name: user.displayName,
         role: 'head'

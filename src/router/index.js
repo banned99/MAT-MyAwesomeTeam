@@ -6,6 +6,7 @@ import Login from '@/components/Login'
 import SignUp from '@/components/SignUp'
 import CreateNewEvent from '../components/CreateNewEvent'
 import NotFound from '../components/NotFound'
+import ShowTimeline from '@/components/ShowTimeline'
 
 import firebase from '../utils/firebase'
 
@@ -49,6 +50,11 @@ const router = new Router({
       path: '/signup',
       name: 'SignUp',
       component: SignUp
+    },
+    {
+      path: '/showtimeline',
+      name: 'ShowTimeline',
+      component: ShowTimeline
     }
   ]
 })
