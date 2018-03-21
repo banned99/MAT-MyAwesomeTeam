@@ -1,7 +1,7 @@
 <template>
 <div>
   <table>
-    <tr>
+    <tr class="headTr">
         <th>Event Name</th>
         <th>Event Date</th>
         <th>Team</th>
@@ -33,5 +33,7 @@ export default {
 </script>
 
 <style>
-
+tr.headTr:hover{
+  background-color: rgba(0,0,0,0) !important;
+}
 </style>

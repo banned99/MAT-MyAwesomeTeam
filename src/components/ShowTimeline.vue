@@ -12,7 +12,7 @@
         </div>
       </div>
     </div>
-    <br><p><button id="btn" @click="addMilestones" type="button" name="button">+</button></p>
+    <br><p><button id="btn"  type="button" name="button">+</button></p>
   </div>
 </template>
 <script type="text/javascript" src="javascript/getRandomColor.js">
@@ -22,7 +22,6 @@
 // The Vue build version to load with the `import` command
 import Framework7 from 'framework7'
 import Timeline from 'framework7/dist/components/timeline/timeline.js'
-import VueTimepicker from 'vue2-timepicker'
 Framework7.use([Timeline])
 
 export default {
@@ -39,12 +38,6 @@ export default {
 
   },
   methods: {
-    addMilestones: function () {
-      prompt('Press the day', this.timeline.date.day)
-      prompt('Press the month', this.timeline.date.month)
-      prompt('Press the time', this.tineline.time)
-      prompt('Press the desc', this.tineline.desc)
-    }
   }
 }
 </script>

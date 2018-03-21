@@ -1,14 +1,16 @@
 <template>
   <div>
+    <ShowTimeline />
     <EventMinorDetails />
     <!-- <MileStone v-if="milestoneView"/> -->
-    <!-- <EventDetails /> -->
+    <EventDetails />
   </div>
 </template>
 
 <script>
 import EventMinorDetails from '../components/EventMinorDetails'
-// import EventDetails from '../components/EventDetails'
+import EventDetails from '../components/EventDetails'
+import ShowTimeline from '../components/ShowTimeline'
 import { mapActions } from 'vuex'
 
 export default {
@@ -23,8 +25,9 @@ export default {
     ...mapActions(['pullEventData', 'getEventDate', 'resetEventData'])
   },
   components: {
-    EventMinorDetails
-    // EventDetails
+    EventMinorDetails,
+    EventDetails,
+    ShowTimeline
   }
 }
 </script>
