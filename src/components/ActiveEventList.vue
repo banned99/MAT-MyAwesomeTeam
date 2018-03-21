@@ -13,6 +13,7 @@
     </tr>
   </table>
   <CreateNewEventForm />
+  <JoinEventForm />
 </div>
 </template>
 
@@ -20,6 +21,7 @@
 import { mapGetters } from 'vuex'
 import ActiveEventListItem from '../components/ActiveEventListItem'
 import CreateNewEventForm from '../components/CreateNewEventForm'
+import JoinEventForm from '../components/JoinEventForm'
 
 export default {
   name: 'activeeventlist',
@@ -27,7 +29,7 @@ export default {
     ...mapGetters(['getEventsJoined'])
   },
   components: {
-    ActiveEventListItem, CreateNewEventForm
+    ActiveEventListItem, CreateNewEventForm, JoinEventForm
   }
 }
 </script>

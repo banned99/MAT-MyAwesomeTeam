@@ -1,27 +1,26 @@
 <template>
   <div class="add-product" :class="{'open': formOpen}">
-    <div class="button-copy" v-show="!formOpen" @click="formOpen = true">Create Event</div>
-    <form @submit.prevent="createClick">
+    <div class="button-copy" v-show="!formOpen" @click="formOpen = true">Join Event</div>
+    <form @submit.prevent="searchByToken">
       <div class="form--field">
-        <label>Event Title *</label>
-        <input type="text" class="form--element" v-model="event.name" placeholder="Title" required="">
+        <label>Event Token *</label>
+        <input type="text" class="form--element" v-model="token" placeholder="Token" required="">
       </div>
-      <div class="form--container -inline">
-        <div class="form--field -short">
-          <label>Event Start Date *</label>
-          <input type="date" class="form--element" v-model="event.date.start" placeholder="Start Date" required="" :min="new Date().toISOString()" max="31/12/2999">
+      <div v-if="attemptSearch === true">
+        <div class="form--field" v-if="getSearchResult !== null">
+          <label>Event Name</label>
+          <p>{{ getSearchResult.name }}</p>
+          <label>Description</label>
+          <p>{{ getSearchResult.desc }}</p>
+          <label>Event Date</label>
+          <p>{{ getSearchResult.date.start }} to {{ getSearchResult.date.end }}</p>
+          <button @click="joinEvent(token)">Join Event</button>
         </div>
-        <div class="form--field -short">
-          <label>Event End Date *</label>
-          <input type="date" class="form--element" v-model="event.date.end" placeholder="End Date" required="" :min="new Date().toISOString()" max="31/12/2999">
+        <div class="form--field" v-else-if="!getSearchResult">
+          <p>--------- Event not found. Please re-check token. ---------</p>
         </div>
       </div>
-      <div class="form--field">
-        <label>Event Description</label>
-        <textarea class="form--element textarea" v-model="event.desc" placeholder="Description">                                
-        </textarea>
-      </div>
-      <button type="submit" class="submit-button">Create</button>
+      <button type="submit" class="submit-button">Search</button>
       <div class="cancel"><span @click="cancel()">Cancel</span></div>
     </form>
   </div>
@@ -34,64 +33,28 @@ export default {
   name: 'createneweventform',
   data: () => {
     return {
+      token: '',
       formOpen: false,
-      event: {
-        name: '',
-        date: {
-          start: '',
-          end: ''
-        },
-        desc: '',
-        owner: {
-          uid: '',
-          name: ''
-        },
-        createDate: '',
-        staffs: [],
-        teams: {},
-        milestone: [],
-        flow: {},
-        chatHistory: [],
-        voiceHistory: [],
-        fileHistory: []
-      },
-      token: ''
+      attemptSearch: false
     }
   },
-  created () {
-    this.event.owner.uid = this.getUserUID
-    this.event.owner.name = this.getDisplayName
-    let now = new Date()
-    this.event.createDate = now.toLocaleString().split(',').join('')
-    this.token = (this.event.owner.uid.slice(0, 5) + now.toLocaleDateString().split('/').join('') + now.toLocaleTimeString().slice(0, 7).split(':').join(''))
-  },
   computed: {
-    ...mapGetters(['getUserUID', 'getDisplayName'])
+    ...mapGetters(['getSearchResult'])
   },
   methods: {
-    ...mapActions(['createNewEvent', 'addEventFromCreate']),
-    createClick: function () {
-      this.addEventFromCreate({event: this.event, token: this.token})
-      this.createNewEvent({event: this.event, token: this.token})
+    ...mapActions(['searchEventByToken', 'resetSearch', 'joinEvent']),
+    searchByToken: function () {
+      this.searchEventByToken(this.token)
+      this.attemptSearch = true
     },
     resetForm: function () {
-      this.event = {
-        name: '',
-        date: {
-          start: '',
-          end: ''
-        },
-        desc: '',
-        createDate: '',
-        owner: {
-          uid: '',
-          name: ''
-        }
-      }
+      this.token = ''
     },
     cancel: function () {
+      this.attemptSearch = false
       this.formOpen = false
       this.resetForm()
+      this.resetSearch()
     }
   }
 }
@@ -112,7 +75,7 @@ export default {
   padding: 18px 32px;
   border-radius: 5px;
   width: 420px;
-  height: 398px;
+  height: auto;
   cursor: default;
 }
 .add-product.open form {
@@ -122,6 +85,7 @@ export default {
   height: auto;
 }
 .add-product .button-copy {
+  font-size: 13px;
   text-align: center;
   line-height: 144px;
   text-transform: uppercase;

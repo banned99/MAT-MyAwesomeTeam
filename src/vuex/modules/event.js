@@ -22,6 +22,15 @@ const state = {
     chatHistory: [],
     voiceHistory: [],
     fileHistory: []
+  },
+  searchResult: {
+    name: '',
+    date: {
+      start: '',
+      end: ''
+    },
+    desc: '',
+    owner: ''
   }
 }
 
@@ -36,7 +45,8 @@ const getters = {
   getEventMilestone: state => state.event.milestone,
   getEventFlow: state => state.event.flow,
   getEventStaffs: state => state.event.staffs,
-  getEventTeams: state => state.event.teams
+  getEventTeams: state => state.event.teams,
+  getSearchResult: state => state.searchResult
 }
 
 const mutations = {
@@ -78,6 +88,9 @@ const mutations = {
   },
   addEventTeam: (state, payload) => {
     state.event.teams[payload.name] = payload.data
+  },
+  setSearchResult: (state, payload) => {
+    state.searchResult = payload
   }
 }
 
@@ -221,6 +234,34 @@ const actions = {
       }
     )
     commit('setEventToken', '')
+  },
+  searchEventByToken ({commit}, payload) {
+    firebase.database().ref('events').child(payload).once('value', (snapshot) => {
+      let data = snapshot.val()
+      if (data) {
+        console.log('data not null')
+        commit('setSearchResult', {
+          name: data.name,
+          date: data.date,
+          desc: data.desc,
+          owner: data.owner
+        })
+      } else {
+        console.log('Null')
+        commit('setSearchResult', null)
+      }
+    })
+  },
+  resetSearch ({commit}) {
+    commit('setSearchResult', {
+      name: '',
+      date: {
+        start: '',
+        end: ''
+      },
+      desc: '',
+      owner: ''
+    })
   }
 }
 
