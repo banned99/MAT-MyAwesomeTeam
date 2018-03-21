@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+// import NotFound from '../pages/NotFound'
 import Home from '../pages/Home'
 import SignIn from '../pages/SignIn'
 import SignUp from '../pages/SignUp'

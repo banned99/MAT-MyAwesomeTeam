@@ -2,12 +2,20 @@
   <div class="container">
     <form @submit.prevent="signIn">
       <h2>Sign In</h2>
-      <ul class="errors">
-        <li v-show="!validateForm.email">Please provide a valid email address.</li>
-        <li v-show="!validateForm.password">Password length must not empty.</li>
-      </ul>
-      <label>Email: </label> <input type="text" v-model="email" > <br>
-      <label>Password: </label> <input type="password" v-model="pass"> <br>
+      <div class="errors">
+        <div v-show="!validateForm.email">Please provide a valid email address.</div>
+        <div v-show="!validateForm.password">Password length must not empty.</div>
+      </div> <br>
+      <div class="inputForm">
+        <div class="textSign">
+          <label>Email:</label><br>
+          <label>Password: </label>
+        </div>
+        <div class="textInput">
+          <input type="text" v-model="email" ><br>
+          <input type="password" v-model="pass">
+        </div>
+      </div>
       <button type="submit">Sign In</button> <br>
       <label>Don't have an account?</label> <router-link to="/signup">Sign up here!</router-link>
     </form>
@@ -52,3 +60,38 @@ export default {
   }
 }
 </script>
+
+<style media="screen" >
+@font-face {
+  font-family: sukhumvit;
+}
+.textInput{
+  display: inline-block;
+  position: relative;
+  text-align: left;
+}
+div.textSign{
+  display: inline-block;
+  position: relative;
+  text-align: right;
+}
+.errors{
+  color: rgba(255, 0, 0, 0.5);
+}
+form {
+  width: 30%;
+  margin: auto;
+  text-align: center;
+}
+.container{
+  justify-content: center;
+  text-align: center;
+}
+@media screen and (max-width: 1024px) {
+  form {
+    width: 100%;
+    background-color: rgba(0,0,0,0.1);
+    text-align: center;
+  }
+}
+</style>

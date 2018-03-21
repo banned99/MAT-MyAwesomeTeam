@@ -18,7 +18,7 @@
       </div>
       <div class="form--field">
         <label>Event Description</label>
-        <textarea class="form--element textarea" v-model="event.desc" placeholder="Description">                                
+        <textarea class="form--element textarea" v-model="event.desc" placeholder="Description">
         </textarea>
       </div>
       <button type="submit" class="submit-button">Create</button>
@@ -106,12 +106,21 @@ export default {
   border-radius: 72px;
   box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.07);
   cursor: pointer;
+  margin: auto;
+  margin-top: 10%;
+}
+@media screen and (max-width: 1024px) {
+  .add-product .open{
+    width: auto !important;
+  }
+.add-product .open form{
+  width:auto !important;
+  }
 }
 .add-product.open {
   background-color: #FAFAFA;
-  padding: 18px 32px;
   border-radius: 5px;
-  width: 420px;
+  width: 400px;
   height: 398px;
   cursor: default;
 }
