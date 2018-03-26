@@ -17,6 +17,7 @@ const state = {
     desc: '',
     staffs: [],
     teams: {},
+    requests: [],
     milestone: [],
     flow: {},
     chatHistory: [],
@@ -30,7 +31,9 @@ const state = {
       end: ''
     },
     desc: '',
-    owner: ''
+    owner: '',
+    staffs: [],
+    requests: []
   }
 }
 
@@ -46,7 +49,9 @@ const getters = {
   getEventFlow: state => state.event.flow,
   getEventStaffs: state => state.event.staffs,
   getEventTeams: state => state.event.teams,
-  getSearchResult: state => state.searchResult
+  getSearchResult: state => state.searchResult,
+  getEventJoinRequests: state => state.event.requests,
+  getPendingJoinRequests: state => !state.event.requests ? [] : state.event.requests.filter(element => element.response.status === 'pending')
 }
 
 const mutations = {
@@ -91,6 +96,15 @@ const mutations = {
   },
   setSearchResult: (state, payload) => {
     state.searchResult = payload
+  },
+  setEventRequests: (state, payload) => {
+    state.event.requests = payload
+  },
+  addJoinRequest: (state, payload) => {
+    state.searchResult.requests.push(payload)
+  },
+  respondJoinRequest: (state, payload) => {
+    state.event.requests[payload.index].response = payload.response
   }
 }
 
@@ -118,6 +132,18 @@ const templates = {
     data: {
       desc: '',
       members: []
+    }
+  },
+  requestToJoinTemplate: {
+    requester: {
+      uid: '',
+      name: '',
+      timestamp: ''
+    },
+    response: {
+      by: '',
+      status: 'pending',
+      timestamp: ''
     }
   }
 }
@@ -155,7 +181,9 @@ const actions = {
     firebase.database().ref('events').child(payload).once('value', (snapshot) => {
       let data = snapshot.val()
       commit('setEventToken', payload)
-      commit('setEvent', data)
+      Object.keys(data).forEach(element => {
+        commit('setEvent' + element[0].toUpperCase() + element.slice(1), data[element])
+      })
     })
   },
   deleteEvent ({commit, dispatch}, payload) {
@@ -230,7 +258,8 @@ const actions = {
         flow: {},
         chatHistory: [],
         voiceHistory: [],
-        fileHistory: []
+        fileHistory: [],
+        requests: []
       }
     )
     commit('setEventToken', '')
@@ -244,7 +273,9 @@ const actions = {
           name: data.name,
           date: data.date,
           desc: data.desc,
-          owner: data.owner
+          owner: data.owner,
+          staffs: data.staffs,
+          requests: !data.requests ? [] : data.requests
         })
       } else {
         console.log('Null')
@@ -260,8 +291,72 @@ const actions = {
         end: ''
       },
       desc: '',
-      owner: ''
+      owner: '',
+      staffs: [],
+      requests: []
     })
+  },
+  requestToJoinEvent ({commit}, payload) {
+    templates.requestToJoinTemplate.requester.uid = payload.user.uid
+    templates.requestToJoinTemplate.requester.name = payload.user.name
+    templates.requestToJoinTemplate.requester.timestamp = new Date().toLocaleString()
+    console.log(templates.requestToJoinTemplate)
+    firebase.database().ref('events')
+      .child(payload.token)
+      .child('requests')
+      .child(state.searchResult.requests.length)
+      .set(templates.requestToJoinTemplate)
+      .then(() => {
+        console.log('current index: ' + state.searchResult.requests.length)
+        console.log('Join Request added!')
+        commit('addJoinRequest', templates.requestToJoinTemplate)
+      })
+      .catch(err => {
+        console.log(err.message)
+      })
+  },
+  acceptToJoinRequest ({commit}, payload) {
+    console.log(payload)
+    templates.staffMemberTemplate.acceptBy = payload.response.by
+    templates.staffMemberTemplate.displayName = payload.request.requester.name
+    templates.staffMemberTemplate.joinBy = 'Search by token'
+    templates.staffMemberTemplate.priority = false
+    templates.staffMemberTemplate.team = {
+      name: 'unassigned',
+      role: 'member'
+    }
+    templates.staffMemberTemplate.uid = payload.request.requester.uid
+    firebase.database().ref('events')
+      .child(state.currentEventToken)
+      .child('requests')
+      .child(payload.index)
+      .child('response')
+      .set(payload.response)
+      .then(() => {
+        console.log('accepted')
+        commit('respondJoinRequest', {index: payload.index, response: payload.response})
+      }).catch(err => console.log(err.message))
+    firebase.database().ref('events')
+      .child(state.currentEventToken)
+      .child('staffs')
+      .child(state.event.staffs.length)
+      .set(templates.staffMemberTemplate)
+      .then(() => {
+        console.log('added to staff members')
+        commit('addEventStaff', templates.staffMemberTemplate)
+      }).catch(err => console.log(err.message))
+  },
+  declineToJoinRequest ({commit}, payload) {
+    firebase.database().ref('events')
+      .child(state.currentEventToken)
+      .child('requests')
+      .child(payload.index)
+      .child('response')
+      .set(payload.response)
+      .then(() => {
+        console.log('declined')
+        commit('respondJoinRequest', {index: payload.index, response: payload.response})
+      }).catch(err => console.log(err.message))
   }
 }
 

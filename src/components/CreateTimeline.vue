@@ -31,9 +31,8 @@ export default {
       }
     },
   computed: {
-
   }
-
+}
 </script>
 
 <style lang="css">

@@ -8,7 +8,7 @@
         <th>Position</th>
     </tr>
     <ActiveEventListItem v-if="getEventsJoined" v-for="(event, index) in getEventsJoined" :key="index" :event="event" :index="index"/>
-    <tr v-if="!getEventsJoined">
+    <tr v-if="Object.keys(getEventsJoined).length === 0">
       <td colspan="4"> ---- No joined events. Create or Join some! ---- </td>
     </tr>
   </table>

@@ -1,26 +1,31 @@
 <template>
   <div class="add-product" :class="{'open': formOpen}">
     <div class="button-copy" v-show="!formOpen" @click="formOpen = true">Join Event</div>
-    <form @submit.prevent="searchByToken">
+    <form @submit.prevent>
       <div class="form--field">
         <label>Event Token *</label>
         <input type="text" class="form--element" v-model="token" placeholder="Token" required="">
       </div>
+      <button @click="searchByToken" class="submit-button" :disabled="!checkToken">Search</button>
       <div v-if="attemptSearch === true">
         <div class="form--field" v-if="getSearchResult !== null">
           <label>Event Name</label>
           <p>{{ getSearchResult.name }}</p>
           <label>Description</label>
-          <p>{{ getSearchResult.desc }}</p>
+          <p v-if="getSearchResult.desc">{{ getSearchResult.desc }}</p>
+          <p v-else>---- No description ----</p>
           <label>Event Date</label>
           <p>{{ getSearchResult.date.start }} to {{ getSearchResult.date.end }}</p>
-          <button @click="joinEvent(token)">Join Event</button>
+          <label>Owner</label>
+          <p>{{ getSearchResult.owner.name }}</p>
+          <p class="cancel" v-if="alreadyJoin">You have already joined this event.</p>
+          <p class="cancel" v-if="alreadyRequest">You have already requested to join this event. Please wait for response.</p>
+          <button @click="requestToJoin" class="submit-button" :disabled="alreadyJoin || alreadyRequest">Submit Request</button>
         </div>
-        <div class="form--field" v-else-if="!getSearchResult">
+        <div class="form--field" v-else>
           <p>--------- Event not found. Please re-check token. ---------</p>
         </div>
       </div>
-      <button type="submit" class="submit-button">Search</button>
       <div class="cancel"><span @click="cancel()">Cancel</span></div>
     </form>
   </div>
@@ -28,6 +33,8 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+
+var tokenRE = /^([0-9]|[a-z])+([0-9a-z]+)$/i
 
 export default {
   name: 'createneweventform',
@@ -39,10 +46,19 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getSearchResult'])
+    ...mapGetters(['getSearchResult', 'getUserUID', 'getDisplayName']),
+    alreadyJoin: function () {
+      return !!this.getSearchResult.staffs.find(element => element.uid === this.getUserUID)
+    },
+    alreadyRequest: function () {
+      return !!this.getSearchResult.requests.find(element => element.requester.uid === this.getUserUID)
+    },
+    checkToken: function () {
+      return !!this.token.trim() && tokenRE.test(this.token)
+    }
   },
   methods: {
-    ...mapActions(['searchEventByToken', 'resetSearch', 'joinEvent']),
+    ...mapActions(['searchEventByToken', 'resetSearch', 'requestToJoinEvent']),
     searchByToken: function () {
       this.searchEventByToken(this.token)
       this.attemptSearch = true
@@ -55,6 +71,16 @@ export default {
       this.formOpen = false
       this.resetForm()
       this.resetSearch()
+    },
+    requestToJoin: function () {
+      this.requestToJoinEvent({
+        token: this.token,
+        user: {
+          name: this.getDisplayName,
+          uid: this.getUserUID
+        }
+      })
+      this.cancel()
     }
   }
 }
@@ -134,7 +160,10 @@ export default {
   background-color: #217dbb;
   cursor: pointer;
 }
-
+.submit-button:disabled {
+  background-color: #949494;
+  cursor: default;
+}
 .featured-note {
   color: #949494;
   font-size: 12px;
@@ -155,11 +184,11 @@ label {
 }
 
 .form--field {
-  width: 420px;
+  width: auto;
   margin: 10px 0;
 }
 .form--field.-short {
-  width: 140px;
+  width: auto;
 }
 
 .form--price {

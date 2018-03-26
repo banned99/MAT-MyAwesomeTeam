@@ -1,16 +1,18 @@
 <template>
   <div>
-    <ShowTimeline />
+    <!-- <ShowTimeline /> -->
     <EventMinorDetails />
     <!-- <MileStone v-if="milestoneView"/> -->
     <EventDetails />
+    <RequestList />
   </div>
 </template>
 
 <script>
 import EventMinorDetails from '../components/EventMinorDetails'
 import EventDetails from '../components/EventDetails'
-import ShowTimeline from '../components/ShowTimeline'
+// import ShowTimeline from '../components/ShowTimeline'
+import RequestList from '../components/RequestList'
 import { mapActions } from 'vuex'
 
 export default {
@@ -27,7 +29,8 @@ export default {
   components: {
     EventMinorDetails,
     EventDetails,
-    ShowTimeline
+    // ShowTimeline,
+    RequestList
   }
 }
 </script>

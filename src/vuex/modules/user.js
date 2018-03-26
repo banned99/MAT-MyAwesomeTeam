@@ -121,6 +121,22 @@ const actions = {
         commit('removeEventsJoined', payload.token)
       })
       .catch(err => console.log(err.message))
+  },
+  addEventFromJoin: ({commit}, payload) => {
+    templates.joinedEventTemplate.name = payload.event.name
+    templates.joinedEventTemplate.date = payload.event.date
+    templates.joinedEventTemplate.team = {
+      name: 'unassigned',
+      role: 'member'
+    }
+    firebase.database().ref('users')
+      .child(payload.request.requester.uid)
+      .child('eventsJoined')
+      .child(payload.eventToken)
+      .set(templates.joinedEventTemplate)
+      .then(() => {
+        console.log(payload.request.requester.name + '\'s joined events updated')
+      }).catch(err => console.log(err.message))
   }
 }
 
