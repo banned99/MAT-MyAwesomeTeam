@@ -1,25 +1,32 @@
 <template>
-  <div class="container">
-    <form @submit.prevent="signIn">
-      <h2>Sign In</h2>
-      <div class="errors">
-        <div v-show="!validateForm.email">Please provide a valid email address.</div>
-        <div v-show="!validateForm.password">Password length must not empty.</div>
-      </div> <br>
-      <div class="inputForm">
-        <div class="textSign">
-          <label>Email:</label><br>
-          <label>Password: </label>
+  <div class="page">
+    <h1 id="headText">M A T</h1>
+    <div class="container">
+      <form class="formSignIn" @submit.prevent="signIn">
+        <div class="signinTextBlock">
+                <h2 class="signinText">Sign In</h2>
         </div>
-        <div class="textInput">
-          <input type="text" v-model="email" ><br>
-          <input type="password" v-model="pass">
-        </div>
-      </div>
-      <button type="submit">Sign In</button> <br>
-      <label>Don't have an account?</label> <router-link to="/signup">Sign up here!</router-link>
-    </form>
+        <div class="errors">
+          <br>
+          <div id="err" v-show="!validateForm.email">Please provide a valid email address.</div>
+          <div id="err" v-show="!validateForm.password">Password length must not empty.</div>
+        </div> <br>
+        <div class="inputForm">
+          <div class="textSign">
+            <label id="email">Email:</label><br>
+            <label id="pass">Password: </label>
+          </div>
+          <div class="textInput">
+            <input id="email" type="text" v-model="email" ><br>
+            <input id="pass"  type="password" v-model="pass">
+          </div>
+        </div><br>
+        <button type="submit">Sign In</button> <br><br>
+        <label>Don't have an account?</label> <router-link id="signupText" to="/signup">Sign up here!</router-link>
+      </form>
+    </div>
   </div>
+
 </template>
 
 <script>
@@ -62,6 +69,9 @@ export default {
 </script>
 
 <style media="screen" >
+body{
+  background-color: rgba(70, 127, 215, 0.75);
+}
 @font-face {
   font-family: sukhumvit;
 }
@@ -78,19 +88,62 @@ div.textSign{
 .errors{
   color: rgba(255, 0, 0, 0.5);
 }
-form {
-  width: 30%;
+.formSignIn {
   margin: auto;
+  margin-top: 5%;
+  width: 30%;
   text-align: center;
+  background-color: white !important;
 }
 .container{
   justify-content: center;
   text-align: center;
 }
+.signinText{
+  font-weight: bold;
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: black;
+  margin: auto;
+  display: block;
+  margin-top: 10px;
+  color: white;
+}
+.signinTextBlock{
+  width: 100%;
+  display: inline-flex;
+  margin: auto;
+  height: 50px;
+  background-color: rgba(70, 127, 215, 1);
+}
+#err{
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: red;
+}
+button {
+    background-color: white;
+    border-radius: 7px;   color: black;
+    border: 2px solid #008CBA;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: #008CBA;
+    color: white;
+}
+#signupText{
+  text-decoration: underline;
+}
+#headText{
+  font-size: 60px;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: white;
+}
 @media screen and (max-width: 1024px) {
-  form {
-    width: 100%;
-    background-color: rgba(0,0,0,0.1);
+  .formSignIn {
+    margin: auto;
+    margin-top: 20%;
+    width: 80%;
+    background-color: rgba(0,0,0,1);
     text-align: center;
   }
 }

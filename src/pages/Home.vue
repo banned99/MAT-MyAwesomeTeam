@@ -33,10 +33,14 @@ export default {
 </script>
 
 <style lang="css">
+body{
+  background-color: rgba(70, 127, 215, 0.75) !important;
+}
 .content{
   text-align: center;
 }
 table{
+  background-color: white;
   margin: auto;
   border-collapse: collapse;
 }
@@ -58,5 +62,27 @@ table, th, td {
   height: 50px;
   border-radius: 10px;
   border: 0px;
+}
+.add-product{
+  display: inline-block;
+  position: relative;
+}
+.cancel{
+    display: block;
+    background-color: #3498DB;
+    height: 40px;
+    border-radius: 20px;
+    line-height: 36px;
+    text-align: center;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 0.875em;
+    border: none;
+    font-weight: 700;
+    padding: 0 34px;
+    margin: 0 auto;
+}
+.add-product.open{
+  width: 100%;
 }
 </style>

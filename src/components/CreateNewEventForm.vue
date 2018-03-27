@@ -22,7 +22,7 @@
         </textarea>
       </div>
       <button type="submit" class="submit-button">Create</button>
-      <div class="cancel"><span @click="cancel()">Cancel</span></div>
+      <button class="cancel" @click="cancel()">Cancel</button>
     </form>
   </div>
 </template>
@@ -109,7 +109,7 @@ export default {
   margin: auto;
   margin-top: 10%;
 }
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 200px) {
   .add-product .open{
     width: auto !important;
   }
