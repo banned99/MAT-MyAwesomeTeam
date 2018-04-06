@@ -1,13 +1,17 @@
 <template>
 <div class="content">
   <ActiveEventList /> <br />
-  <button id="SignoutBt" @click="signOut">SignOut</button>
+  <button id="SignoutBt" @click="signOut">SignOut</button> <br />
+  <modal name="hello-world">
+  hello, world!
+  </modal> <Modalcreate />
 </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
 import ActiveEventList from '../components/ActiveEventList'
+import Modalcreate from '../components/Modalcreate'
 
 export default {
   name: 'home',
@@ -27,7 +31,8 @@ export default {
     }
   },
   components: {
-    ActiveEventList
+    ActiveEventList,
+    Modalcreate
   }
 }
 </script>
@@ -82,7 +87,7 @@ table, th, td {
     padding: 0 34px;
     margin: 0 auto;
 }
-.add-product.open{
+.open{
   width: 100%;
 }
 </style>

@@ -6,7 +6,9 @@ import VueFire from 'vuefire'
 import store from './vuex'
 import firebase from 'firebase'
 import { firebaseConfig } from './config'
+import VModal from 'vue-js-modal'
 
+Vue.use(VModal)
 Vue.use(VueFire)
 
 Vue.config.productionTip = false

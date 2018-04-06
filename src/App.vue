@@ -24,6 +24,14 @@ export default {
     // isAuthenticated () {
     //   return this.$store.getters.getLoginState && this.$store.getters.getCurrentUser !== undefined
     // }
+  },
+  methods: {
+    show () {
+      this.$modal.show('hello-world')
+    },
+    hide () {
+      this.$modal.hide('hello-world')
+    }
   }
 }
 </script>

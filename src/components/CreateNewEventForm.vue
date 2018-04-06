@@ -1,5 +1,5 @@
 <template>
-  <div class="add-product" :class="{'open': formOpen}">
+  <!-- <div class="add-product" :class="{'open': formOpen}">
     <div class="button-copy" v-show="!formOpen" @click="formOpen = true">Create Event</div>
     <form @submit.prevent="createClick">
       <div class="form--field">
@@ -24,7 +24,36 @@
       <button type="submit" class="submit-button">Create</button>
       <button class="cancel" @click="cancel()">Cancel</button>
     </form>
+  </div> -->
+  <div class="">
+    <modal name="formCreate">
+      <form @submit.prevent="createClick">
+        <div class="form--field">
+          <label>Event Title *</label>
+          <input type="text" class="form--element" v-model="event.name" placeholder="Title" required="">
+        </div>
+        <div class="form--container -inline">
+          <div class="form--field -short">
+            <label>Event Start Date *</label>
+            <input type="date" class="form--element" v-model="event.date.start" placeholder="Start Date" required="" :min="new Date().toISOString()" max="31/12/2999">
+          </div>
+          <div class="form--field -short">
+            <label>Event End Date *</label>
+            <input type="date" class="form--element" v-model="event.date.end" placeholder="End Date" required="" :min="new Date().toISOString()" max="31/12/2999">
+          </div>
+        </div>
+        <div class="form--field">
+          <label>Event Description</label>
+          <textarea class="form--element textarea" v-model="event.desc" placeholder="Description">
+          </textarea>
+        </div>
+        <button type="submit" class="submit-button">Create</button>
+        <button class="cancel" @click="cancel()">Cancel</button>
+      </form>
+    </modal>
+    <button type="button" name="button" @click="show">CREATE EVENT TEST</button>
   </div>
+
 </template>
 
 <script>
@@ -92,6 +121,12 @@ export default {
     cancel: function () {
       this.formOpen = false
       this.resetForm()
+    },
+    show () {
+      this.$modal.show('formCreate')
+    },
+    hide () {
+      this.$modal.hide('hello-world')
     }
   }
 }
