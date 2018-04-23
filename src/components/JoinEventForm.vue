@@ -302,4 +302,10 @@ a {
   background-color: #F5617A;
   color: #fff;
 }
+.v--modal-box {
+  height: 125px;
+}
+form{
+  top: 100px !important;
+}
 </style>

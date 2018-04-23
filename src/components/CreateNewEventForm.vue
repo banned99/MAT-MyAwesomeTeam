@@ -47,8 +47,10 @@
           <textarea class="form--element textarea" v-model="event.desc" placeholder="Description">
           </textarea>
         </div>
-        <button type="submit" class="submit-button">Create</button>
-        <button class="cancel" @click="cancel()">Cancel</button>
+        <div class="div-bt">
+          <button type="submit" class="submit-button">Create</button>
+          <button class="cancel" @click="cancel()">Cancel</button>
+        </div>
       </form>
     </modal>
     <button type="button" name="button" @click="show">CREATE EVENT TEST</button>
@@ -126,7 +128,7 @@ export default {
       this.$modal.show('formCreate')
     },
     hide () {
-      this.$modal.hide('hello-world')
+      this.$modal.hide('formCreate')
     }
   }
 }
@@ -314,5 +316,19 @@ a {
 ::-moz-selection {
   background-color: #F5617A;
   color: #fff;
+}
+.submit-button {
+  justify-content: center;
+  display: inline-block !important;
+}
+.cancel{
+  justify-content: center;
+  display: inline-block;
+}
+.div-bt {
+  text-align: center;
+}
+.v--modal-box {
+  height: 334px !important;
 }
 </style>

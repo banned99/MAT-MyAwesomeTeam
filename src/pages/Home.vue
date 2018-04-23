@@ -4,14 +4,16 @@
   <button id="SignoutBt" @click="signOut">SignOut</button> <br />
   <modal name="hello-world">
   hello, world!
-  </modal> <Modalcreate />
+</modal> <br>
+  <Flow />
 </div>
 </template>
 
 <script>
+
 import { mapActions } from 'vuex'
 import ActiveEventList from '../components/ActiveEventList'
-import Modalcreate from '../components/Modalcreate'
+import Flow from '../components/Flow'
 
 export default {
   name: 'home',
@@ -32,7 +34,7 @@ export default {
   },
   components: {
     ActiveEventList,
-    Modalcreate
+    Flow
   }
 }
 </script>
@@ -89,5 +91,11 @@ table, th, td {
 }
 .open{
   width: 100%;
+}
+@media screen and (max-width: 1024px) {
+  .v--modal-box {
+    height: 364px !important;
+    width: 100% !important;
+  }
 }
 </style>
