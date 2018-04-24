@@ -9,13 +9,17 @@
     <input type="text" v-model="name" required placeholder="Your Name"> <br>
     <button type="button" @click="updateUser" :disabled="!validateName">Submit</button>
   </modal>
+  <modal name="hello-world">
+    hello, world!
+  </modal> <br>
+  <Flow />
 </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import ActiveEventList from '../components/ActiveEventList'
-import Modalcreate from '../components/Modalcreate'
+import Flow from '../components/Flow'
 
 export default {
   name: 'home',
@@ -63,7 +67,7 @@ export default {
   },
   components: {
     ActiveEventList,
-    Modalcreate
+    Flow
   }
 }
 </script>
@@ -184,5 +188,11 @@ table, th, td {
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+}
+@media screen and (max-width: 1024px) {
+  .v--modal-box {
+    height: 364px !important;
+    width: 100% !important;
+  }
 }
 </style>
