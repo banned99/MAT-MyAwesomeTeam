@@ -65,8 +65,12 @@ const actions = {
         console.log(err.message)
       })
   },
+  userUpdateProfile: ({commit}, payload) => {
+    firebase.auth().currentUser.updateProfile({displayName: payload.name}).then(() => {
+      console.log('Name updated')
+    }).catch(err => console.log(err.message))
+  },
   setAuthFromAuto: ({commit}, payload) => {
-    console.log('setAuth')
     commit('setLoginState', true)
     commit('setAuthState', payload)
   },

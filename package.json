@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "firebase": "^4.9.0",
-    "framework7": "file:framework7",
     "loader": "^2.1.1",
     "node-sass": "^4.7.2",
     "scss": "^0.2.4",
@@ -53,6 +52,7 @@
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^1.1.5",
     "friendly-errors-webpack-plugin": "^1.6.1",
+    "html-webpack-externals-plugin": "^3.7.0",
     "html-webpack-plugin": "^2.30.1",
     "http-proxy-middleware": "^0.17.4",
     "opn": "^5.1.0",

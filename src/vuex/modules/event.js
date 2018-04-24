@@ -48,6 +48,7 @@ const getters = {
   getEventMilestone: state => state.event.milestone,
   getEventFlow: state => state.event.flow,
   getEventStaffs: state => state.event.staffs,
+  getEventPriorizedStaffs: state => state.event.staffs.filter(element => element.priority === 'true'),
   getEventTeams: state => state.event.teams,
   getSearchResult: state => state.searchResult,
   getEventJoinRequests: state => state.event.requests,

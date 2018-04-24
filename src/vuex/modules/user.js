@@ -51,7 +51,7 @@ const getters = {
     return state.user.imgUrl
   },
   getEventsJoined: (state) => {
-    return state.user.eventsJoined
+    return !state.user.eventsJoined ? [] : state.user.eventsJoined
   },
   getInvites: (state) => {
     return state.user.invites
@@ -93,6 +93,13 @@ const actions = {
       commit('setImgUrl', data.imgUrl)
       commit('setInvites', data.invites)
     })
+  },
+  updateDisplayName: ({commit}, payload) => {
+    firebase.database().ref('users').child(state.user.uid).child('displayName').set(payload.name)
+      .then(() => {
+        commit('setDisplayName', payload.name)
+      })
+      .catch((err) => console.log(err.message))
   },
   addEventFromCreate: ({commit}, payload) => {
     templates.joinedEventTemplate.name = payload.event.name

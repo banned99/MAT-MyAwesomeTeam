@@ -9,6 +9,7 @@ const merge = require('webpack-merge')
 const baseWebpackConfig = require('./webpack.base.conf')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
+const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin')
 
 // add hot-reload related code to entry chunks
 Object.keys(baseWebpackConfig.entry).forEach(function (name) {
@@ -36,6 +37,24 @@ module.exports = merge(baseWebpackConfig, {
       serviceWorkerLoader: `<script>${fs.readFileSync(path.join(__dirname,
         './service-worker-dev.js'), 'utf-8')}</script>`
     }),
-    new FriendlyErrorsPlugin()
+    new FriendlyErrorsPlugin(),
+    new HtmlWebpackExternalsPlugin({
+      externals: [
+        {
+          module: 'RTCMultiConnection',
+          entry: '../../src/assets/js/RTCMultiConnection.min.js',
+          global: 'RTCMultiConnection'
+        }
+      ]
+    }),
+    new HtmlWebpackExternalsPlugin({
+      externals: [
+        {
+          module: 'socket.io',
+          entry: '../../src/assets/js/socket.io.js',
+          global: 'socket.io'
+        }
+      ]
+    })
   ]
 })
