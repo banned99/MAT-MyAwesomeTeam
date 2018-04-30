@@ -74,7 +74,7 @@ export default {
 
 <style lang="css">
 body{
-  background-color: rgba(70, 127, 215, 0.75) !important;
+  background-color: #2D2926 !important;
 }
 .content{
   text-align: center;

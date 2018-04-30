@@ -27,12 +27,14 @@
         </div>
       </form>
     </modal>
-    <button type="button" name="button" @click='show'>ADD</button>
+    <br>
+    <button type="button" name="button" class="log_bt" @click='show'>ADD</button>
   </div>
 </template>
 
 <script>
 import inModalFlow from '../components/inModalFlow'
+import '../assets/css/style.css'
 export default {
   name: 'flow',
   data: () => {
@@ -113,5 +115,18 @@ export default {
 .line-item:hover{
   background-color: rgba(255, 0, 0, 0.5);
   cursor: pointer;
+}
+.log_bt{
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  padding: 13px 0;
+  background: #FF6C2F;
+  display: inline-block;
+  width: 100%;
+outline:none;
+border:2px solid #FF6C2F;
+cursor:pointer;
+text-transform:uppercase;
 }
 </style>

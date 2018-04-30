@@ -163,6 +163,7 @@ export default {
   overflow: hidden;
 }
 .add-product .cancel {
+  display: block;
   font-size: 12px;
   text-align: center;
   margin-top: 1em;
@@ -175,7 +176,7 @@ export default {
 }
 
 .submit-button {
-  display: block;
+  display: inline-block;
   background-color: #3498DB;
   height: 40px;
   border-radius: 20px;
@@ -304,6 +305,7 @@ a {
 }
 .v--modal-box {
   height: 125px;
+  overflow: auto !important;
 }
 form{
   top: 100px !important;
