@@ -71,10 +71,9 @@ export default {
   }
 }
 </script>
-
-<style lang="css">
-body{
-  background-color: #2D2926 !important;
+<style lang="css" type="text/css">
+body {
+  background-color: #ffa000 !important;
 }
 .content{
   text-align: center;
