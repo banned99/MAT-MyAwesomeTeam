@@ -1,6 +1,6 @@
 <template>
 <div id="voice">
-  <div id="audioContainer" ></div>
+  <div id="audioContainer" style="display: none;" ></div>
   <div id="streamController">
     <button @mousedown="startRec" @mouseup="endRec">Push to talk</button>
     <button @click="mute">Mute Sound</button>
@@ -22,6 +22,8 @@ export default {
   computed: {
   },
   mounted: function () {
+    var eventId = this.$route.params.eventId
+
     this.connection = new RTCMultiConnection()
     this.connection.autoCloseEntireSession = false
     this.connection.enableLogs = false
@@ -48,10 +50,9 @@ export default {
     //   console.log(isRoomExists ? 'You joined room ' + roomid : 'You created room ' + roomid)
     // })
 
-    this.connection.checkPresence('444444455544444', (isRoomExists, roomid) => {
+    this.connection.checkPresence(eventId, (isRoomExists, roomid) => {
       if (isRoomExists) {
         this.connection.join(roomid)
-        // this.connection.rejoin(roomid)
       } else {
         this.connection.open(roomid)
       }
@@ -69,20 +70,17 @@ export default {
       var audio = document.getElementById(event.streamid)
       if (!audio) return
       audio.parentNode.removeChild(audio)
-      console.log(event)
     }
 
-    // this.connection.onmute = function (e) {
-    //   console.log('change icon to muted')
-    //   console.log(e)
-    // }
+    this.connection.onmute = function (e) {
+      console.log('change icon to muted')
+      // console.log(e)
+    }
 
-    // this.connection.onunmute = function (e) {
-    //   console.log('change icon to unmuted')
-    //   console.log(e)
-    // }
-
-    console.log(this.connection)
+    this.connection.onunmute = function (e) {
+      console.log('change icon to unmuted')
+      // console.log(e)
+    }
   },
   beforeDestroy: function () {
     this.connection.getAllParticipants().forEach((p, index) => {
@@ -104,13 +102,13 @@ export default {
       // this.connection.streamEvents.forEach(function (stream) {
       //   console.log(stream)
       // })
-      console.log(this.connection.peers)
-      console.log(this.connection.peers.getLength())
-      console.log(this.connection.peers.getAllParticipants())
-      console.log(this.connection.peers.selectFirst())
-      // if (this.soundMuted) this.connection.streamEvents.selectAll('remote').unmute()
-      // else this.connection.streamEvents.selectAll('remote').mute()
-      // this.soundMuted = !this.soundMuted
+      // console.log(this.connection.peers)
+      // console.log(this.connection.peers.getLength())
+      // console.log(this.connection.peers.getAllParticipants())
+      // console.log(this.connection.peers.selectFirst())
+      if (this.soundMuted) this.connection.streamEvents.selectAll('remote').forEach(stream => console.log(stream))
+      else this.connection.streamEvents.selectAll('remote').forEach(stream => console.log(stream))
+      this.soundMuted = !this.soundMuted
     }
   }
 }

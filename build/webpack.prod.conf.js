@@ -14,6 +14,8 @@ const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 const loadMinified = require('./load-minified')
 
+const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin')
+
 const env = config.build.env
 
 const webpackConfig = merge(baseWebpackConfig, {
@@ -105,6 +107,24 @@ const webpackConfig = merge(baseWebpackConfig, {
       staticFileGlobs: ['dist/**/*.{js,html,css}'],
       minify: true,
       stripPrefix: 'dist/'
+    }),
+    new HtmlWebpackExternalsPlugin({
+      externals: [
+        {
+          module: 'RTCMultiConnection',
+          entry: '../../src/assets/js/RTCMultiConnection.min.js',
+          global: 'RTCMultiConnection'
+        }
+      ]
+    }),
+    new HtmlWebpackExternalsPlugin({
+      externals: [
+        {
+          module: 'socket.io',
+          entry: '../../src/assets/js/socket.io.js',
+          global: 'socket.io'
+        }
+      ]
     })
   ]
 })

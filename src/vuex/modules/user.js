@@ -55,6 +55,15 @@ const getters = {
   },
   getInvites: (state) => {
     return state.user.invites
+  },
+  getActiveEvents: (state) => {
+    let obj = state.user.eventsJoined
+    let arr = Object.keys(obj).filter((k) => new Date().getTime() < new Date(obj[k].date.end).getTime())
+    let active = {}
+    arr.forEach(element => {
+      active[element] = obj[element]
+    })
+    return active
   }
 }
 

@@ -1,18 +1,19 @@
 <template>
 <div>
-  <!-- <ChatHistory />
-  <ChatTextInput /> -->
+  <ChatTextInput />
   <ChatVoiceInput />
 </div>
 </template>
 
 <script>
 import ChatVoiceInput from './ChatVoiceInput'
+import ChatTextInput from './ChatTextInput'
 
 export default {
   name: 'chatter',
   components: {
-    ChatVoiceInput
+    ChatVoiceInput,
+    ChatTextInput
   }
 }
 </script>

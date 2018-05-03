@@ -8,6 +8,7 @@ import firebase from 'firebase'
 import { firebaseConfig } from './config'
 import VModal from 'vue-js-modal'
 import LightTimeline from 'vue-light-timeline'
+
 Vue.use(VModal)
 Vue.use(VueFire)
 Vue.use(LightTimeline)

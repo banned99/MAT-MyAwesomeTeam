@@ -52,7 +52,8 @@ const getters = {
   getEventTeams: state => state.event.teams,
   getSearchResult: state => state.searchResult,
   getEventJoinRequests: state => state.event.requests,
-  getPendingJoinRequests: state => !state.event.requests ? [] : state.event.requests.filter(element => element.response.status === 'pending')
+  getPendingJoinRequests: state => !state.event.requests ? [] : state.event.requests.filter(element => element.response.status === 'pending'),
+  getChatHistory: state => state.event.chatHistory
 }
 
 const mutations = {
@@ -106,6 +107,12 @@ const mutations = {
   },
   respondJoinRequest: (state, payload) => {
     state.event.requests[payload.index].response = payload.response
+  },
+  setEventChatHistory: (state, payload) => {
+    state.event.chatHistory = payload
+  },
+  addNewMessage: (state, payload) => {
+    state.event.chatHistory.push(payload)
   }
 }
 
@@ -146,6 +153,12 @@ const templates = {
       status: 'pending',
       timestamp: ''
     }
+  },
+  chatHistoryTemplate: {
+    uid: '',
+    name: '',
+    timestamp: '',
+    message: ''
   }
 }
 
@@ -185,6 +198,10 @@ const actions = {
       Object.keys(data).forEach(element => {
         commit('setEvent' + element[0].toUpperCase() + element.slice(1), data[element])
       })
+    }).catch(err => console.log(err.message))
+
+    firebase.database().ref('events').child(payload).child('chatHistory').on('child_added', (data, lastIndex) => {
+      if (state.event.chatHistory.length - 1 === Number.parseInt(lastIndex)) commit('addNewMessage', data.val())
     })
   },
   deleteEvent ({commit, dispatch}, payload) {
@@ -358,6 +375,21 @@ const actions = {
         console.log('declined')
         commit('respondJoinRequest', {index: payload.index, response: payload.response})
       }).catch(err => console.log(err.message))
+  },
+  sendMessage ({commit}, payload) {
+    templates.chatHistoryTemplate.uid = payload.uid
+    templates.chatHistoryTemplate.name = payload.name
+    templates.chatHistoryTemplate.timestamp = new Date().toLocaleString()
+    templates.chatHistoryTemplate.message = payload.message
+    firebase.database().ref('events')
+      .child(state.currentEventToken)
+      .child('chatHistory')
+      .child(state.event.chatHistory.length ? state.event.chatHistory.length : 0)
+      .set(templates.chatHistoryTemplate)
+      .then(() => {
+        // console.log('current index' + state.chatHistory.length)
+      })
+      .catch(err => console.log(err.message))
   }
 }
 
