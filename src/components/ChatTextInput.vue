@@ -4,7 +4,9 @@
     <ul id="chatHistory">
       <ChatTextHistory v-for="message in getChatHistory" :key="message.key" :message="message"/>
     </ul>
-    <textarea v-model="textMessage" type="text" autocomplete="off"/> <button @click="send">Send</button>
+    <div v-if="!isFinished">
+      <textarea v-model="textMessage" type="text" autocomplete="off"/> <button @click="send">Send</button>
+    </div>
   </div>
 </template>
 
@@ -17,6 +19,11 @@ export default {
   data: () => {
     return {
       textMessage: ''
+    }
+  },
+  props: {
+    isFinished: {
+      type: Boolean
     }
   },
   computed: {

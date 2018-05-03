@@ -2,6 +2,7 @@
 <div class="content">
   <ActiveEventList /> <br />
   <button id="SignoutBt" @click="signOut">SignOut</button> <br />
+  <button @click="toProfile">Profile</button> <br>
   <modal :clickToClose="false" name="first-login-form" >
     <h1>One more step!</h1>
     <h3>Please enter your name.</h3>
@@ -9,9 +10,6 @@
     <input type="text" v-model="name" required placeholder="Your Name"> <br>
     <button type="button" @click="updateUser" :disabled="!validateName">Submit</button>
   </modal>
-  <modal name="hello-world">
-    hello, world!
-  </modal> <br>
   <Flow />
 </div>
 </template>
@@ -34,12 +32,11 @@ export default {
   },
   mounted () {
     if (!this.checkDisplayName) {
-      console.log(this.getDisplayName)
       this.showModal()
     }
   },
   computed: {
-    ...mapGetters(['getDisplayName']),
+    ...mapGetters(['getDisplayName', 'getUserUID']),
     checkDisplayName: function () {
       return !!this.getDisplayName || this.getDisplayName === 'Your Name'
     },
@@ -63,6 +60,9 @@ export default {
       this.updateDisplayName({name: this.name})
       this.userUpdateProfile({name: this.name})
       this.hideModal()
+    },
+    toProfile: function () {
+      this.$router.push('user/' + this.getUserUID)
     }
   },
   components: {

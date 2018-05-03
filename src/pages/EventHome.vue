@@ -3,10 +3,10 @@
     <!-- <ShowTimeline /> -->
     <EventMinorDetails />
     <!-- <MileStone v-if="milestoneView"/> -->
-    <EventDetails :priority="isOwner || isPriorized"/>
-    <RequestList :priority="isOwner || isPriorized"/>
-    <StaffManager :priority="isOwner || isPriorized"/>
-    <Chatter />
+    <EventDetails :priority="isOwner || isPriorized" :isFinished="isFinished"/>
+    <RequestList :priority="isOwner || isPriorized" v-if="!isFinished"/>
+    <StaffManager :priority="isOwner || isPriorized" v-if="!isFinished"/>
+    <Chatter :isFinished="isFinished"/>
   </div>
 </template>
 
@@ -28,16 +28,19 @@ export default {
     this.pullEventData(this.$route.params.eventId)
   },
   computed: {
-    ...mapGetters(['getUserUID', 'getEventOwner', 'getEventPriorizedStaffs']),
+    ...mapGetters(['getUserUID', 'getEventOwner', 'getEventPriorizedStaffs', 'getEventDate']),
     isOwner: function () {
       return this.getUserUID === this.getEventOwner.uid
     },
     isPriorized: function () {
       return this.getUserUID === this.getEventPriorizedStaffs.uid
+    },
+    isFinished: function () {
+      return new Date().getTime() > new Date(this.getEventDate.end).getTime()
     }
   },
   methods: {
-    ...mapActions(['pullEventData', 'getEventDate', 'resetEventData'])
+    ...mapActions(['pullEventData', 'resetEventData'])
   },
   components: {
     EventMinorDetails,

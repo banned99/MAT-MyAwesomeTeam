@@ -4,7 +4,7 @@
   <table>
     <tr class="headTr">
         <th>Event Name</th>
-        <th>Event Date</th>
+        <th>Event Date (yyyy-mm-dd)</th>
         <th>Team</th>
         <th>Position</th>
     </tr>
