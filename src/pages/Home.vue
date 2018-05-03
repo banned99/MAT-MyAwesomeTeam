@@ -191,7 +191,13 @@ table, th, td {
 @media screen and (max-width: 1024px) {
   .v--modal-box {
     height: 364px !important;
+  }
+}
+@media screen and (max-width: 812px) {
+  .v--modal-box {
+    height: 364px !important;
     width: 100% !important;
   }
 }
+
 </style>

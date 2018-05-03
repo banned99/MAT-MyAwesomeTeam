@@ -34,7 +34,6 @@
 
 <script>
 import inModalFlow from '../components/inModalFlow'
-import '../assets/css/style.css'
 export default {
   name: 'flow',
   data: () => {
@@ -81,7 +80,7 @@ export default {
   }
 }
 </script>
-<style lang="css">
+<style>
 .line-container{
   margin:auto !important;
   width: 90%;
@@ -94,7 +93,7 @@ export default {
 }
 .flow-window{
   margin: auto;
-  width: 60%;
+  width: 84%;
   height: 400px;
   display: block;
   position: relative;

@@ -8,6 +8,7 @@
 <script>
 import datePicker from 'vue-bootstrap-datetimepicker'
 import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css'
+import 'bootstrap/dist/css/bootstrap.css'
 
 export default {
   name: 'inmodalflow',
