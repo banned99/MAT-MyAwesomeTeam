@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="inPage">
     <h1>Event Details</h1>
     <div>
       <label>Event Name</label>
@@ -16,8 +16,8 @@
       <label>Date</label>
       <p v-if="!editing">{{ getEvent.date.start }} to {{ getEvent.date.end }}</p>
       <div v-if="editing">
-        <input type="date" v-model="event.date.start" :min="new Date().toISOString()" max="31/12/2099"/> 
-        to 
+        <input type="date" v-model="event.date.start" :min="new Date().toISOString()" max="31/12/2099"/>
+        to
         <input type="date" v-model="event.date.end" :min="new Date().toISOString()" max="31/12/2099" />
       </div>
     </div>
@@ -115,6 +115,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style type="text/css">
+body{
+  background-color: rgba(255,255,255,1) !important;
+}
 </style>

@@ -71,10 +71,9 @@ export default {
   }
 }
 </script>
-
-<style lang="css">
-body{
-  background-color: rgba(70, 127, 215, 0.75) !important;
+<style lang="css" type="text/css">
+body {
+  background-color: #ffa000 !important;
 }
 .content{
   text-align: center;
@@ -192,7 +191,13 @@ table, th, td {
 @media screen and (max-width: 1024px) {
   .v--modal-box {
     height: 364px !important;
+  }
+}
+@media screen and (max-width: 812px) {
+  .v--modal-box {
+    height: 364px !important;
     width: 100% !important;
   }
 }
+
 </style>

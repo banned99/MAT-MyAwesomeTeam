@@ -31,7 +31,7 @@
   </div> -->
   <div class="eiei">
     <modal name="formJoin">
-      <form @submit.prevent>
+      <form @submit.prevent class="ei">
         <div class="form--field">
           <label>Event Token *</label>
           <input type="text" class="form--element" v-model="token" placeholder="Token" required="">
@@ -56,7 +56,7 @@
             <p>--------- Event not found. Please re-check token. ---------</p>
           </div>
         </div>
-        <div class="cancel"><span @click="cancel()">Cancel</span></div>
+        <button id="button-cancel" class="cancel"><span @click="cancel()">Cancel</span></button>
       </form>
     </modal>
     <button type="button" name="button" @click="show">EVENT JOIN TEST</button>
@@ -103,6 +103,7 @@ export default {
       this.formOpen = false
       this.resetForm()
       this.resetSearch()
+      this.$modal.hide('formJoin')
     },
     requestToJoin: function () {
       this.requestToJoinEvent({
@@ -116,15 +117,20 @@ export default {
     },
     show () {
       this.$modal.show('formJoin')
-    },
-    hide () {
-      this.$modal.hide('formJoin')
     }
   }
 }
 </script>
 
 <style>
+ .v--modal-box{
+  background-color: #fff3e0 !important;
+}
+.ei {
+  text-align: center;
+  margin-top:100px;
+  overflow: auto;
+}
 .add-product {
   transition: all 0.3s ease;
   background-color: #FFC145;
@@ -163,6 +169,7 @@ export default {
   overflow: hidden;
 }
 .add-product .cancel {
+  display: block;
   font-size: 12px;
   text-align: center;
   margin-top: 1em;
@@ -173,9 +180,8 @@ export default {
 .add-product .cancel span:hover {
   text-decoration: underline;
 }
-
 .submit-button {
-  display: block;
+  display: inline-block;
   background-color: #3498DB;
   height: 40px;
   border-radius: 20px;
@@ -304,6 +310,11 @@ a {
 }
 .v--modal-box {
   height: 125px;
+  overflow: auto !important;
+}
+#button-cancel.cancel:hover{
+  background-color: rgba(0,0,0,0.5);
+  cursor:pointer;
 }
 form{
   top: 100px !important;

@@ -6,14 +6,15 @@
       </div>
     </light-timeline>
     <modal name='formFlowCreate'>
-      <form @submit.prevent='random()'>
+      <form @submit.prevent="">
         <!-- date start to end -->
-        <div class="form--container -inline">
+        <!-- <div class="form--container -inline">
           <div class="form--field -short">
             <label>Event Start Date *</label>
             <input type="date" class="form--element" v-model="date" placeholder="Start Date" required="" :min="new Date().toISOString()" max="31/12/2999">
           </div>
-        </div>
+        </div> -->
+        <inModalFlow v-on:sendConfig="changeDate($event)" />
         <!-- Description -->
         <div class="form--field">
           <label>Event Description</label>
@@ -21,17 +22,18 @@
           </textarea>
         </div>
         <div class="div-bt">
-          <button type="submit" class="submit-button">ADD</button>
+          <button type="submit" class="submit-button" @click="random($event)">Create</button>
           <button class="cancel" @click="hide">Cancel</button>
         </div>
       </form>
     </modal>
-    <button type="button" name="button" @click='show'>ADD</button>
+    <br>
+    <button type="button" name="button" class="log_bt" @click='show'>ADD</button>
   </div>
 </template>
 
 <script>
-
+import inModalFlow from '../components/inModalFlow'
 export default {
   name: 'flow',
   data: () => {
@@ -54,6 +56,9 @@ export default {
     hide () {
       this.$modal.hide('formFlowCreate')
     },
+    changeDate: function (changeDate) {
+      this.date = changeDate
+    },
     random: function () {
       let c1
       let c2
@@ -71,12 +76,11 @@ export default {
       this.$modal.hide('formFlowCreate')
     }
   },
-  components: {
+  components: { inModalFlow
   }
 }
 </script>
-
-<style lang="css">
+<style>
 .line-container{
   margin:auto !important;
   width: 90%;
@@ -89,7 +93,7 @@ export default {
 }
 .flow-window{
   margin: auto;
-  width: 60%;
+  width: 84%;
   height: 400px;
   display: block;
   position: relative;
@@ -110,5 +114,18 @@ export default {
 .line-item:hover{
   background-color: rgba(255, 0, 0, 0.5);
   cursor: pointer;
+}
+.log_bt{
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  padding: 13px 0;
+  background: #FF6C2F;
+  display: inline-block;
+  width: 100%;
+outline:none;
+border:2px solid #FF6C2F;
+cursor:pointer;
+text-transform:uppercase;
 }
 </style>

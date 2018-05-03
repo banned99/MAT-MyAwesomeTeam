@@ -26,8 +26,8 @@
     </form>
   </div> -->
   <div class="">
-    <modal name="formCreate">
-      <form @submit.prevent="createClick">
+    <modal name="formCreate" class="modal-ah">
+      <form @submit.prevent="createClick" class="formfull">
         <div class="form--field">
           <label>Event Title *</label>
           <input type="text" class="form--element" v-model="event.name" placeholder="Title" required="">
@@ -135,6 +135,9 @@ export default {
 </script>
 
 <style>
+.formfull {
+  width: 100% !important;
+}
 .add-product {
   transition: all 0.3s ease;
   background-color: #FFC145;
@@ -330,5 +333,13 @@ a {
 }
 .v--modal-box {
   height: 334px !important;
+}
+@media screen and (max-width: 1024px) {
+  .modal-ah {
+    width: 100% !important;
+  }
+  .form--field.-short {
+    width: 100% !important;
+  }
 }
 </style>

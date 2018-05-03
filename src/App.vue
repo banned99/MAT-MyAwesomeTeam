@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <header>
-      <span class="text_head">{{ getAppName }}</span>
     </header>
     <main>
       <router-view></router-view>
@@ -53,13 +52,13 @@ main {
   margin-top: 40px;
 }
 
-header {
+/* header {
   margin: 0;
   height: 56px;
   padding: 0 16px 0 24px;
   background-color: #35495E;
   color: #ffffff;
-}
+} */
 
 header span {
   display: block;
