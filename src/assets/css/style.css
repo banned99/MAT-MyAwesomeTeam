@@ -60,16 +60,7 @@ body{
     background: #fff;
     position: relative;
 }
-.top-login span{
-    border: 2px solid #F36;
-    width: 105px;
-    height: 105px;
-    display: block;
-    margin: 0px auto;
-    position: absolute;
-    top: 11px;
-    left: 11px;
-}
+x
 .top-login span img{
        -webkit-transform: rotate(-45deg) translate3d(0, 0, 0);
     -moz-transform: rotate(-45deg) translate3d(0, 0, 0);

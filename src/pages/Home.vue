@@ -1,5 +1,6 @@
 <template>
 <div class="content">
+  <HeadHome />
   <ActiveEventList /> <br />
   <button id="SignoutBt" @click="signOut">SignOut</button> <br />
   <modal :clickToClose="false" name="first-login-form" >
@@ -12,14 +13,14 @@
   <modal name="hello-world">
     hello, world!
   </modal> <br>
-  <Flow />
 </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import ActiveEventList from '../components/ActiveEventList'
-import Flow from '../components/Flow'
+import '../assets/css/tablestyle.css'
+import HeadHome from '../components/HeadHome'
 
 export default {
   name: 'home',
@@ -67,18 +68,18 @@ export default {
   },
   components: {
     ActiveEventList,
-    Flow
+    HeadHome
   }
 }
 </script>
-<style lang="css" type="text/css">
+<style media="screen" >
 body {
   background-color: #ffa000 !important;
 }
 .content{
   text-align: center;
 }
-table{
+/* table{
   background-color: white;
   margin: auto;
   border-collapse: collapse;
@@ -92,7 +93,7 @@ tr:hover{
 }
 table, th, td {
     border: 1px solid black !important;
-}
+} */
 #SignoutBt{
   font-weight: bold;
   background-color: pink;
@@ -165,15 +166,6 @@ table, th, td {
 .modal-default-button {
   float: right;
 }
-
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
 
 .modal-enter {
   opacity: 0;

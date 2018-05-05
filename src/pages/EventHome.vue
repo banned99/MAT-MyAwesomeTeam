@@ -1,5 +1,6 @@
 <template>
   <div>
+    <HeadHome />
     <!-- <ShowTimeline /> -->
     <EventMinorDetails />
     <!-- <MileStone v-if="milestoneView"/> -->
@@ -7,10 +8,13 @@
     <RequestList :priority="isOwner || isPriorized"/>
     <StaffManager :priority="isOwner || isPriorized"/>
     <Chatter />
+    <button type="button" @click="tellEventID()" name="button">WWWW</button>
+    <Flow />
   </div>
 </template>
 
 <script>
+import Vue from 'vue'
 import EventMinorDetails from '../components/EventMinorDetails'
 import EventDetails from '../components/EventDetails'
 // import ShowTimeline from '../components/ShowTimeline'
@@ -18,6 +22,11 @@ import Chatter from '../components/Chatter'
 import StaffManager from '../components/StaffManager'
 import RequestList from '../components/RequestList'
 import { mapActions, mapGetters } from 'vuex'
+import firebase from 'firebase'
+import Flow from '../components/Flow'
+import HeadHome from '../components/HeadHome'
+
+Vue.use(firebase)
 
 export default {
   name: 'eventhome',
@@ -25,7 +34,7 @@ export default {
     this.resetEventData()
   },
   created () {
-    this.pullEventData(this.$route.params.eventId)
+    this.pullEventData(this.$route.params.eventId.toString())
   },
   computed: {
     ...mapGetters(['getUserUID', 'getEventOwner', 'getEventPriorizedStaffs']),
@@ -37,19 +46,27 @@ export default {
     }
   },
   methods: {
+    tellEventID: function () {
+      // firebase.database().ref('events/' + this.$route.params.eventId).on('value', function(snapshot)) {
+      //   console.log(snapshot.val())
+      console.log(this.$route.params.eventId)
+    },
     ...mapActions(['pullEventData', 'getEventDate', 'resetEventData'])
   },
   components: {
     EventMinorDetails,
     EventDetails,
-    // ShowTimeline,
     RequestList,
     StaffManager,
-    Chatter
+    Chatter,
+    Flow,
+    HeadHome
   }
 }
 </script>
 
-<style>
-
+<style scoped>
+body {
+  background-color: #484848 !important;
+}
 </style>
