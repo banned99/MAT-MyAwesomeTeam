@@ -1,5 +1,5 @@
 <template>
-<div id="voice">
+<div id="voice" v-if="!isFinished">
   <div id="audioContainer" style="display: none;" ></div>
   <div id="streamController">
     <button @mousedown="startRec" @mouseup="endRec">Push to talk</button>
@@ -19,7 +19,10 @@ export default {
       soundMuted: false
     }
   },
-  computed: {
+  props: {
+    isFinished: {
+      type: Boolean
+    }
   },
   mounted: function () {
     var eventId = this.$route.params.eventId

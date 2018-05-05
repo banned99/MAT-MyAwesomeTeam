@@ -37,10 +37,12 @@
       <label>Total Teams</label>
       {{ Object.keys(getEvent.teams).length }}
     </div><br>
-    <button @click="toggleEdit" v-show="!editing">Edit</button>
-    <button @click="attemptDelete" v-show="!editing">Delete</button>
-    <button @click="confirmEdit" v-show="editing">Confirm</button>
-    <button @click="cancelEdit" v-show="editing">Cancel</button>
+    <div v-if="!isFinished">
+      <button @click="toggleEdit" v-show="!editing">Edit</button>
+      <button @click="attemptDelete" v-show="!editing">Delete</button>
+      <button @click="confirmEdit" v-show="editing">Confirm</button>
+      <button @click="cancelEdit" v-show="editing">Cancel</button>
+    </div>
   </div>
 </template>
 
@@ -72,6 +74,11 @@ export default {
         fileHistory: []
       },
       editing: false
+    }
+  },
+  props: {
+    isFinished: {
+      type: Boolean
     }
   },
   computed: {

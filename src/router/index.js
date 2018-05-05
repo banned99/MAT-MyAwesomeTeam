@@ -5,6 +5,7 @@ import Home from '../pages/Home'
 import SignIn from '../pages/SignIn'
 import SignUp from '../pages/SignUp'
 import EventHome from '../pages/EventHome'
+import UserProfile from '../pages/UserProfile'
 
 import store from '../vuex'
 
@@ -34,6 +35,14 @@ const router = new Router({
       path: '/event/:eventId',
       name: 'EventHome',
       component: EventHome,
+      meta: {
+        requiredAuth: true
+      }
+    },
+    {
+      path: '/user/:userId',
+      name: 'UserProfile',
+      component: UserProfile,
       meta: {
         requiredAuth: true
       }
