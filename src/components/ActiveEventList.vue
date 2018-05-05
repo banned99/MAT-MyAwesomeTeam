@@ -16,6 +16,18 @@
   <div class="tbl-content">
     <table cellpadding="0" cellspacing="0" border="0">
   <tbody>
+<<<<<<< HEAD
+=======
+=======
+  <table>
+    <tr class="headTr">
+      <th>Event Name</th>
+      <th>Event Date (yyyy-mm-dd)</th>
+      <th>Team</th>
+      <th>Position</th>
+    </tr>
+>>>>>>> 2dd23cc1290bf65d48af5bfd340380d180a6b5ea
+>>>>>>> d0f0f50c0ea0bc94cb5f8f7066ecc7e4fdf773ed
     <ActiveEventListItem v-if="getActiveEvents" v-for="(event, index) in getActiveEvents" :key="index" :event="event" :index="index"/>
     <tr v-if="Object.keys(getActiveEvents).length === 0">
       <td colspan="4"> ---- No joined events. Create or Join some! ---- </td>
