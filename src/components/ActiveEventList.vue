@@ -1,6 +1,23 @@
 <template>
 <div>
   <h2>Active Events</h2>
+<<<<<<< HEAD
+  <div class="tbl-header">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <thead>
+        <tr class="headTr">
+            <th>Event Name</th>
+            <th>Event Date</th>
+            <th>Team</th>
+            <th>Position</th>
+        </tr>
+      </thead>
+      </table>
+  </div>
+  <div class="tbl-content">
+    <table cellpadding="0" cellspacing="0" border="0">
+  <tbody>
+=======
   <table>
     <tr class="headTr">
       <th>Event Name</th>
@@ -8,11 +25,16 @@
       <th>Team</th>
       <th>Position</th>
     </tr>
+>>>>>>> 2dd23cc1290bf65d48af5bfd340380d180a6b5ea
     <ActiveEventListItem v-if="getActiveEvents" v-for="(event, index) in getActiveEvents" :key="index" :event="event" :index="index"/>
     <tr v-if="Object.keys(getActiveEvents).length === 0">
       <td colspan="4"> ---- No joined events. Create or Join some! ---- </td>
     </tr>
-  </table>
+  </tbody>
+</table>
+</div>
+
+
   <CreateNewEventForm />
   <JoinEventForm />
 </div>
@@ -34,9 +56,3 @@ export default {
   }
 }
 </script>
-
-<style>
-tr.headTr:hover{
-  background-color: rgba(0,0,0,0) !important;
-}
-</style>

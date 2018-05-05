@@ -2,9 +2,12 @@
   <div class="page">
     <!-- NewForm Login -->
     <div class="login-form">
-    			<div class="top-login">
-    				<span><img src="images/group.png" alt=""/></span>
-    			</div>
+    			<!-- <div class="top-login">
+    				<span><img class="img-logo" src="../assets/images/logo-mini.png" alt=""/></span>
+    			</div> -->
+          <div class="top-img">
+            <img src="../assets/images/logo-fix.png" alt="logo">
+          </div>
     			<h1>Login</h1>
     			<div class="login-top">
     			<form @submit.prevent="signIn">
@@ -70,9 +73,13 @@ export default {
 }
 </script>
 <style type="text/css" href="../assets/css/style.css">
-<style media="screen" >
+</style>
+<style media="screen">
+.img-logo {
+  margin-bottom: 100px;
+}
 body{
-  background-color: rgba(70, 127, 215, 0.75);
+  background-color: #484848;
 }
 @font-face {
   font-family: sukhumvit;
@@ -100,6 +107,22 @@ body{
 ::placeholder{
   color: rgba(255,255,255,0.3);
 }
+.top-img {
+  display: block;
+    margin-bottom: 100px;
+    margin: auto;
+    width: 35%;
+}
 /* @media screen and (max-width: 1024px) {
+  .top-login span{
+      border: 2px solid #F36;
+      width: 105px;
+      height: 105px;
+      display: block;
+      margin: 0px auto;
+      position: absolute;
+      top: 11px;
+      left: 11px;
+  }
 } */
 </style>

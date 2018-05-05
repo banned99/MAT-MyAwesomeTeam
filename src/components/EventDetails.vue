@@ -124,6 +124,5 @@ export default {
 
 <style type="text/css">
 body{
-  background-color: rgba(255,255,255,1) !important;
 }
 </style>
