@@ -4,16 +4,13 @@
     <!-- <ShowTimeline /> -->
     <EventMinorDetails />
     <!-- <MileStone v-if="milestoneView"/> -->
-    <EventDetails :priority="isOwner || isPriorized"/>
-    <RequestList :priority="isOwner || isPriorized"/>
-    <StaffManager :priority="isOwner || isPriorized"/>
-    <Chatter />
-    <button type="button" @click="tellEventID()" name="button">WWWW</button>
-    <Flow />
     <EventDetails :priority="isOwner || isPriorized" :isFinished="isFinished"/>
     <RequestList :priority="isOwner || isPriorized" v-if="!isFinished"/>
     <StaffManager :priority="isOwner || isPriorized" v-if="!isFinished"/>
     <Chatter :isFinished="isFinished"/>
+
+    <button type="button" @click="tellEventID()" name="button">WWWW</button>
+    <Flow />
   </div>
 </template>
 
