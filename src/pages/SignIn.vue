@@ -72,9 +72,8 @@ export default {
   }
 }
 </script>
-<style type="text/css" href="../assets/css/style.css">
-</style>
-<style media="screen">
+<style media="screen" scoped>
+@import '../assets/css/style.css';
 .img-logo {
   margin-bottom: 100px;
 }

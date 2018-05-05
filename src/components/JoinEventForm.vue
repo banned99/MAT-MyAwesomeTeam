@@ -29,6 +29,7 @@
       <div class="cancel"><span @click="cancel()">Cancel</span></div>
     </form>
   </div> -->
+
   <div class="eiei">
     <modal name="formJoin">
       <form @submit.prevent class="ei">
@@ -59,7 +60,35 @@
         <button id="button-cancel" class="cancel"><span @click="cancel()">Cancel</span></button>
       </form>
     </modal>
-    <button type="button" name="button" @click="show">EVENT JOIN TEST</button>
+    <button type="button" name="button" class="show-joinEvent" @click="show">EVENT JOIN TEST</button>
+
+    <!-- <form @submit.prevent class="ei">
+      <div class="form--field">
+        <label>Event Token *</label>
+        <input type="text" class="form--element" v-model="token" placeholder="Token" required="">
+      </div>
+      <button @click="searchByToken" class="submit-button" :disabled="!checkToken">Search</button>
+      <div v-if="attemptSearch === true">
+        <div class="form--field" v-if="getSearchResult !== null">
+          <label>Event Name</label>
+          <p>{{ getSearchResult.name }}</p>
+          <label>Description</label>
+          <p v-if="getSearchResult.desc">{{ getSearchResult.desc }}</p>
+          <p v-else>---- No description ----</p>
+          <label>Event Date</label>
+          <p>{{ getSearchResult.date.start }} to {{ getSearchResult.date.end }}</p>
+          <label>Owner</label>
+          <p>{{ getSearchResult.owner.name }}</p>
+          <p class="cancel" v-if="alreadyJoin">You have already joined this event.</p>
+          <p class="cancel" v-if="alreadyRequest">You have already requested to join this event. Please wait for response.</p>
+          <button @click="requestToJoin" class="submit-button" :disabled="alreadyJoin || alreadyRequest">Submit Request</button>
+        </div>
+        <div class="form--field" v-else>
+          <p>--------- Event not found. Please re-check token. ---------</p>
+        </div>
+      </div>
+      <button id="button-cancel" class="cancel"><span @click="cancel()">Cancel</span></button>
+    </form> -->
   </div>
 </template>
 
@@ -122,7 +151,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+/* @import '../../node_modules/bootstrap/dist/css/bootstrap.css';
+@import '../../node_modules/bootstrap-vue/dist/bootstrap-vue.css'; */
+.eiei {
+  display:inline;
+}
  .v--modal-box{
   background-color: #fff3e0 !important;
 }
@@ -315,6 +349,15 @@ a {
 #button-cancel.cancel:hover{
   background-color: rgba(0,0,0,0.5);
   cursor:pointer;
+}
+.show-joinEvent{
+  font-weight: bold;
+  background-color: #ffa000;
+  color: rgba(255,255,255,1);
+  width: 30%;
+  height: 50px;
+  border-radius: 10px;
+  border: 0px;
 }
 form{
   top: 100px !important;

@@ -8,8 +8,6 @@
     <RequestList :priority="isOwner || isPriorized" v-if="!isFinished"/>
     <StaffManager :priority="isOwner || isPriorized" v-if="!isFinished"/>
     <Chatter :isFinished="isFinished"/>
-
-    <button type="button" @click="tellEventID()" name="button">WWWW</button>
     <Flow />
   </div>
 </template>
@@ -71,7 +69,4 @@ export default {
 </script>
 
 <style scoped>
-body {
-  background-color: #484848 !important;
-}
 </style>

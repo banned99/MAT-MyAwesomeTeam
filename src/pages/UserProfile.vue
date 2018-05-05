@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wrappa">
     <h2>{{ getDisplayName }}</h2>
     <!-- <img src="../assets/m.png"> <br> -->
     <label>Display Name: </label>
@@ -8,7 +8,6 @@
     <button @click="toggleEditing" v-if="!editing">Edit</button>
     <button @click="save" v-if="editing" :disabled="!validateName">Save</button>
     <button @click="cancel" v-if="editing">Cancel</button>
-
     <JoinedEventList />
   </div>
 </template>
@@ -52,6 +51,11 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+body, html {
+  background: white !important;
+}
+.wrappa{
+  color: white;
+}
 </style>

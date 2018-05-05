@@ -25,7 +25,8 @@
       <button class="cancel" @click="cancel()">Cancel</button>
     </form>
   </div> -->
-  <div class="">
+
+  <div class="eiei1">
     <modal name="formCreate" class="modal-ah">
       <form @submit.prevent="createClick" class="formfull">
         <div class="form--field">
@@ -53,7 +54,7 @@
         </div>
       </form>
     </modal>
-    <button type="button" name="button" @click="show">CREATE EVENT TEST</button>
+    <button type="button" name="button" class="show-createEvent" @click="show">CREATE EVENT TEST</button>
   </div>
 
 </template>
@@ -134,7 +135,10 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.eiei1 {
+  display: inline;
+}
 .formfull {
   width: 100% !important;
 }
@@ -333,6 +337,15 @@ a {
 }
 .v--modal-box {
   height: 334px !important;
+}
+.show-createEvent{
+  font-weight: bold;
+  background-color: #ffa000;
+  color: rgba(255,255,255,1);
+  width: 30%;
+  height: 50px;
+  border-radius: 10px;
+  border: 0px;
 }
 @media screen and (max-width: 1024px) {
   .modal-ah {

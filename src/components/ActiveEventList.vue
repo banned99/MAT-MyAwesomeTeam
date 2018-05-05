@@ -20,13 +20,16 @@
     <tr v-if="Object.keys(getActiveEvents).length === 0">
       <td colspan="4"> ---- No joined events. Create or Join some! ---- </td>
     </tr>
+
   </tbody>
 </table>
 </div>
+  <div class="em-space">
 
-
+  </div>
   <CreateNewEventForm />
   <JoinEventForm />
+  <modalbutton />
 </div>
 </template>
 
@@ -35,6 +38,7 @@ import { mapGetters } from 'vuex'
 import ActiveEventListItem from '../components/ActiveEventListItem'
 import CreateNewEventForm from '../components/CreateNewEventForm'
 import JoinEventForm from '../components/JoinEventForm'
+import modalbutton from '../components/modalbutton'
 
 export default {
   name: 'activeeventlist',
@@ -42,11 +46,14 @@ export default {
     ...mapGetters(['getActiveEvents'])
   },
   components: {
-    ActiveEventListItem, CreateNewEventForm, JoinEventForm
+    ActiveEventListItem, CreateNewEventForm, JoinEventForm, modalbutton
   }
 }
 </script>
 <style media="screen">
+.em-space {
+  height: 20px;
+}
 .tbl-content {
   background: rgba(255, 255, 255, 0.1);
 }

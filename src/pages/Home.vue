@@ -11,17 +11,13 @@
     <input type="text" v-model="name" required placeholder="Your Name"> <br>
     <button type="button" @click="updateUser" :disabled="!validateName">Submit</button>
   </modal>
-  <modal name="hello-world">
-    hello, world!
-  </modal> <br>
-  <Flow />
+   <br>
 </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import ActiveEventList from '../components/ActiveEventList'
-import '../assets/css/tablestyle.css'
 import HeadHome from '../components/HeadHome'
 
 export default {
@@ -76,10 +72,12 @@ export default {
   }
 }
 </script>
-<style media="screen" >
+<style media="screen" scoped>
 body {
   background-color: #ffa000 !important;
 }
+@import '../assets/css/tablestyle.css';
+
 .content{
   text-align: center;
 }
@@ -100,7 +98,7 @@ table, th, td {
 } */
 #SignoutBt{
   font-weight: bold;
-  background-color: pink;
+  background-color: #ffa000;
   color: rgba(255,255,255,1);
   width: 30%;
   height: 50px;
