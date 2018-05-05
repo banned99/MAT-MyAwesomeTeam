@@ -390,6 +390,8 @@ const actions = {
         // console.log('current index' + state.chatHistory.length)
       })
       .catch(err => console.log(err.message))
+  },
+  addTeam ({commit}, payload) {
   }
 }
 

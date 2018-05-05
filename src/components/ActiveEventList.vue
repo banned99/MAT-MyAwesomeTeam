@@ -3,10 +3,10 @@
   <h2>Active Events</h2>
   <table>
     <tr class="headTr">
-        <th>Event Name</th>
-        <th>Event Date (yyyy-mm-dd)</th>
-        <th>Team</th>
-        <th>Position</th>
+      <th>Event Name</th>
+      <th>Event Date (yyyy-mm-dd)</th>
+      <th>Team</th>
+      <th>Position</th>
     </tr>
     <ActiveEventListItem v-if="getActiveEvents" v-for="(event, index) in getActiveEvents" :key="index" :event="event" :index="index"/>
     <tr v-if="Object.keys(getActiveEvents).length === 0">
