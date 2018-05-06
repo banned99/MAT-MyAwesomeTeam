@@ -1,14 +1,16 @@
 <template>
   <div>
     <h1>Manage Team & Staffs</h1>
-    <TeamTable v-for="team in getEventTeams" :key="team.key" :team="team"/>
-    <modal :clickToClose="true">
+    <TeamTable v-for="(team, index) in getEventTeams" :key="team.key" :team="team" :index="index"/>
+    <modal name="addTeamModal" :clickToClose="true">
       <h1>Add new Team</h1>
       <h3>Enter team name.</h3>
-      <p v-if="!validateName">Enter your name!</p>
-      <input type="text" v-model="teamName" required placeholder="Team Name"> <br>
-      <button type="button" @click="addTeam(teamName)" :disabled="!validateName">Submit</button>
+      <p v-if="!validateName">Enter team name!</p>
+      <label>Team Name: </label><input type="text" v-model="teamName" required placeholder="Team Name"> <br>
+      <label>Team Description: </label><textarea v-model="desc" placeholder="Team Description"></textarea><br>
+      <button type="button" @click="addNewTeam()" :disabled="!validateName">Submit</button>
     </modal>
+    <button @click="showAddTeamModal()">Add Team</button>
   </div>
 </template>
 
@@ -20,7 +22,9 @@ export default {
   name: 'staffmanager',
   data () {
     return {
-      teamName: ''
+      teamName: '',
+      desc: '',
+      members: []
     }
   },
   computed: {
@@ -30,7 +34,23 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['addTeam'])
+    ...mapActions(['addTeam']),
+    showAddTeamModal () {
+      this.$modal.show('addTeamModal')
+    },
+    hideModal () {
+      this.$modal.hide('addTeamModal')
+    },
+    cancel () {
+      this.teamName = ''
+      this.desc = ''
+      this.members = ''
+      this.hideModal()
+    },
+    addNewTeam () {
+      this.addTeam({name: this.teamName, data: {desc: this.desc, members: this.members}})
+      this.cancel()
+    }
   },
   components: {
     TeamTable

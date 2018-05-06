@@ -107,6 +107,34 @@ const actions = {
     firebase.database().ref('users').child(state.user.uid).child('displayName').set(payload.name)
       .then(() => {
         commit('setDisplayName', payload.name)
+        let joined = state.user.eventsJoined
+        Object.keys(joined).forEach((eventId) => {
+          let dbRef = firebase.database().ref('events').child(eventId)
+          dbRef.once('value', (snapshot) => {
+            let event = snapshot.val()
+            if (event.owner.uid === state.user.uid) {
+              dbRef.child('owner')
+                .update({name: payload.name})
+            }
+
+            let staffPos = event.staffs.indexOf(event.staffs.find(value => value.uid === state.user.uid))
+            dbRef.child('staffs')
+              .child(staffPos)
+              .update({displayName: payload.name})
+
+            let anEvent = event.teams[joined[eventId].team.name].members
+            let teamMemberPos = anEvent.indexOf(anEvent.find(value => value.user.uid === state.user.uid))
+            dbRef.child('teams')
+              .child(joined[eventId].team.name)
+              .child('members').child(teamMemberPos)
+              .child('user')
+              .update({name: payload.name})
+
+            event.chatHistory ? event.chatHistory.filter(value => value.uid === state.user.uid).forEach(element => {
+              dbRef.child('chatHistory').child(event.chatHistory.indexOf(element)).update({name: payload.name})
+            }) : console.log('no History')
+          })
+        })
       })
       .catch((err) => console.log(err.message))
   },
@@ -154,6 +182,15 @@ const actions = {
         console.log(payload.request.requester.name + '\'s joined events updated')
       }).catch(err => console.log(err.message))
   }
+  // updateJoinedEventTeam: ({commit}, payload) => {
+  //   firebase.database().ref('users')
+  //     .child('eventsJoined')
+  //     .child(payload.eventToken)
+  //     .child('team')
+  //     .update({
+  //       name: payload.data.newTeamName
+  //     })
+  // }
 }
 
 export default {

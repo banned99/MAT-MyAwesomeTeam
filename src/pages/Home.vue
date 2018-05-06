@@ -11,13 +11,6 @@
     <input type="text" v-model="name" required placeholder="Your Name"> <br>
     <button type="button" @click="updateUser" :disabled="!validateName">Submit</button>
   </modal>
-<<<<<<< HEAD
-  <modal name="hello-world">
-    hello, world!
-  </modal> <br>
-=======
-  <Flow />
->>>>>>> 2dd23cc1290bf65d48af5bfd340380d180a6b5ea
 </div>
 </template>
 

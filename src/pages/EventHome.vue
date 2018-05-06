@@ -4,19 +4,12 @@
     <!-- <ShowTimeline /> -->
     <EventMinorDetails />
     <!-- <MileStone v-if="milestoneView"/> -->
-<<<<<<< HEAD
-    <EventDetails :priority="isOwner || isPriorized"/>
+    <!-- <EventDetails :priority="isOwner || isPriorized"/> -->
     <RequestList :priority="isOwner || isPriorized"/>
     <StaffManager :priority="isOwner || isPriorized"/>
-    <Chatter />
-    <button type="button" @click="tellEventID()" name="button">WWWW</button>
-    <Flow />
-=======
-    <EventDetails :priority="isOwner || isPriorized" :isFinished="isFinished"/>
-    <RequestList :priority="isOwner || isPriorized" v-if="!isFinished"/>
-    <StaffManager :priority="isOwner || isPriorized" v-if="!isFinished"/>
-    <Chatter :isFinished="isFinished"/>
->>>>>>> 2dd23cc1290bf65d48af5bfd340380d180a6b5ea
+    <!-- <Chatter :isFinished="isFinished"/> -->
+    <!-- <button type="button" @click="tellEventID()" name="button">WWWW</button> -->
+    <!-- <Flow /> -->
   </div>
 </template>
 
@@ -56,16 +49,12 @@ export default {
     }
   },
   methods: {
-<<<<<<< HEAD
     tellEventID: function () {
       // firebase.database().ref('events/' + this.$route.params.eventId).on('value', function(snapshot)) {
       //   console.log(snapshot.val())
       console.log(this.$route.params.eventId)
     },
-    ...mapActions(['pullEventData', 'getEventDate', 'resetEventData'])
-=======
     ...mapActions(['pullEventData', 'resetEventData'])
->>>>>>> 2dd23cc1290bf65d48af5bfd340380d180a6b5ea
   },
   components: {
     EventMinorDetails,

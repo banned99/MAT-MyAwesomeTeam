@@ -53,7 +53,8 @@ const getters = {
   getSearchResult: state => state.searchResult,
   getEventJoinRequests: state => state.event.requests,
   getPendingJoinRequests: state => !state.event.requests ? [] : state.event.requests.filter(element => element.response.status === 'pending'),
-  getChatHistory: state => state.event.chatHistory
+  getChatHistory: state => state.event.chatHistory,
+  getUnassignedStaffs: state => state.event.teams.unassigned
 }
 
 const mutations = {
@@ -113,6 +114,9 @@ const mutations = {
   },
   addNewMessage: (state, payload) => {
     state.event.chatHistory.push(payload)
+  },
+  addMemberToTeam: (state, payload) => {
+    state.event.teams[payload.team].members.push(payload.members)
   }
 }
 
@@ -344,6 +348,15 @@ const actions = {
       role: 'member'
     }
     templates.staffMemberTemplate.uid = payload.request.requester.uid
+
+    templates.teamTemplate.name = 'unassigned'
+    templates.teamTemplate.data.desc = 'Unassigned Members'
+    templates.teamMemberTemplate.user.uid = payload.request.requester.uid
+    templates.teamMemberTemplate.user.name = payload.request.requester.name
+    templates.teamMemberTemplate.role = 'Member'
+    templates.teamTemplate.data.members.push(templates.teamMemberTemplate)
+
+    if (!state.event.teams.unassigned) commit('addEventTeam', templates.teamTemplate)
     firebase.database().ref('events')
       .child(state.currentEventToken)
       .child('requests')
@@ -363,6 +376,13 @@ const actions = {
         console.log('added to staff members')
         commit('addEventStaff', templates.staffMemberTemplate)
       }).catch(err => console.log(err.message))
+    firebase.database().ref('events')
+      .child(state.currentEventToken)
+      .child('teams')
+      .child(templates.teamTemplate.name)
+      .set(templates.teamTemplate.data).then(() => {
+        // commit('addStaffToTeam', {team: 'unassigned', members: templates.teamTemplate.data.members})
+      })
   },
   declineToJoinRequest ({commit}, payload) {
     firebase.database().ref('events')
@@ -390,9 +410,41 @@ const actions = {
         // console.log('current index' + state.chatHistory.length)
       })
       .catch(err => console.log(err.message))
-  },
-  addTeam ({commit}, payload) {
   }
+  // addTeam ({commit}, payload) {
+  //   templates.teamTemplate.name = payload.name
+  //   templates.teamTemplate.data.desc = payload.data.desc
+  //   // templates.teamMemberTemplate.role = payload.data.members.role
+  //   // templates.teamMemberTemplate.user = payload.data.members.user
+  //   firebase.database().ref('events')
+  //     .child(state.currentEventToken)
+  //     .child('teams')
+  //     .child(templates.teamTemplate.name)
+  //     .set(templates.teamTemplate.data).then(() => {
+  //       console.log('team added')
+  //     })
+  // },
+  // editTeam ({commit}, payload) {
+  //   firebase.database().ref('events')
+  //     .child(state.currentEventToken)
+  //     .child('teams')
+  //     .child(payload.index).update({
+  //       name: payload.newTeamName,
+  //       desc: payload.newTeamDesc
+  //     })
+  // },
+  // deleteTeam ({commit}, payload) {
+  //   let temp = state.event.teams[payload.index].members
+  //   firebase.database().ref('events')
+  //     .child(state.currentEventToken)
+  //     .child('teams')
+  //     .child(payload.index).delete().then(() => {
+  //       commit('deleteEventTeam', payload.index)
+  //       commit('addStaffsToTeam', {index: payload.index, staffs: temp})
+  //       firebase.database().ref('events')
+  //         .child(state.currentEventToken).child('teams').child('unassigned/members').set(state.event.teams.unassigned.members)
+  //     })
+  // }
 }
 
 export default {
