@@ -29,7 +29,6 @@
   </div>
   <CreateNewEventForm />
   <JoinEventForm />
-  <modalbutton />
 </div>
 </template>
 

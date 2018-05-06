@@ -3,7 +3,7 @@
   <HeadHome />
   <ActiveEventList /> <br />
   <button id="SignoutBt" @click="signOut">SignOut</button> <br />
-  <button @click="toProfile">Profile</button> <br>
+  <!-- <button @click="toProfile">Profile</button> <br> -->
   <modal :clickToClose="false" name="first-login-form" >
     <h1>One more step!</h1>
     <h3>Please enter your name.</h3>
@@ -79,7 +79,7 @@ body {
 @import '../assets/css/tablestyle.css';
 
 .content{
-  text-align: center;
+
 }
 /* table{
   background-color: white;

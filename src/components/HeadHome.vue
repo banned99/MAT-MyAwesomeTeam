@@ -1,17 +1,17 @@
 <template lang="html">
-  <div class="header-bar">
-
-    <div class="mid-text">
-      <p class="txt">MAT</p>
+  <div class="wrap">
+    <div class="header-bar">
+        <label class="lb" for="menu-toggle">☰</label>
+        <input class="ip" id="menu-toggle" type="checkbox">
+        <div class="box">
+          <p class="text">M A T</p>
+        </div>
+      <nav class="ham-page">
+        <ul class="ham-page page">Home</ul>
+        <ul class="ham-page page" @click="toProfile()">Profile</ul>
+        <ul class="ham-page page">Sign Out</ul>
+      </nav>
     </div>
-    <div class="ham-page">
-      <ul class="ham-page page empty">l</ul>
-      <ul class="ham-page page">Home</ul>
-      <ul class="ham-page page" @click="toProfile()">Profile</ul>
-      <ul class="ham-page page">Setting</ul>
-      <ul class="ham-page page">Log out</ul>
-    </div>
-
   </div>
 </template>
 
@@ -35,23 +35,18 @@ export default {
   width: 100%;
   height: 45px;
   background-color: #212121;
+  text-align: justify;
+}
+.wrap {
+  text-align: center;
 }
 .backbt {
   margin: auto;
 }
-.hamburger {
-  display: inline-block;
-  position: static;
-  height: 100%;
-  width: 45px;
-  background-color: #FFF;
-}
 .ham-page {
-  background-color: #484848;
-  width: 300px;
-  margin-top: -400px; /*Should modify it's*/
-  animation-name: hambar-ma;
-  animation-duration: 2s;
+  padding-bottom: 5px;
+  background-color: #ffd149;
+  width: 300px; /*Should modify it's*/
 }
 .ham-page.page {
   color: white;
@@ -67,14 +62,44 @@ export default {
   cursor: default;
 }
 .ham-page.page.empty {
-  color: #484848;
+  opacity: 0;
 }
-.header-bar.mid-text.txt {
+.box {
+    margin-top: -30px;
+    display: inline;
+    width: 100%;
+
+}
+.text {
+  width: 60px;
   display: inline;
   color: white !important;
 }
 @keyframes hambar-ma {
-  from{margin-top: 0px;}
-    to{margin-top: -400px;}
+  from{opacity: 0;}
+    to{opacity: 0.9;}
+}
+
+.lb {
+  margin-left: 15px;
+	cursor: pointer;
+	font-size: 2rem;
+  color: white;
+}
+
+.ip {
+  margin-left: 20px;
+	opacity: 0;
+	pointer-events: none;
+	position: absolute;
+}
+
+.ip:not(:checked) ~ nav {
+  opacity: 0;
+}
+.ip:checked ~ nav {
+  animation-name: hambar-ma;
+  animation-duration: 2s;
+  opacity: 0.9;
 }
 </style>

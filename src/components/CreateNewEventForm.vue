@@ -54,7 +54,7 @@
         </div>
       </form>
     </modal>
-    <button type="button" name="button" class="show-createEvent" @click="show">CREATE EVENT TEST</button>
+    <button type="button" name="button" class="show-createEvent" @click="show">CREATE EVENT</button>
   </div>
 
 </template>

@@ -60,7 +60,7 @@
         <button id="button-cancel" class="cancel"><span @click="cancel()">Cancel</span></button>
       </form>
     </modal>
-    <button type="button" name="button" class="show-joinEvent" @click="show">EVENT JOIN TEST</button>
+    <button type="button" name="button" class="show-joinEvent" @click="show">EVENT JOIN</button>
 
     <!-- <form @submit.prevent class="ei">
       <div class="form--field">
