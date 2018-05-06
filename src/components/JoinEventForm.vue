@@ -359,6 +359,11 @@ a {
   border-radius: 10px;
   border: 0px;
 }
+.show-joinEvent:hover {
+  background-color: rgba(255, 255, 255, 1);
+  cursor: pointer;
+  color: black;
+}
 form{
   top: 100px !important;
 }

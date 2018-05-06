@@ -347,6 +347,11 @@ a {
   border-radius: 10px;
   border: 0px;
 }
+.show-createEvent:hover {
+  background-color: rgba(255, 255, 255, 1);
+  cursor: pointer;
+  color: black;
+}
 @media screen and (max-width: 1024px) {
   .modal-ah {
     width: 100% !important;
