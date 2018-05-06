@@ -7,7 +7,7 @@
           <p class="text">M A T</p>
         </div>
       <nav class="ham-page">
-        <ul class="ham-page page">Home</ul>
+        <ul class="ham-page page" @click="toHome()">Home</ul>
         <ul class="ham-page page" @click="toProfile()">Profile</ul>
         <ul class="ham-page page">Sign Out</ul>
       </nav>
@@ -47,6 +47,7 @@ export default {
   padding-bottom: 5px;
   background-color: #ffd149;
   width: 300px; /*Should modify it's*/
+  border-radius: 4px;
 }
 .ham-page.page {
   color: white;
@@ -76,8 +77,8 @@ export default {
   color: white !important;
 }
 @keyframes hambar-ma {
-  from{opacity: 0;}
-    to{opacity: 0.9;}
+  from{margin-left: -400px;}
+    to{mergin-left: 0px;}
 }
 
 .lb {
@@ -95,11 +96,12 @@ export default {
 }
 
 .ip:not(:checked) ~ nav {
-  opacity: 0;
+  margin-left: -400px;
 }
 .ip:checked ~ nav {
   animation-name: hambar-ma;
   animation-duration: 2s;
+  margin-left: 0;
   opacity: 0.9;
 }
 </style>

@@ -1,6 +1,7 @@
 <template>
   <div>
     <HeadHome />
+    <TabEventHome />
     <!-- <ShowTimeline /> -->
     <EventMinorDetails />
     <!-- <MileStone v-if="milestoneView"/> -->
@@ -8,7 +9,7 @@
     <RequestList :priority="isOwner || isPriorized" v-if="!isFinished"/>
     <StaffManager :priority="isOwner || isPriorized" v-if="!isFinished"/>
     <Chatter :isFinished="isFinished"/>
-    <Flow />
+
   </div>
 </template>
 
@@ -24,6 +25,7 @@ import { mapActions, mapGetters } from 'vuex'
 import firebase from 'firebase'
 import Flow from '../components/Flow'
 import HeadHome from '../components/HeadHome'
+import TabEventHome from '../components/TabEventHome'
 
 Vue.use(firebase)
 
@@ -63,7 +65,8 @@ export default {
     StaffManager,
     Chatter,
     Flow,
-    HeadHome
+    HeadHome,
+    TabEventHome
   }
 }
 </script>

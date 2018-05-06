@@ -1,17 +1,17 @@
 <template>
   <div class="wrappa">
+    <HeadHome />
     <div class="head-dis-name">
       <h2 class="dis-name">{{ getDisplayName }}</h2>
     </div>
     <div class="empty-space"></div>
     <!-- <img src="../assets/m.png"> <br> -->
-    <label class="lb-name">Display Name</label>
+    <label class="lb-name">Display Name</label><br>
     <p class="this-name" v-if="!editing">{{ getDisplayName }}</p>
-    <input type="text" v-if="editing" v-model="name">
-    <div class="empty-space"></div>
-    <button class="editbt" @click="toggleEditing" v-if="!editing">Edit</button>
-    <button @click="save" v-if="editing" :disabled="!validateName">Save</button>
-    <button @click="cancel" v-if="editing">Cancel</button>
+    <input class="inp-name" type="text" v-if="editing" v-model="name">
+    <p class="fa-cog" @click="toggleEditing" v-if="!editing">&#xf013;</p>
+    <button class="editbt" @click="save" v-if="editing" :disabled="!validateName">Save</button>
+    <button class="editbt" @click="cancel" v-if="editing">Cancel</button>
     <div class="empty-space"></div>
     <JoinedEventList />
   </div>
@@ -58,6 +58,10 @@ export default {
 </script>
 
 <style scoped>
+@font-face {
+  font-family: awesome;
+  src: url('../assets/fonts/fontawesome-webfont.woff');
+}
 body, html {
   background: white !important;
 }
@@ -78,6 +82,7 @@ body, html {
   height: 40px;
 }
 .editbt {
+  display: inline;
   border-radius: 4px;
   border: 0px;
   background-color:#ffa000 ;
@@ -87,9 +92,23 @@ body, html {
   font-size: 15px;
 }
 .lb-name {
+  display: inline-block;
   font-size: 1.5rem;
 }
 .this-name {
-  font-size: 1rem;
+  margin-left: 40px;
+  display: inline-block;
+  font-size: 1.5rem;
+}
+.fa-cog{
+  margin-left: 1rem;
+  cursor: pointer;
+  font-family: awesome;
+  font-size: 23px;
+  font: #fff;
+  display: inline-block;
+}
+.inp-name {
+  color: black;
 }
 </style>
