@@ -1,20 +1,30 @@
 <template lang="html">
-  <div class="header-bar">
-    <div class="hamburger">
+  <div class="wrap">
+    <div class="header-bar">
+        <label class="lb" for="menu-toggle">☰</label>
+        <input class="ip" id="menu-toggle" type="checkbox">
+        <div class="box">
+          <p class="text">M A T</p>
+        </div>
+      <nav class="ham-page">
+        <ul class="ham-page page" @click="toHome()">Home</ul>
+        <ul class="ham-page page" @click="toProfile()">Profile</ul>
+        <ul class="ham-page page">Sign Out</ul>
+      </nav>
     </div>
-    <div class="ham-page">
-      <ul class="ham-page page empty">l</ul>
-      <ul class="ham-page page">Home</ul>
-      <ul class="ham-page page">Profile</ul>
-      <ul class="ham-page page">Setting</ul>
-      <ul class="ham-page page">Log out</ul>
-    </div>
-
   </div>
 </template>
 
 <script>
 export default {
+  methods: {
+    toHome: function () {
+      this.$router.push('/home')
+    },
+    toProfile: function () {
+      this.$router.push('user/' + this.getUserUID)
+    }
+  }
 }
 </script>
 
@@ -23,32 +33,75 @@ export default {
   position: fixed;
   margin-top: -40px;
   width: 100%;
-  height: 40px;
+  height: 45px;
   background-color: #212121;
+  text-align: justify;
 }
-.hamburger {
-  position: relative;
-  height: 100%;
-  width: 45px;
-  background-color: #FFF;
+.wrap {
+  text-align: center;
+}
+.backbt {
+  margin: auto;
 }
 .ham-page {
-  background-color: #484848;
-  width: 300px;
-  margin-top: -400px;
-  animation-name: hambar-ma;
-  animation-duration: 2s;
+  padding-bottom: 5px;
+  background-color: #ffd149;
+  width: 300px; /*Should modify it's*/
+  border-radius: 4px;
 }
 .ham-page.page {
   color: white;
   font-size: 48px;
   text-align: center;
 }
+.ham-page.page:hover {
+  background-color: rgba(255,255,255,0.1);
+  cursor: pointer;
+}
+.ham-page.page.empty:hover {
+  background-color: rgba(255,255,255,0);
+  cursor: default;
+}
 .ham-page.page.empty {
-  color: #484848;
+  opacity: 0;
+}
+.box {
+    margin-top: -30px;
+    display: inline;
+    width: 100%;
+
+}
+.text {
+  width: 60px;
+  display: inline;
+  color: white !important;
 }
 @keyframes hambar-ma {
-  from{margin-top: 0px;}
-    to{margin-top: -400px;}
+  from{margin-left: -400px;}
+    to{mergin-left: 0px;}
+}
+
+.lb {
+  margin-left: 15px;
+	cursor: pointer;
+	font-size: 2rem;
+  color: white;
+}
+
+.ip {
+  margin-left: 20px;
+	opacity: 0;
+	pointer-events: none;
+	position: absolute;
+}
+
+.ip:not(:checked) ~ nav {
+  margin-left: -400px;
+}
+.ip:checked ~ nav {
+  animation-name: hambar-ma;
+  animation-duration: 2s;
+  margin-left: 0;
+  opacity: 0.9;
 }
 </style>

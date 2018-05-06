@@ -2,22 +2,22 @@
 <div class="content">
   <HeadHome />
   <ActiveEventList /> <br />
-  <button id="SignoutBt" @click="signOut">SignOut</button> <br />
-  <button @click="toProfile">Profile</button> <br>
+  <button id="SignoutBt" @click="signOut">SignOut</button> <br/>
+  <!-- <button @click="toProfile">Profile</button> <br> -->
   <modal :clickToClose="false" name="first-login-form" >
-    <h1>One more step!</h1>
-    <h3>Please enter your name.</h3>
-    <p v-if="!validateName">Enter your name</p>
-    <input type="text" v-model="name" required placeholder="Your Name"> <br>
-    <button type="button" @click="updateUser" :disabled="!validateName">Submit</button>
+    <h1 style="text-align:center">One more step!</h1>
+    <h3 style="text-align:center">Please enter your name.</h3>
+    <p style="text-align:center" v-if="!validateName">Enter your name</p>
+    <input style="text-align:center" type="text" v-model="name" required placeholder="Your Name"> <br><br>
+    <button class="subm" type="button" @click="updateUser" :disabled="!validateName">Submit</button>
   </modal>
+  <br>
 </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import ActiveEventList from '../components/ActiveEventList'
-import '../assets/css/tablestyle.css'
 import HeadHome from '../components/HeadHome'
 
 export default {
@@ -72,12 +72,17 @@ export default {
   }
 }
 </script>
-<style media="screen" >
+<style media="screen" scoped>
 body {
   background-color: #ffa000 !important;
 }
-.content{
+@import '../assets/css/tablestyle.css';
+.reg-mo {
   text-align: center;
+  opacity: 0.9;
+}
+.content{
+
 }
 /* table{
   background-color: white;
@@ -94,9 +99,9 @@ tr:hover{
 table, th, td {
     border: 1px solid black !important;
 } */
-#SignoutBt{
+#SignoutBt, .subm {
   font-weight: bold;
-  background-color: pink;
+  background-color: #ffa000;
   color: rgba(255,255,255,1);
   width: 30%;
   height: 50px;
@@ -190,6 +195,9 @@ table, th, td {
     height: 364px !important;
     width: 100% !important;
   }
+}
+.v--modal-box.v--modal {
+  width: 100% !important;
 }
 
 </style>

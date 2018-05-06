@@ -1,12 +1,13 @@
 <template>
   <div>
     <HeadHome />
+    <TabEventHome />
     <!-- <ShowTimeline /> -->
     <EventMinorDetails />
     <!-- <MileStone v-if="milestoneView"/> -->
-    <!-- <EventDetails :priority="isOwner || isPriorized"/> -->
-    <RequestList :priority="isOwner || isPriorized"/>
-    <StaffManager :priority="isOwner || isPriorized"/>
+    <!-- <EventDetails :priority="isOwner || isPriorized" :isFinished="isFinished"/> -->
+    <RequestList :priority="isOwner || isPriorized" v-if="!isFinished"/>
+    <StaffManager :priority="isOwner || isPriorized" v-if="!isFinished"/>
     <!-- <Chatter :isFinished="isFinished"/> -->
     <!-- <button type="button" @click="tellEventID()" name="button">WWWW</button> -->
     <!-- <Flow /> -->
@@ -25,6 +26,7 @@ import { mapActions, mapGetters } from 'vuex'
 import firebase from 'firebase'
 import Flow from '../components/Flow'
 import HeadHome from '../components/HeadHome'
+import TabEventHome from '../components/TabEventHome'
 
 Vue.use(firebase)
 
@@ -54,7 +56,7 @@ export default {
       //   console.log(snapshot.val())
       console.log(this.$route.params.eventId)
     },
-    ...mapActions(['pullEventData', 'resetEventData'])
+    ...mapActions(['pullEventData', 'resetEventData']),
   },
   components: {
     EventMinorDetails,
@@ -63,13 +65,11 @@ export default {
     StaffManager,
     Chatter,
     Flow,
-    HeadHome
+    HeadHome,
+    TabEventHome
   }
 }
 </script>
 
 <style scoped>
-body {
-  background-color: #484848 !important;
-}
 </style>

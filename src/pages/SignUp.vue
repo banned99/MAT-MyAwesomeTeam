@@ -1,18 +1,27 @@
 <template>
-  <div>
-    <form @submit.prevent="signUp">
-      <h2>Sign Up</h2>
-      <ul class="errors">
-        <li v-show="!validateForm.email">Please provide a valid email address.</li>
-        <li v-show="!validateForm.password">Password length must longer than 6.</li>
-        <li v-show="!validateForm.confirmpass">Password and Confirm Password must equal.</li>
-      </ul>
-      <label>Email: </label> <input type="text" v-model="email"> <br>
-      <label>Password: </label> <input v-model="pass" type="password" /> <br>
-      <label>Confirm Password: </label> <input type="password" v-model="confirmpass"> <br>
-      <button type="submit">Sign Up</button> <br>
-      <label>Already have an account?</label> <router-link to="/signin">Sign in here!</router-link>
-    </form>
+  <div class="signUp-page">
+    <!-- Ewwwwwwww -->
+    <div class="main-agileits">
+    	<h2 class="sub-head">Sign Up</h2>
+    		<div class="sub-main">
+    			<form @submit.prevent="signUp">
+            <ul class="errors">
+              <li v-show="!validateForm.email">Please provide a valid email address.</li>
+              <li v-show="!validateForm.password">Password length must longer than 6.</li>
+              <li v-show="!validateForm.confirmpass">Password and Confirm Password must equal.</li>
+            </ul><br>
+    				<input placeholder="Email" name="mail" class="mail" type="text" v-model="email" required="">
+    					<span class="icon4"><i class="fa fa-envelope" aria-hidden="true"></i></span><br>
+    				<input  placeholder="Password" name="Password" class="pass" v-model="pass" type="password" required="">
+    					<span class="icon5"><i class="fa fa-unlock" aria-hidden="true"></i></span><br>
+    				<input  placeholder="Confirm Password" name="Password" class="pass" type="password" v-model="confirmpass" required="">
+    					<span class="icon6"><i class="fa fa-unlock" aria-hidden="true"></i></span><br>
+    				<input type="submit" value="sign up"><br>
+            <label>Already have an account?</label> <router-link class="textLink" to="/signin">Sign in here!</router-link><br>
+    			</form>
+    		</div>
+    		<div class="clear"></div>
+    </div>
   </div>
 </template>
 
@@ -57,7 +66,15 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+@import '../assets/css/styleSignup.css';
+.textLink {
+  color: red;
+}
+.textLink:hover {
+  color: white;
+}
+.signUp-page {
+  color: white;
+}
 </style>
-
