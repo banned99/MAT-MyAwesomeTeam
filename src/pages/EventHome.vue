@@ -1,6 +1,7 @@
 <template>
   <div>
     <HeadHome />
+<<<<<<< HEAD
     <div class="WrapTab">
     <vue-tabs>
      <v-tab title="Info">
@@ -71,8 +72,7 @@ export default {
       //   console.log(snapshot.val())
       console.log(this.$route.params.eventId)
     },
-    ...mapActions(['pullEventData', 'getEventDate', 'resetEventData']),
-    ...mapActions(['pullEventData', 'resetEventData'])
+    ...mapActions(['pullEventData', 'resetEventData']),
   },
   components: {
     EventMinorDetails,

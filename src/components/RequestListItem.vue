@@ -23,13 +23,14 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getDisplayName', 'getEventToken', 'getEventName', 'getEventDate'])
+    ...mapGetters(['getDisplayName', 'getEventToken', 'getEventName', 'getEventDate', 'getEventJoinRequests'])
   },
   methods: {
     ...mapActions(['acceptToJoinRequest', 'declineToJoinRequest', 'addEventFromJoin']),
     acceptRequest: function () {
+      let index = this.getEventJoinRequests.indexOf(this.getEventJoinRequests.find(element => this.request.requester.uid === element.requester.uid))
       this.acceptToJoinRequest({
-        index: this.index,
+        index: index,
         response: {
           by: this.getDisplayName,
           status: 'accepted',
@@ -47,8 +48,9 @@ export default {
       })
     },
     declineRequest: function () {
+      let index = this.getEventJoinRequests.indexOf(this.getEventJoinRequests.find(element => this.request.requester.uid === element.requester.uid))
       this.declineToJoinRequest({
-        index: this.index,
+        index: index,
         response: {
           by: this.getDisplayName,
           status: 'declined',
@@ -60,7 +62,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .card {
   display: inline-block;
   border: 1px solid black;

@@ -11,7 +11,7 @@
     <input style="text-align:center" type="text" v-model="name" required placeholder="Your Name"> <br><br>
     <button class="subm" type="button" @click="updateUser" :disabled="!validateName">Submit</button>
   </modal>
-   <br>
+  <br>
 </div>
 </template>
 
