@@ -34,6 +34,10 @@ export default {
 </script>
 
 <style>
+@font-face {
+  font-family: awesome;
+  src: url('assets/fonts/fontawesome-webfont.woff');
+}
 body {
   margin: 0;
 }

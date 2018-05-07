@@ -1,11 +1,12 @@
 <template>
-  <div>
-    <h2>Chat</h2>
+  <div >
+    <h2 class="head-chat">Chat</h2>
     <ul id="chatHistory">
       <ChatTextHistory v-for="message in getChatHistory" :key="message.key" :message="message"/>
     </ul>
     <div v-if="!isFinished">
-      <textarea v-model="textMessage" type="text" autocomplete="off"/> <button @click="send">Send</button>
+      <textarea class="inputtext" v-model="textMessage" type="text" autocomplete="off"/>
+      <button class="send-button" @click="send">Send</button>
     </div>
   </div>
 </template>
@@ -46,5 +47,20 @@ export default {
 </script>
 
 <style>
-
+  #chatHistory {
+    height: 300px;
+    width: 100%;
+    overflow: auto;
+  }
+  .inputtext {
+    color: #000;
+    resize: none;
+  }
+  .head-chat {
+    font-size: 2rem;
+    font-weight: 100;
+  }
+  .send-button {
+    color: #000;
+  }
 </style>

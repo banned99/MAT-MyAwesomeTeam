@@ -36,6 +36,7 @@ export default {
   height: 45px;
   background-color: #212121;
   text-align: justify;
+  z-index: 1;
 }
 .wrap {
   text-align: center;

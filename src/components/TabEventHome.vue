@@ -1,16 +1,17 @@
 <template lang="html">
   <div class="WrapTab">
-    <vue-tabs>
-   <v-tab title="First tab">
+  <vue-tabs>
+   <v-tab title="Info">
      First tab content
    </v-tab>
 
-   <v-tab title="Second tab">
-     Second tab content
+   <v-tab title="Chat">
    </v-tab>
 
-   <v-tab title="Third tab">
-     Third tab content
+   <v-tab title="Flow">
+     <Flow />
+   </v-tab>
+   <v-tab title="Team Manage">
    </v-tab>
 </vue-tabs>
   </div>
@@ -18,15 +19,10 @@
 
 <script>
 export default {
+  components: {
+  }
 }
 </script>
 
 <style lang="css" scoped>
-.WrapTab {
-  width: 100%;
-  height: 400px;
-}
-.page1 {
-  color: white;
-}
 </style>

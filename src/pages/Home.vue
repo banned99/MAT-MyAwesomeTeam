@@ -131,7 +131,7 @@ table, th, td {
   width: 100%;
 }
 
-.modal-mask {
+/* .modal-mask {
   position: fixed;
   z-index: 9998;
   top: 0;
@@ -198,6 +198,8 @@ table, th, td {
 }
 .v--modal-box.v--modal {
   width: 100% !important;
+} */
+th {
+  text-align:center;
 }
-
 </style>

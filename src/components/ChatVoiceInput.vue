@@ -2,8 +2,8 @@
 <div id="voice" v-if="!isFinished">
   <div id="audioContainer" style="display: none;" ></div>
   <div id="streamController">
-    <button @mousedown="startRec" @mouseup="endRec">Push to talk</button>
-    <button @click="mute">Mute Sound</button>
+    <p class="bt" @mousedown="startRec" @mouseup="endRec">&#xf130;</p>
+    <button class="bt" @click="mute">Mute Sound</button>
   </div>
 </div>
 </template>
@@ -117,6 +117,14 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+  .bt {
+    display: block;
+    font-family: awesome;
+    color: #fff;
+  }
+  .bt:hover {
+    cursor:pointer;
+    color: rgba(255,255,255,0.8);
+  }
 </style>

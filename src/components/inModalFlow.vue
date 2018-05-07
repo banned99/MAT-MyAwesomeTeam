@@ -30,7 +30,6 @@ export default {
 }
 </script>
 <style rel="stylesheet" type="text/css" scoped>
- @import '../assets/css/bootstrap.css';
  body{
    background-color: rgba(255, 0, 0, 0.5)!important;
  }

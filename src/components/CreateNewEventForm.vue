@@ -26,7 +26,7 @@
     </form>
   </div> -->
 
-  <div class="eiei1">
+  <div class="wrap-big">
     <modal name="formCreate" class="modal-ah">
       <form @submit.prevent="createClick" class="formfull">
         <div class="form--field">
@@ -136,11 +136,13 @@ export default {
 </script>
 
 <style scoped>
-.eiei1 {
+.wrap-big {
   display: inline;
 }
 .formfull {
+  color: #000;
   width: 100% !important;
+  margin-left: auto;
 }
 .add-product {
   transition: all 0.3s ease;
@@ -360,4 +362,5 @@ a {
     width: 100% !important;
   }
 }
+/*Modal*/
 </style>

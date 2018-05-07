@@ -40,9 +40,24 @@ export default {
     return {
       items: [
         {
-          tag: '30-09-2018 24:50',
-          content: 'EIEIasd',
+          tag: '30-09-2018 06:30',
+          content: 'ตื่นนอนตอนเช้า',
           color: '#f00'
+        },
+        {
+          tag: '30-09-2018 07:30',
+          content: 'ออกกำลังกายยามเช้า',
+          color: '#f0f'
+        },
+        {
+          tag: '30-09-2018 08:30',
+          content: 'รับประทานอาหารเช้า',
+          color: '#ff0'
+        },
+        {
+          tag: '30-09-2018 09:30',
+          content: 'กิจกรรมนันทนาการ',
+          color: '#0ff'
         }
       ],
       date: '',

@@ -18,7 +18,8 @@
     					<span class="icon6"><i class="fa fa-unlock" aria-hidden="true"></i></span><br>
     				<input type="submit" value="sign up"><br>
             <label>Already have an account?</label> <router-link class="textLink" to="/signin">Sign in here!</router-link><br>
-    			</form>
+            <div class="empty-space"></div>
+          </form>
     		</div>
     		<div class="clear"></div>
     </div>
@@ -76,5 +77,9 @@ export default {
 }
 .signUp-page {
   color: white;
+}
+.empty-space {
+  width: auto;
+  height: 60px;
 }
 </style>

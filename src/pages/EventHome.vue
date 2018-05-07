@@ -1,15 +1,31 @@
 <template>
   <div>
     <HeadHome />
-    <TabEventHome />
-    <!-- <ShowTimeline /> -->
-    <EventMinorDetails />
-    <!-- <MileStone v-if="milestoneView"/> -->
-    <EventDetails :priority="isOwner || isPriorized" :isFinished="isFinished"/>
-    <RequestList :priority="isOwner || isPriorized" v-if="!isFinished"/>
-    <StaffManager :priority="isOwner || isPriorized" v-if="!isFinished"/>
-    <Chatter :isFinished="isFinished"/>
+    <div class="WrapTab">
+    <vue-tabs>
+     <v-tab title="Info">
+       <!-- <ShowTimeline /> -->
+       <EventMinorDetails />
+       <!-- <MileStone v-if="milestoneView"/> -->
+       <EventDetails :priority="isOwner || isPriorized" :isFinished="isFinished"/>
+       <RequestList :priority="isOwner || isPriorized" v-if="!isFinished"/>
+       <StaffManager :priority="isOwner || isPriorized" v-if="!isFinished"/>
+     </v-tab>
 
+     <v-tab title="Chat">
+       <Chatter :isFinished="isFinished"/>
+     </v-tab>
+     <v-tab title="Flow">
+       <Flow />
+     </v-tab>
+     <v-tab title="Team Manage">
+       <!--Team Manage-->
+     </v-tab>
+     <v-tab title="Milestone">
+       <!--Milestone-->
+     </v-tab>
+  </vue-tabs>
+    </div>
   </div>
 </template>
 
@@ -72,4 +88,11 @@ export default {
 </script>
 
 <style scoped>
+.WrapTab {
+  width: 100%;
+  height: 400px;
+}
+.vue-tabs .nav > li {
+  width: 20%;
+}
 </style>
