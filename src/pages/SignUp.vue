@@ -9,6 +9,7 @@
               <li v-show="!validateForm.email">Please provide a valid email address.</li>
               <li v-show="!validateForm.password">Password length must longer than 6.</li>
               <li v-show="!validateForm.confirmpass">Password and Confirm Password must equal.</li>
+              <li v-if="!!getAuthError">{{ getAuthError }}</li>
             </ul><br>
     				<input placeholder="Email" name="mail" class="mail" type="text" v-model="email" required="">
     					<span class="icon4"><i class="fa fa-envelope" aria-hidden="true"></i></span><br>
@@ -27,7 +28,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 var emailRE = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
@@ -41,6 +42,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['getAuthError']),
     validateForm: function () {
       return {
         email: emailRE.test(this.email),

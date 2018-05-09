@@ -46,12 +46,17 @@ export default {
       type: String
     }
   },
+  computed: {
+    validateTeamName () {
+      return this.team
+    }
+  },
   methods: {
     ...mapActions(['editTeam', 'updateJoinedEventTeam', 'deleteTeam']),
     editATeam () {
       if (confirm('Are you sure to UPDATE this team? This action cannot be undone')) {
         this.editTeam({index: this.index, data: {newTeamName: this.newTeamName, newTeamDesc: this.newTeamDesc}})
-        this.updateJoinedEventTeam({index: this.index, data: {newTeamName: this.newTeamName}})
+        this.updateJoinedEventTeam({teamName: this.newTeamName, eventId: this.$route.params.eventId, role: this.team.members.find((member) => member.user.uid === this.getUserUID).user.role})
       }
     },
     cancel () {
@@ -62,7 +67,7 @@ export default {
     deleteATeam () {
       if (confirm('Are you sure to DELETE this team? This action cannot be undone')) {
         this.deleteTeam(this.index)
-        this.updateJoinedEventTeam({index: this.index, data: {newTeamName: 'unassigned'}})
+        this.updateJoinedEventTeam({teamName: 'unassigned', data: {newTeamName: 'unassigned'}})
       }
     }
   },
