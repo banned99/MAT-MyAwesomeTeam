@@ -124,6 +124,9 @@ const mutations = {
   },
   updateStaffTeam: (state, payload) => {
     state.event.staffs[payload.index].team = {name: payload.name, role: payload.role}
+  },
+  deleteEventTeam: (state, payload) => {
+    delete state.event.teams[payload]
   }
 }
 
@@ -430,27 +433,73 @@ const actions = {
       .update({name: payload.name, role: 'Head'}).then(() => {
         commit('updateStaffTeam', {name: payload.name.toLowerCase(), role: 'Head', index: staffIndex})
       }).catch(err => console.log(err))
-  // },
-  // editTeam ({commit}, payload) {
-  //   firebase.database().ref('events')
-  //     .child(state.currentEventToken)
-  //     .child('teams')
-  //     .child(payload.index).update({
-  //       name: payload.newTeamName,
-  //       desc: payload.newTeamDesc
-  //     })
-  // },
-  // deleteTeam ({commit}, payload) {
-  //   let temp = state.event.teams[payload.index].members
-  //   firebase.database().ref('events')
-  //     .child(state.currentEventToken)
-  //     .child('teams')
-  //     .child(payload.index).delete().then(() => {
-  //       commit('deleteEventTeam', payload.index)
-  //       commit('addStaffsToTeam', {index: payload.index, staffs: temp})
-  //       firebase.database().ref('events')
-  //         .child(state.currentEventToken).child('teams').child('unassigned/members').set(state.event.teams.unassigned.members)
-  //     })
+  },
+  editTeam ({commit}, payload) {
+    firebase.database().ref('events')
+      .child(state.currentEventToken)
+      .child('teams')
+      .child(payload.data.newTeamName)
+      .set({
+        desc: payload.data.newTeamDesc,
+        members: state.event.teams[payload.index].members ? state.event.teams[payload.index].members : []
+      }).then(() => {
+        commit('addEventTeam', {
+          name: payload.data.newTeamName,
+          data: {
+            desc: payload.data.newTeamDesc,
+            members: state.event.teams[payload.index].members ? state.event.teams[payload.index].members : []
+          }
+        })
+      })
+    state.event.teams[payload.index].members.forEach(member => {
+      let index = state.event.staffs.indexOf(state.event.staffs.find(el => member.user.uid === el.uid))
+      console.log(index)
+      firebase.database().ref('events')
+        .child(state.currentEventToken)
+        .child('staffs')
+        .child(index)
+        .child('team')
+        .update({name: payload.data.newTeamName})
+        .then(() => {
+          commit('updateStaffTeam', {name: payload.data.newTeamName, role: member.role, index: index})
+        })
+    })
+    firebase.database().ref('events')
+      .child(state.currentEventToken)
+      .child('teams')
+      .child(payload.index)
+      .remove().then(() => {
+        firebase.database().ref('events')
+          .child(state.currentEventToken)
+          .child('teams')
+          .once('value', snapshot => {
+            commit('setEventTeams', snapshot.val())
+          })
+      })
+  },
+  deleteTeam ({commit}, payload) {
+    console.log(payload)
+    let members = state.event.teams[payload].members ? state.event.teams[payload].members : []
+    firebase.database().ref('events')
+      .child(state.currentEventToken)
+      .child('teams')
+      .child(payload).remove().then(() => {
+        commit('deleteEventTeam', payload)
+      })
+    members.forEach((member) => {
+      let index = state.event.staffs.indexOf(state.event.staffs.find(el => el.uid === member.user.uid))
+      firebase.database().ref('events')
+        .child(state.currentEventToken)
+        .child('staffs')
+        .child(index)
+        .child('team')
+        .update({
+          name: 'unassigned',
+          role: 'Member'
+        }).then(() => {
+          commit('updateStaffTeam', {name: 'unassigned', role: 'Member', index: index})
+        })
+    })
   }
 }
 

@@ -14,6 +14,7 @@
         <option v-for="staff in getUnassignedStaffs" :key="staff.key" :value="staff.uid">{{ staff.displayName }}</option>
       </select>
       <button type="button" @click="addNewTeam()" :disabled="!isValid">Submit</button>
+      <button type="button" @click="cancelAddTeam()">Cancel</button>
     </modal>
     <button @click="showAddTeamModal()">Add Team</button>
   </div>
@@ -55,7 +56,7 @@ export default {
     hideModal () {
       this.$modal.hide('addTeamModal')
     },
-    cancel () {
+    cancelAddTeam () {
       this.teamName = ''
       this.desc = ''
       this.head = ''
@@ -64,7 +65,7 @@ export default {
     addNewTeam () {
       this.addTeam({name: this.teamName, data: {desc: this.desc, head: this.head}})
       this.updateJoinedEventTeam({teamName: this.teamName, role: 'Head', eventId: this.$route.params.eventId})
-      this.cancel()
+      this.cancelAddTeam()
     }
   },
   components: {

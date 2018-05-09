@@ -186,17 +186,19 @@ const actions = {
       }).catch(err => console.log(err.message))
   },
   updateJoinedEventTeam: ({commit}, payload) => {
-    firebase.database().ref('users')
-      .child(state.user.uid)
-      .child('eventsJoined')
-      .child(payload.eventId)
-      .child('team')
-      .update({
-        name: payload.teamName,
-        role: payload.role
-      }).then(() => {
-        commit('changeTeam', {team: payload.teamName, role: payload.role, eventId: payload.eventId})
-      })
+    payload.members.forEach((member) => {
+      firebase.database().ref('users')
+        .child(member.user.uid)
+        .child('eventsJoined')
+        .child(payload.eventId)
+        .child('team')
+        .update({
+          name: payload.teamName,
+          role: member.role
+        }).then(() => {
+          commit('changeTeam', {team: payload.teamName, role: member.role, eventId: payload.eventId})
+        })
+    })
   }
 }
 
