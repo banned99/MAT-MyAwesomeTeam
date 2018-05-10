@@ -194,9 +194,9 @@ const actions = {
         .child('team')
         .update({
           name: payload.teamName,
-          role: member.role
+          role: payload.role ? payload.role : member.role
         }).then(() => {
-          commit('changeTeam', {team: payload.teamName, role: member.role, eventId: payload.eventId})
+          commit('changeTeam', {team: payload.teamName, role: payload.role ? payload.role : member.role, eventId: payload.eventId})
         })
     })
   }

@@ -63,8 +63,11 @@ export default {
       this.hideModal()
     },
     addNewTeam () {
+      let members = []
+      let member = {user: {uid: this.head}}
+      members.push(member)
       this.addTeam({name: this.teamName, data: {desc: this.desc, head: this.head}})
-      this.updateJoinedEventTeam({teamName: this.teamName, role: 'Head', eventId: this.$route.params.eventId})
+      this.updateJoinedEventTeam({teamName: this.teamName, role: 'Head', eventId: this.$route.params.eventId, members})
       this.cancelAddTeam()
     }
   },
