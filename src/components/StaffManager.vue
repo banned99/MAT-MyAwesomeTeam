@@ -4,7 +4,6 @@
     <TeamTable v-for="(team, index) in getEventTeams" :key="team.key" :team="team" :index="index"/>
     <UnassignedTeamTable />
     <modal name="addTeamModal" :clickToClose="true">
-<<<<<<< HEAD
       <div class="modal-addstaff">
         <h1>Add new Team</h1>
         <h3>Enter team name.</h3>
@@ -13,19 +12,6 @@
         <label>Team Description: </label><textarea class="txt-des" v-model="desc" placeholder="Team Description"></textarea><br>
         <button type="button" @click="addNewTeam()" :disabled="!validateName">Submit</button>
       </div>
-=======
-      <h1>Add new Team</h1>
-      <p v-if="!validateName.teamName">Enter team name!</p>
-      <p v-if="!validateName.exist">This team is already exists</p>
-      <label>Team Name: </label><input type="text" v-model="teamName" required placeholder="Team Name"> <br>
-      <label>Team Description: </label><textarea v-model="desc" placeholder="Team Description"></textarea><br>
-      <label>Select Team Head</label>
-      <select v-model="head">
-        <option v-for="staff in getUnassignedStaffs" :key="staff.key" :value="staff.uid">{{ staff.displayName }}</option>
-      </select>
-      <button type="button" @click="addNewTeam()" :disabled="!isValid">Submit</button>
-      <button type="button" @click="cancelAddTeam()">Cancel</button>
->>>>>>> 32401d70885122bcd15b43a6430b54238675618e
     </modal>
     <button @click="showAddTeamModal()">Add Team</button>
   </div>

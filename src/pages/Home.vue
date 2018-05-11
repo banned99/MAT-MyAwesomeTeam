@@ -12,6 +12,7 @@
     <button class="subm" type="button" @click="updateUser" :disabled="!validateName">Submit</button>
   </modal>
   <br>
+  <Tltest />
 </div>
 </template>
 
@@ -19,6 +20,7 @@
 import { mapActions, mapGetters } from 'vuex'
 import ActiveEventList from '../components/ActiveEventList'
 import HeadHome from '../components/HeadHome'
+import Tltest from '../components/Tltest'
 
 export default {
   name: 'home',
@@ -68,7 +70,8 @@ export default {
   },
   components: {
     ActiveEventList,
-    HeadHome
+    HeadHome,
+    Tltest
   }
 }
 </script>
@@ -199,7 +202,7 @@ table, th, td {
 .v--modal-box.v--modal {
   width: 100% !important;
 } */
-th {
+th * {
   text-align:center;
 }
 </style>

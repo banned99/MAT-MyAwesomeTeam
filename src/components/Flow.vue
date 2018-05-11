@@ -20,6 +20,7 @@
           <label>Event Description</label>
           <textarea class="form--element textarea" v-model="desc" placeholder="Description">
           </textarea>
+
         </div>
         <div class="div-bt">
           <button type="submit" class="submit-button" @click="random($event)">Create</button>
@@ -41,22 +42,33 @@ export default {
       items: [
         {
           tag: '30-09-2018 06:30',
-          content: 'ตื่นนอนตอนเช้า',
+          content: 'ตื่นนอนตอนเช้ากิจกรรมนันทนาการกิจกรรมนันทนาการกิจกรรมนันทนาการ',
+          contents: 'eiei',
           color: '#f00'
         },
         {
           tag: '30-09-2018 07:30',
-          content: 'ออกกำลังกายยามเช้า',
+          content: 'ออกกำลังกายยามเช้ากิจกรรมนันทนาการกิจกรรมนันทนาการกิจกรรมนันทนาการ',
           color: '#f0f'
         },
         {
           tag: '30-09-2018 08:30',
-          content: 'รับประทานอาหารเช้า',
+          content: 'รับประทานอาหารเช้ากิจกรรมนันทนาการกิจกรรมนันทนาการกิจกรรมนันทนาการ',
           color: '#ff0'
         },
         {
           tag: '30-09-2018 09:30',
-          content: 'กิจกรรมนันทนาการ',
+          content: 'กิจกรรมนันทนาการกิจกรรมนันทนาการกิจกรรมนันทนาการกิจกรรมนันทนาการ',
+          color: '#0ff'
+        },
+        {
+          tag: '30-09-2018 09:30',
+          content: 'กิจกรรมนันทนาการกิจกรรมนันทนาการกิจกรรมนันทนาการกิจกรรมนันทนาการ',
+          color: '#0ff'
+        },
+        {
+          tag: '30-09-2018 09:30',
+          content: 'กิจกรรมนันทนาการกิจกรรมนันทนาการกิจกรรมนันทนาการกิจกรรมนันทนาการ',
           color: '#0ff'
         }
       ],
@@ -100,7 +112,7 @@ export default {
   margin:auto !important;
   width: 90%;
   height: 400px;
-  overflow: auto;
+  overflow: scroll;
 }
 .item-tag,.item-content{
   color: white !important;

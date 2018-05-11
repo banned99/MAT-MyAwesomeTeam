@@ -14,7 +14,7 @@
           <option v-for="name in getTeamNames" :key="name.key" :value="name">{{ name[0].toUpperCase() + name.substr(1) }}</option>
         </select>
       </td>
-      <td>Priority: 
+      <td>Priority:
         <select name="prio">
           <option value="true">Yes</option>
           <option value="false">No</option>

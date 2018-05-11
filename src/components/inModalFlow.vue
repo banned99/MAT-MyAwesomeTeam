@@ -7,7 +7,6 @@
 
 <script>
 import datePicker from 'vue-bootstrap-datetimepicker'
-import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css'
 
 export default {
   name: 'inmodalflow',
@@ -30,7 +29,10 @@ export default {
 }
 </script>
 <style rel="stylesheet" type="text/css" scoped>
- body{
-   background-color: rgba(255, 0, 0, 0.5)!important;
- }
+body{
+  background-color: rgba(255, 0, 0, 0.5)!important;
+}
+  @import '../assets/css/bootstrap.css';
+  @import '../../node_modules/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css';
+
 </style>

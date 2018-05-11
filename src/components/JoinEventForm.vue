@@ -30,9 +30,9 @@
     </form>
   </div> -->
 
-  <div class="eiei">
+  <div class="WrapJoin">
     <modal name="formJoin">
-      <form @submit.prevent class="ei">
+      <form @submit.prevent class="formJoin">
         <div class="form--field">
           <label>Event Token *</label>
           <input type="text" class="form--element" v-model="token" placeholder="Token" required="" autofocus>
@@ -154,13 +154,13 @@ export default {
 <style scoped>
 /* @import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 @import '../../node_modules/bootstrap-vue/dist/bootstrap-vue.css'; */
-.eiei {
+.WrapJoin {
   display: inline;
 }
  .v--modal-box{
   background-color: #fff3e0 !important;
 }
-.ei {
+.formJoin {
   text-align: center;
   margin-top: 10px;
   overflow: auto;
