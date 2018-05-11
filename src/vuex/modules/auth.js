@@ -84,6 +84,9 @@ const actions = {
   resetAuthState: ({commit}) => {
     commit('setLoginState', false)
     commit('setAuthState', {})
+  },
+  clearAuthError ({commit}) {
+    commit('setAuthError', '')
   }
 }
 

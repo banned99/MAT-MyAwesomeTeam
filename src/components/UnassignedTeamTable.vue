@@ -6,6 +6,7 @@
       <th>Name</th>
       <th>Options</th>
     </tr>
+<<<<<<< HEAD
     <tr v-if="!!getUnassignedStaffs" v-for="staff in getUnassignedStaffs" :key="staff.key">
       <td>{{ staff.displayName }}</td>
       <td>Team
@@ -24,6 +25,9 @@
         <button>Submit</button>
       </td>
     </tr>
+=======
+    <UnassignedTeamTableRow v-if="!!getUnassignedStaffs" v-for="staff in getUnassignedStaffs" :key="staff.uid" :staff="staff"/>
+>>>>>>> af40beb660adc421356841f6405591810a773bd5
     <tr v-if="!getUnassignedStaffs || getUnassignedStaffs.length < 1">
       <td colspan="6">------ No Unassigned Staffs ------</td>
     </tr>
@@ -33,11 +37,15 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import UnassignedTeamTableRow from '../components/UnassignedTeamTableRow'
 
 export default {
   name: 'unassignedteamtable',
   computed: {
-    ...mapGetters(['getUnassignedStaffs', 'getTeamNames'])
+    ...mapGetters(['getUnassignedStaffs'])
+  },
+  components: {
+    UnassignedTeamTableRow
   }
 }
 </script>

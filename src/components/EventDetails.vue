@@ -8,8 +8,8 @@
     </div>
     <div>
       <label>Description</label>
-      <p v-show="!editing && getEvent.desc !== ''">{{ getEvent.desc }}</p>
-      <p v-show="!editing && getEvent.desc === ''">------- No description. -------</p>
+      <p v-if="!editing && !!getEvent.desc.trim()">{{ getEvent.desc }}</p>
+      <p v-if="!editing && !getEvent.desc.trim()">------- No description. -------</p>
       <textarea v-model="event.desc" cols="30" rows="10" v-show="editing" ></textarea>
     </div>
     <div>
@@ -31,11 +31,11 @@
     </div>
     <div>
       <label>Total Staffs</label>
-      {{ getEvent.staffs.length }}
+      {{ Object.keys(getEvent.staffs).length }}
     </div>
     <div>
       <label>Total Teams</label>
-      {{ Object.keys(getEvent.teams).length }}
+      {{ getEvent.teams ? Object.keys(getEvent.teams).length : 0 }}
     </div><br>
     <div v-if="!isFinished">
       <button @click="toggleEdit" v-show="!editing">Edit</button>
@@ -102,6 +102,7 @@ export default {
           this.deleteJoinedEvents({
             token: this.getEventToken
           })
+          this.$router.replace('home')
         }
       }
     },

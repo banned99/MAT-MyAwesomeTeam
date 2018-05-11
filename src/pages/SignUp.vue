@@ -41,6 +41,9 @@ export default {
       confirmpass: ''
     }
   },
+  beforeDestroy () {
+    this.clearAuthError()
+  },
   computed: {
     ...mapGetters(['getAuthError']),
     validateForm: function () {
@@ -58,7 +61,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['userSignUp']),
+    ...mapActions(['userSignUp', 'clearAuthError']),
     signUp: function () {
       this.userSignUp({
         email: this.email,

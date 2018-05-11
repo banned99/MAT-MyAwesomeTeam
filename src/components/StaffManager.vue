@@ -6,11 +6,16 @@
     <modal name="addTeamModal" :clickToClose="true">
       <div class="modal-addstaff">
         <h1>Add new Team</h1>
-        <h3>Enter team name.</h3>
-        <p v-if="!validateName">Enter team name!</p>
+        <p v-if="!validateName.teamName">Enter team name!</p>
+        <p v-if="!validateName.exist">This team is already exists</p>
         <label>Team Name: </label><input type="text" class="txt-name" v-model="teamName" required placeholder="Team Name"> <br>
         <label>Team Description: </label><textarea class="txt-des" v-model="desc" placeholder="Team Description"></textarea><br>
-        <button type="button" @click="addNewTeam()" :disabled="!validateName">Submit</button>
+        <label>Select Team Head</label>
+        <select v-model="head">
+          <option v-for="staff in getUnassignedStaffs" :key="staff.key" :value="staff.uid">{{ staff.displayName }}</option>
+        </select>
+        <button type="button" @click="addNewTeam()" :disabled="!isValid">Submit</button>
+        <button type="button" @click="cancelAddTeam()">Cancel</button>
       </div>
     </modal>
     <button @click="showAddTeamModal()">Add Team</button>

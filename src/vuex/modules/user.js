@@ -105,6 +105,11 @@ const actions = {
       commit('setImgUrl', data.imgUrl)
       commit('setInvites', data.invites)
     })
+
+    firebase.database().ref('users').child(state.user.uid).on('child_changed', snapshot => {
+      // console.log('set' + snapshot.key[0].toUpperCase() + snapshot.key.slice(1), snapshot.val())
+      commit('set' + snapshot.key[0].toUpperCase() + snapshot.key.slice(1), snapshot.val())
+    })
   },
   updateDisplayName: ({commit}, payload) => {
     firebase.database().ref('users').child(state.user.uid).child('displayName').set(payload.name)
@@ -186,6 +191,7 @@ const actions = {
       }).catch(err => console.log(err.message))
   },
   updateJoinedEventTeam: ({commit}, payload) => {
+    console.log(payload)
     payload.members.forEach((member) => {
       firebase.database().ref('users')
         .child(member.user.uid)
@@ -199,6 +205,28 @@ const actions = {
           commit('changeTeam', {team: payload.teamName, role: payload.role ? payload.role : member.role, eventId: payload.eventId})
         })
     })
+  },
+  updateTeam: ({commit}, payload) => {
+    firebase.database().ref('users')
+      .child(payload.uid)
+      .child('eventsJoined')
+      .child(payload.eventId)
+      .child('team')
+      .update({
+        name: payload.team,
+        role: payload.role
+      }).then(() => {
+        commit('changeTeam', {team: payload.team, role: payload.role, eventId: payload.eventId})
+      })
+  },
+  leaveEvent ({commit}, payload) {
+    firebase.database().ref('users')
+      .child(payload.uid)
+      .child('eventsJoined')
+      .child(payload.eventId)
+      .remove().then(() => {
+        commit('removeEventsJoined', {token: payload.eventId})
+      })
   }
 }
 
