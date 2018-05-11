@@ -9,7 +9,6 @@
        <!-- <MileStone v-if="milestoneView"/> -->
        <EventDetails :priority="isOwner || isPriorized" :isFinished="isFinished"/>
        <RequestList :priority="isOwner || isPriorized" v-if="!isFinished"/>
-
      </v-tab>
 
      <v-tab title="Chat">

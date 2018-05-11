@@ -10,7 +10,7 @@
       <input type="text" v-model="newTeamName" placeholder="Team Name"> <br>
       <input type="text" v-model="newTeamDesc" placeholder="Team Description"> <br>
       <button @click="editATeam()">Confirm</button>
-      <button @click="cancel()">Cancel</button>
+      <button @click="cancelEditTeam()">Cancel</button>
     </div>
     <table>
       <tr>
@@ -57,7 +57,7 @@
 
 <script>
 import TeamTableRow from '../components/TeamTableRow'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'TeamTable',
@@ -78,15 +78,22 @@ export default {
       type: String
     }
   },
+  computed: {
+    ...mapGetters(['getUserUID']),
+    validateTeamName () {
+      return this.team
+    }
+  },
   methods: {
     ...mapActions(['editTeam', 'updateJoinedEventTeam', 'deleteTeam']),
     editATeam () {
       if (confirm('Are you sure to UPDATE this team? This action cannot be undone')) {
         this.editTeam({index: this.index, data: {newTeamName: this.newTeamName, newTeamDesc: this.newTeamDesc}})
-        this.updateJoinedEventTeam({index: this.index, data: {newTeamName: this.newTeamName}})
+        this.updateJoinedEventTeam({teamName: this.newTeamName, eventId: this.$route.params.eventId, members: this.team.members})
       }
+      this.cancelEditTeam()
     },
-    cancel () {
+    cancelEditTeam () {
       this.newTeamName = ''
       this.newTeamDesc = ''
       this.editing = false
@@ -94,8 +101,9 @@ export default {
     deleteATeam () {
       if (confirm('Are you sure to DELETE this team? This action cannot be undone')) {
         this.deleteTeam(this.index)
-        this.updateJoinedEventTeam({index: this.index, data: {newTeamName: 'unassigned'}})
+        this.updateJoinedEventTeam({teamName: 'unassigned', eventId: this.$route.params.eventId, members: this.team.members})
       }
+      this.cancelEditTeam()
     }
   },
   components: {

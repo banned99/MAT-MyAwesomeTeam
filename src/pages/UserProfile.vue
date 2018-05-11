@@ -24,16 +24,19 @@ import HeadHome from '../components/HeadHome'
 
 export default {
   name: 'userprofile',
-  data: () => {
+  data () {
     return {
       name: '',
       editing: false
     }
   },
+  mounted () {
+    this.name = this.getDisplayName
+  },
   computed: {
     ...mapGetters(['getDisplayName']),
     validateName () {
-      return !!this.name.trim()
+      return !!this.name.trim() && !this.name === this.getDisplayName
     }
   },
   methods: {
@@ -86,8 +89,8 @@ body, html {
   border-radius: 4px;
   border: 0px;
   background-color:#ffa000 ;
-  width: 60px;
-  height: 20px;
+  /* width: 60px;
+  height: 20px; */
   color:#000;
   font-size: 15px;
 }

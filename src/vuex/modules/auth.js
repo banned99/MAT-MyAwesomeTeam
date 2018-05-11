@@ -3,7 +3,8 @@ import router from '../../router'
 
 const state = {
   isLoggedIn: false,
-  auth: {}
+  auth: {},
+  error: ''
 }
 
 const mutations = {
@@ -12,6 +13,9 @@ const mutations = {
   },
   setAuthState: (state, payload) => {
     state.auth = payload
+  },
+  setAuthError: (state, payload) => {
+    state.error = payload
   }
 }
 
@@ -21,7 +25,8 @@ const getters = {
   },
   getLoginState: (state) => {
     return state.isLoggedIn
-  }
+  },
+  getAuthError: state => state.error
 }
 
 const actions = {
@@ -36,23 +41,25 @@ const actions = {
           invites: []
         }
         firebase.database().ref('users').child(user.uid).set(newUser)
+        commit('setAuthError', '')
         // commit('setLoginState', true)
         // commit('setAuthState', user)
         router.push('/home')
       })
       .catch((err) => {
-        console.log(err.message)
+        commit('setAuthError', err.message)
       })
   },
   userEmailSignIn: ({commit, dispatch}, payload) => {
     firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
       .then((user) => {
+        commit('setAuthError', '')
         // commit('setLoginState', true)
         // commit('setAuthState', user)
         router.push('/home')
       })
       .catch((err) => {
-        console.log(err.message)
+        commit('setAuthError', err.message)
       })
   },
   userSignOut: ({commit, dispatch}) => {

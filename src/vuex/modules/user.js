@@ -37,6 +37,9 @@ const mutations = {
   },
   addInvites: (state, payload) => {
     state.user.invites = payload
+  },
+  changeTeam: (state, payload) => {
+    state.user.eventsJoined[payload.eventId].team = {name: payload.team, role: payload.role}
   }
 }
 
@@ -57,7 +60,7 @@ const getters = {
     return state.user.invites
   },
   getActiveEvents: (state) => {
-    let obj = state.user.eventsJoined
+    let obj = state.user.eventsJoined ? state.user.eventsJoined : {}
     let arr = Object.keys(obj).filter((k) => new Date().getTime() < new Date(obj[k].date.end).getTime())
     let active = {}
     arr.forEach(element => {
@@ -181,16 +184,22 @@ const actions = {
       .then(() => {
         console.log(payload.request.requester.name + '\'s joined events updated')
       }).catch(err => console.log(err.message))
+  },
+  updateJoinedEventTeam: ({commit}, payload) => {
+    payload.members.forEach((member) => {
+      firebase.database().ref('users')
+        .child(member.user.uid)
+        .child('eventsJoined')
+        .child(payload.eventId)
+        .child('team')
+        .update({
+          name: payload.teamName,
+          role: payload.role ? payload.role : member.role
+        }).then(() => {
+          commit('changeTeam', {team: payload.teamName, role: payload.role ? payload.role : member.role, eventId: payload.eventId})
+        })
+    })
   }
-  // updateJoinedEventTeam: ({commit}, payload) => {
-  //   firebase.database().ref('users')
-  //     .child('eventsJoined')
-  //     .child(payload.eventToken)
-  //     .child('team')
-  //     .update({
-  //       name: payload.data.newTeamName
-  //     })
-  // }
 }
 
 export default {

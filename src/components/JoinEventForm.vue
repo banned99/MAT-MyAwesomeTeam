@@ -35,7 +35,7 @@
       <form @submit.prevent class="ei">
         <div class="form--field">
           <label>Event Token *</label>
-          <input type="text" class="form--element" v-model="token" placeholder="Token" required="">
+          <input type="text" class="form--element" v-model="token" placeholder="Token" required="" autofocus>
         </div>
         <button @click="searchByToken" class="submit-button" :disabled="!checkToken">Search</button>
         <div v-if="attemptSearch === true">
@@ -155,14 +155,14 @@ export default {
 /* @import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 @import '../../node_modules/bootstrap-vue/dist/bootstrap-vue.css'; */
 .eiei {
-  display:inline;
+  display: inline;
 }
  .v--modal-box{
   background-color: #fff3e0 !important;
 }
 .ei {
   text-align: center;
-  margin-top:100px;
+  margin-top: 10px;
   overflow: auto;
 }
 .add-product {

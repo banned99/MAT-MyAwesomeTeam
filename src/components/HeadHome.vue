@@ -16,7 +16,13 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
+  name: 'headhome',
+  computed: {
+    ...mapGetters(['getUserUID'])
+  },
   methods: {
     toHome: function () {
       this.$router.push('/home')

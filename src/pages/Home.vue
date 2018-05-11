@@ -81,9 +81,9 @@ body {
   text-align: center;
   opacity: 0.9;
 }
-.content{
+/* .content{
 
-}
+} */
 /* table{
   background-color: white;
   margin: auto;

@@ -11,6 +11,10 @@
     			<h1>Login</h1>
     			<div class="login-top">
     			<form @submit.prevent="signIn">
+            <ul class="errors">
+              <li v-show="!validateForm.email">Please provide a valid email address.</li>
+              <li v-if="!!getAuthError">{{ getAuthError }}</li>
+            </ul><br>
     				<div class="login-ic">
     					<i ></i>
     					<input type="text" v-model="email" placeholder="example@example.com" >
@@ -34,7 +38,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import '../assets/css/style.css'
 
 var emailRE = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -48,6 +52,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['getAuthError']),
     validateForm: function () {
       return {
         email: emailRE.test(this.email),
