@@ -216,7 +216,6 @@ const actions = {
       let data = snapshot.val()
       commit('setEventToken', payload)
       Object.keys(data).forEach(element => {
-        console.log(element, data[element])
         commit('setEvent' + element[0].toUpperCase() + element.slice(1), data[element])
       })
     }).catch(err => console.log(err.message))
@@ -306,7 +305,6 @@ const actions = {
     firebase.database().ref('events').child(payload).once('value', (snapshot) => {
       let data = snapshot.val()
       if (data) {
-        console.log('data not null')
         commit('setSearchResult', {
           name: data.name,
           date: data.date,
@@ -316,7 +314,6 @@ const actions = {
           requests: !data.requests ? [] : data.requests
         })
       } else {
-        console.log('Null')
         commit('setSearchResult', null)
       }
     })
@@ -432,8 +429,7 @@ const actions = {
     templates.teamMemberTemplate.user.name = staffValue.displayName
     templates.teamTemplate.data.members = []
     templates.teamTemplate.data.members.push(templates.teamMemberTemplate)
-
-    console.log(templates.teamTemplate)
+    templates.teamTemplate.data.lastMemberIndex = 1
 
     firebase.database().ref('events')
       .child(state.currentEventToken)
@@ -495,7 +491,7 @@ const actions = {
       })
   },
   deleteTeam ({commit}, payload) {
-    let members = state.event.teams[payload].members ? state.event.teams[payload].members : []
+    let membersValue = state.event.teams[payload].members ? Object.values(state.event.teams[payload].members) : []
     firebase.database().ref('events')
       .child(state.currentEventToken)
       .child('teams')
@@ -508,42 +504,60 @@ const actions = {
             commit('setEventTeams', snapshot.val())
           })
       })
-    members.forEach((member) => {
-      let index = state.event.staffs.indexOf(state.event.staffs.find(el => el.uid === member.user.uid))
+    membersValue.forEach((member) => {
+      let staffValue = Object.values(state.event.staffs).indexOf(Object.values(state.event.staffs).find(el => el.uid === member.user.uid))
+      let staffIndex = Object.keys(state.event.staffs)[staffValue]
       firebase.database().ref('events')
         .child(state.currentEventToken)
         .child('staffs')
-        .child(index)
+        .child(staffIndex)
         .child('team')
         .update({
           name: 'unassigned',
           role: 'Member'
         }).then(() => {
-          commit('updateStaffTeam', {name: 'unassigned', role: 'Member', index: index})
+          commit('updateStaffTeam', {name: 'unassigned', role: 'Member', index: staffIndex})
         })
     })
   },
   assignToTeam ({commit}, payload) {
-    let member = state.event.staffs.find(member => member.uid === payload.uid)
-    let index = state.event.staffs.indexOf(member)
+    // let member = Object.values(state.event.staffs).find(member => member.uid === payload.uid)
+    // let index = state.event.staffs.indexOf(member)
+    let staffValue = Object.values(state.event.staffs).find(user => {
+      if (user) {
+        return user.uid === payload.uid
+      }
+    })
+    let staffValueIndex = Object.values(state.event.staffs).indexOf(staffValue)
+    let staffIndex = Object.keys(state.event.staffs)[staffValueIndex]
+
     firebase.database().ref('events')
       .child(state.currentEventToken)
       .child('staffs')
-      .child(index)
+      .child(staffIndex)
       .update({priority: payload.prio, team: {name: payload.team, role: payload.role}})
       .then(() => {
-        commit('updateStaffTeam', {name: payload.team, role: payload.role, index: index})
+        commit('updateStaffTeam', {name: payload.team, role: payload.role, index: staffIndex})
       })
 
-    templates.teamMemberTemplate.user.name = member.displayName
+    templates.teamMemberTemplate.user.name = staffValue.displayName
     templates.teamMemberTemplate.user.uid = payload.uid
     templates.teamMemberTemplate.role = payload.role
 
     var teamIndex = -1
+    var valueIndex
     if (payload.type === 'updateStaff') {
-      let teamMember = state.event.teams[payload.team].members.find(member => member.user.uid === payload.uid)
-      teamIndex = state.event.teams[payload.team].members.indexOf(teamMember)
+      console.log('update')
+      let teamMember = Object.values(state.event.teams[payload.team].members).find(member => {
+        if (member) {
+          return member.user.uid === payload.uid
+        }
+      })
+      valueIndex = Object.values(state.event.teams[payload.team].members).indexOf(teamMember)
+      // teamIndex = state.event.teams[payload.team].members.indexOf(teamMember)
+      teamIndex = Object.keys(state.event.teams[payload.team].members)[valueIndex]
     } else {
+      console.log('add')
       teamIndex = state.event.teams[payload.team].lastMemberIndex
     }
 
@@ -566,21 +580,34 @@ const actions = {
       })
   },
   unassignFromTeam ({commit}, payload) {
-    let member = state.event.staffs.find(member => member.uid === payload.uid)
-    let index = state.event.staffs.indexOf(member)
+    // let member = state.event.staffs.find(member => member.uid === payload.uid)
+    // let index = state.event.staffs.indexOf(member)
+    let staffValue = Object.values(state.event.staffs).find(user => {
+      if (user) {
+        return user.uid === payload.uid
+      }
+    })
+    let staffValueIndex = Object.values(state.event.staffs).indexOf(staffValue)
+    let staffIndex = Object.keys(state.event.staffs)[staffValueIndex]
 
     firebase.database().ref('events')
       .child(state.currentEventToken)
       .child('staffs')
-      .child(index)
+      .child(staffIndex)
       .update({priority: 'false', team: {name: 'unassigned', role: 'Member'}})
       .then(() => {
-        commit('updateStaffTeam', {index: index, name: 'unassigned', role: 'Member'})
+        // commit('updateStaffTeam', {index: index, name: 'unassigned', role: 'Member'})
       })
 
-    console.log(state.event.teams[payload.team].members)
-    let teamMember = Object.values(state.event.teams[payload.team].members).findIndex(member => { if (member) return member.user.uid === payload.uid })
-    let teamIndex = Object.keys(state.event.teams[payload.team].members)[teamMember]
+    var teamIndex = -1
+    var valueIndex
+    let teamMember = Object.values(state.event.teams[payload.team].members).find(member => {
+      if (member) {
+        return member.user.uid === payload.uid
+      }
+    })
+    valueIndex = Object.values(state.event.teams[payload.team].members).indexOf(teamMember)
+    teamIndex = Object.keys(state.event.teams[payload.team].members)[valueIndex]
     firebase.database().ref('events')
       .child(state.currentEventToken)
       .child('teams')

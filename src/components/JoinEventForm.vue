@@ -109,7 +109,7 @@ export default {
   computed: {
     ...mapGetters(['getSearchResult', 'getUserUID', 'getDisplayName']),
     alreadyJoin: function () {
-      return !!this.getSearchResult.staffs.find(element => element.uid === this.getUserUID)
+      return !!Object.values(this.getSearchResult.staffs).find(element => element.uid === this.getUserUID)
     },
     alreadyRequest: function () {
       return !!this.getSearchResult.requests.find(element => element.requester.uid === this.getUserUID)

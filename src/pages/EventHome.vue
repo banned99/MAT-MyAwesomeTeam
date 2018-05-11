@@ -4,9 +4,7 @@
     <div class="WrapTab">
     <vue-tabs>
      <v-tab title="Info">
-       <!-- <ShowTimeline /> -->
        <!-- <EventMinorDetails /> -->
-       <!-- <MileStone v-if="milestoneView"/> -->
        <EventDetails :priority="isOwner || isPriorized" :isFinished="isFinished"/>
        <RequestList :priority="isOwner || isPriorized" v-if="!isFinished"/>
      </v-tab>
@@ -65,11 +63,6 @@ export default {
     }
   },
   methods: {
-    tellEventID: function () {
-      // firebase.database().ref('events/' + this.$route.params.eventId).on('value', function(snapshot)) {
-      //   console.log(snapshot.val())
-      console.log(this.$route.params.eventId)
-    },
     ...mapActions(['pullEventData', 'resetEventData'])
   },
   components: {
