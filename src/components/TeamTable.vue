@@ -18,7 +18,7 @@
         <th>Role</th>
         <th colspan="5">Options</th>
       </tr>
-      <TeamTableRow v-for="member in team.members" :key="member.key" :member="member"/>
+      <TeamTableRow v-if="member !== undefined" v-for="member in team.members" :key="member.key" :member="member" :teamName="index"/>
     </table> 
   </div>
 </template>
@@ -69,7 +69,7 @@ export default {
     deleteATeam () {
       if (confirm('Are you sure to DELETE this team? This action cannot be undone')) {
         this.deleteTeam(this.index)
-        this.updateJoinedEventTeam({teamName: 'unassigned', eventId: this.$route.params.eventId, members: this.team.members})
+        this.updateJoinedEventTeam({teamName: 'unassigned', eventId: this.$route.params.eventId, members: this.team.members ? this.team.members : []})
       }
       this.cancelEditTeam()
     }

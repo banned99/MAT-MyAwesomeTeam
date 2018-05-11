@@ -3,7 +3,8 @@
     <h1>{{ getEventName }}</h1>
     <div>
       <label>Description</label>
-      <p>{{ getEventDesc }}</p>
+      <p v-if="getEventDesc">{{ getEventDesc }}</p>
+      <p v-if="!getEventDesc">------ No Description ------</p>
     </div>
     <div v-if="getEventDate">
       <label>Date</label>
