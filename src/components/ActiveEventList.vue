@@ -59,4 +59,8 @@ export default {
 tr {
   border-left: 1px solid black;
 }
+tr:hover {
+  background-color: rgba(255,255,255,0.1);
+  cursor: pointer;
+}
 </style>

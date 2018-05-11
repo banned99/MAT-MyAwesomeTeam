@@ -4,6 +4,16 @@
     <TeamTable v-for="(team, index) in getEventTeams" :key="team.key" :team="team" :index="index"/>
     <UnassignedTeamTable />
     <modal name="addTeamModal" :clickToClose="true">
+<<<<<<< HEAD
+      <div class="modal-addstaff">
+        <h1>Add new Team</h1>
+        <h3>Enter team name.</h3>
+        <p v-if="!validateName">Enter team name!</p>
+        <label>Team Name: </label><input type="text" class="txt-name" v-model="teamName" required placeholder="Team Name"> <br>
+        <label>Team Description: </label><textarea class="txt-des" v-model="desc" placeholder="Team Description"></textarea><br>
+        <button type="button" @click="addNewTeam()" :disabled="!validateName">Submit</button>
+      </div>
+=======
       <h1>Add new Team</h1>
       <p v-if="!validateName.teamName">Enter team name!</p>
       <p v-if="!validateName.exist">This team is already exists</p>
@@ -15,6 +25,7 @@
       </select>
       <button type="button" @click="addNewTeam()" :disabled="!isValid">Submit</button>
       <button type="button" @click="cancelAddTeam()">Cancel</button>
+>>>>>>> 32401d70885122bcd15b43a6430b54238675618e
     </modal>
     <button @click="showAddTeamModal()">Add Team</button>
   </div>
@@ -78,6 +89,18 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.modal-addstaff {
+  text-align: center;
+}
+.txt-des {
+  resize: none;
+}
+.txt-name {
+  width: 80px;
 
+}
+h1 {
+  color: white;
+}
 </style>

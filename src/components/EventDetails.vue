@@ -123,7 +123,11 @@ export default {
 }
 </script>
 
-<style type="text/css">
-body{
+<style type="text/css" scoped>
+* {
+  color: white;
+}
+button {
+  color: black!important;
 }
 </style>

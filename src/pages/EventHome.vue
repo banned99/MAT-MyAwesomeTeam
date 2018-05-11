@@ -5,7 +5,7 @@
     <vue-tabs>
      <v-tab title="Info">
        <!-- <ShowTimeline /> -->
-       <EventMinorDetails />
+       <!-- <EventMinorDetails /> -->
        <!-- <MileStone v-if="milestoneView"/> -->
        <EventDetails :priority="isOwner || isPriorized" :isFinished="isFinished"/>
        <RequestList :priority="isOwner || isPriorized" v-if="!isFinished"/>
@@ -92,5 +92,8 @@ export default {
 }
 .vue-tabs .nav > li {
   width: 20%;
+}
+button {
+  color: black!important;
 }
 </style>

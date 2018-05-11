@@ -22,3 +22,8 @@ export default {
   }
 }
 </script>
+<style media="screen" scoped>
+  p,h2 {
+    color: white;
+  }
+</style>

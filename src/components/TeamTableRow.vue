@@ -99,6 +99,12 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+a {
+  color: white;
+}
+a:hover {
+  color: rgba(255, 0, 0, 0.5);
+  cursor: pointer;
+}
 </style>
