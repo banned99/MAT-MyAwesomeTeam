@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div v-if="!editing">
+  <div class="page-team">
+    <!-- <div v-if="!editing">
       <label>{{ index[0].toUpperCase() + index.substring(1) }}</label>
       <p>{{ team.desc }}</p>
       <button @click="editing = true">Edit</button>
@@ -19,7 +19,39 @@
         <th colspan="5">Options</th>
       </tr>
       <TeamTableRow v-for="member in team.members" :key="member.key" :member="member"/>
-    </table> 
+    </table> -->
+    <div v-if="!editing">
+      <label>{{ index[0].toUpperCase() + index.substring(1) }}</label>
+      <p>{{ team.desc }}</p>
+      <button @click="editing = true">Edit</button>
+      <button @click="deleteATeam()">Delete</button>
+    </div>
+    <div v-if="editing">
+      <input type="text" v-model="newTeamName" placeholder="Team Name"> <br>
+      <input type="text" v-model="newTeamDesc" placeholder="Team Description"> <br>
+      <button @click="editATeam()">Confirm</button>
+      <button @click="cancel()">Cancel</button>
+    </div>
+    <div class="tbl-header">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <thead>
+          <tr class="headTr">
+              <th>Name</th>
+              <th>Role</th>
+              <th>Option</th>
+              <th>Option</th>
+          </tr>
+        </thead>
+        </table>
+    </div>
+    <div class="tbl-content">
+      <table cellpadding="0" cellspacing="0" border="0">
+    <tbody>
+      <TeamTableRow v-for="member in team.members" :key="member.key" :member="member"/>
+    </tbody>
+  </table>
+  </div>
+
   </div>
 </template>
 
@@ -72,6 +104,9 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+@import '../assets/css/tablestyle.css';
+.page-team {
+  text-align: center;
+}
 </style>

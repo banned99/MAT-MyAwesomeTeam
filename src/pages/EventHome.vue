@@ -1,16 +1,15 @@
 <template>
   <div>
     <HeadHome />
-<<<<<<< HEAD
     <div class="WrapTab">
     <vue-tabs>
      <v-tab title="Info">
        <!-- <ShowTimeline /> -->
-       <EventMinorDetails />
+       <!-- <EventMinorDetails /> -->
        <!-- <MileStone v-if="milestoneView"/> -->
        <EventDetails :priority="isOwner || isPriorized" :isFinished="isFinished"/>
        <RequestList :priority="isOwner || isPriorized" v-if="!isFinished"/>
-       <StaffManager :priority="isOwner || isPriorized" v-if="!isFinished"/>
+
      </v-tab>
 
      <v-tab title="Chat">
@@ -20,7 +19,7 @@
        <Flow />
      </v-tab>
      <v-tab title="Team Manage">
-       <!--Team Manage-->
+       <StaffManager :priority="isOwner || isPriorized" v-if="!isFinished"/>
      </v-tab>
      <v-tab title="Milestone">
        <!--Milestone-->
@@ -72,7 +71,7 @@ export default {
       //   console.log(snapshot.val())
       console.log(this.$route.params.eventId)
     },
-    ...mapActions(['pullEventData', 'resetEventData']),
+    ...mapActions(['pullEventData', 'resetEventData'])
   },
   components: {
     EventMinorDetails,
@@ -94,5 +93,8 @@ export default {
 }
 .vue-tabs .nav > li {
   width: 20%;
+}
+button {
+  color: black!important;
 }
 </style>
