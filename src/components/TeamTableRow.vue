@@ -3,42 +3,27 @@
     <td>{{ member.user.name }}</td>
     <td>{{ member.role }}</td>
     <td v-if="!editing"><button @click="editing = true">Edit</button></td>
-<<<<<<< HEAD
     <td v-if="editing">Team:
-      <select name="team">
-        <option v-for="(team, index) in teams" :key="team.key" :value="index">{{ index }}</option>
-      </select>
-    </td>
-    <td v-if="editing">Priority:
-      <select v-model="memberData.prio" name="prio">
-=======
-    <td v-if="editing">Team: 
       <select v-model="team">
         <option :selected="name === teamName" v-for="name in getTeamNames" :key="name.key" :value="name">{{ name[0].toUpperCase() + name.substr(1)  }}</option>
       </select>
     </td>
-    <td v-if="editing">Role: 
+    <td v-if="editing">Role:
       <select v-model="role">
         <option value="Member" selected>Member</option>
         <option value="Sub Head">Sub Head</option>
       </select>
     </td>
-    <td v-if="editing">Priority: 
+    <td v-if="editing">Priority:
       <select v-model="prio">
         <option value="false" selected>No</option>
->>>>>>> af40beb660adc421356841f6405591810a773bd5
         <option value="true">Yes</option>
       </select>
     </td>
     <td v-if="editing"><button :disabled="!isValid || same" @click="updateStaff()">Submit</button></td>
     <td v-if="editing"><button @click="cancel()">Cancel</button></td>
-<<<<<<< HEAD
-    <td v-if="!editing"><button @click="kickThisUser()">Kick</button></td>
-    <td></td>
-=======
     <td v-if="!editing"><button @click="unassign()">Unassign</button></td>
     <td v-if="!editing"><button @click="kickThisUser()">Kick</button></td>
->>>>>>> af40beb660adc421356841f6405591810a773bd5
   </tr>
 </template>
 

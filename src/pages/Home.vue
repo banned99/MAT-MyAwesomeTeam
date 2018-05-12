@@ -12,7 +12,7 @@
     <button class="subm" type="button" @click="updateUser" :disabled="!validateName">Submit</button>
   </modal>
   <br>
-  <Tltest />
+  <!-- <Tltest /> -->
 </div>
 </template>
 
@@ -75,7 +75,7 @@ export default {
   }
 }
 </script>
-<style media="screen" scoped>
+<style type="css" media="screen" scoped>
 body {
   background-color: #ffa000 !important;
 }

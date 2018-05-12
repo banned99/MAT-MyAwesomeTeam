@@ -159,7 +159,10 @@ export default {
 }
 </script>
 
-<style lang="css" scoped="Tltest">
+<style lang="css" type="text/css" scoped>
+body{
+  background-color: rgba(0,0,0,0.5)!important;
+}
 @import '../assets/css/bootstrap.css';
 @import '../assets/css/Flow.css';
 th {
