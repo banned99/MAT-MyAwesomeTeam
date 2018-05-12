@@ -75,9 +75,9 @@ export default {
   }
 }
 </script>
-<style type="css" media="screen" scoped>
+<style type="css" media="screen">
 body {
-  background-color: #ffa000 !important;
+  background-color: #484848 !important;
 }
 @import '../assets/css/tablestyle.css';
 .reg-mo {

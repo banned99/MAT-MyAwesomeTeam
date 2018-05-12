@@ -6,7 +6,7 @@
       </div>
     </light-timeline>
     <modal name='formFlowCreate'>
-      <form @submit.prevent="">
+      <form class="form-window">
         <!-- date start to end -->
         <!-- <div class="form--container -inline">
           <div class="form--field -short">
@@ -154,5 +154,11 @@ outline:none;
 border:2px solid #FF6C2F;
 cursor:pointer;
 text-transform:uppercase;
+}
+.form-window {
+  background-color: #484848;
+}
+.v--modal-box .v--modal{
+  width: 50% !important;
 }
 </style>

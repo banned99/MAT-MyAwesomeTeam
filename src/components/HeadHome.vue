@@ -9,21 +9,27 @@
       <nav class="ham-page">
         <ul class="ham-page page" @click="toHome()">Home</ul>
         <ul class="ham-page page" @click="toProfile()">Profile</ul>
-        <ul class="ham-page page">Sign Out</ul>
+        <ul class="ham-page page" @click="signOut()">Sign Out</ul>
       </nav>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
+
   name: 'headhome',
   computed: {
     ...mapGetters(['getUserUID'])
   },
   methods: {
+    ...mapActions(['userSignOut', 'resetUser']),
+    signOut: function () {
+      this.userSignOut()
+      this.resetUser()
+    },
     toHome: function () {
       this.$router.push('/home')
     },

@@ -5,7 +5,7 @@
       <h2 class="dis-name">{{ getDisplayName }}</h2>
     </div>
     <div class="empty-space"></div>
-    <!-- <img src="../assets/m.png"> <br> -->
+    <img src="../assets/images/m.png"> <br>
     <label class="lb-name">Display Name</label><br>
     <p class="this-name" v-if="!editing">{{ getDisplayName }}</p>
     <input class="inp-name" type="text" v-if="editing" v-model="name">
@@ -113,5 +113,9 @@ body, html {
 }
 .inp-name {
   color: black;
+}
+button:hover {
+  cursor: pointer;
+  background-color: rgba(255,255,255,0.6)
 }
 </style>

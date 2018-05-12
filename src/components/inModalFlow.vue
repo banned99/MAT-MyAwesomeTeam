@@ -28,11 +28,11 @@ export default {
   }
 }
 </script>
-<style rel="stylesheet" type="text/css" scoped>
-body{
-  background-color: rgba(255, 0, 0, 0.5)!important;
-}
-  @import '../assets/css/bootstrap.css';
-  @import '../../node_modules/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css';
+<style rel="stylesheet" type="text/css">
+
+</style>
+<style lang="css" scoped>
+@import '../assets/css/bootstrap.css';
+@import '../../node_modules/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css';
 
 </style>
