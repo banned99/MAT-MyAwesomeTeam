@@ -2,8 +2,8 @@
 <div id="voice" v-if="!isFinished">
   <div id="audioContainer" style="display: none;" ></div>
   <div id="streamController">
-    <p class="bt" @mousedown="startRec" @mouseup="endRec">&#xf130;</p>
-    <button class="bt" @click="mute">Mute Sound</button>
+    <p class="bt" @touchstart="startRec" @touchend="endRec" @mousedown="startRec" @mouseup="endRec">&#xf130;</p>
+    <!-- <button class="bt" @click="mute">Mute Sound</button> -->
   </div>
 </div>
 </template>
@@ -74,16 +74,6 @@ export default {
       if (!audio) return
       audio.parentNode.removeChild(audio)
     }
-
-    this.connection.onmute = function (e) {
-      console.log('change icon to muted')
-      // console.log(e)
-    }
-
-    this.connection.onunmute = function (e) {
-      console.log('change icon to unmuted')
-      // console.log(e)
-    }
   },
   beforeDestroy: function () {
     this.connection.getAllParticipants().forEach((p, index) => {
@@ -96,22 +86,11 @@ export default {
   },
   methods: {
     startRec: function () {
+      console.log(this.connection.streamEvents.selectFirst())
       this.connection.streamEvents.selectFirst().stream.unmute()
     },
     endRec: function () {
       this.connection.streamEvents.selectFirst().stream.mute()
-    },
-    mute: function () {
-      // this.connection.streamEvents.forEach(function (stream) {
-      //   console.log(stream)
-      // })
-      // console.log(this.connection.peers)
-      // console.log(this.connection.peers.getLength())
-      // console.log(this.connection.peers.getAllParticipants())
-      // console.log(this.connection.peers.selectFirst())
-      if (this.soundMuted) this.connection.streamEvents.selectAll('remote').forEach(stream => console.log(stream))
-      else this.connection.streamEvents.selectAll('remote').forEach(stream => console.log(stream))
-      this.soundMuted = !this.soundMuted
     }
   }
 }
