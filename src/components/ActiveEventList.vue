@@ -1,6 +1,6 @@
 <template>
 <div>
-  <h2>Active Events</h2>
+  <h2 class="headtext">Active Events</h2>
   <div class="tbl-header">
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
@@ -27,8 +27,13 @@
   <div class="em-space">
 
   </div>
-  <CreateNewEventForm />
-  <JoinEventForm />
+  <div class="box-button-home">
+    <CreateNewEventForm />
+    <div class="space-bet">
+
+    </div>
+    <JoinEventForm />
+  </div>
 </div>
 </template>
 
@@ -62,5 +67,16 @@ tr {
 tr:hover {
   background-color: rgba(255,255,255,0.1);
   cursor: pointer;
+}
+.headtext {
+  color: white;
+  font-size: 2em;
+}
+.box-button-home {
+  display: block;
+}
+.space-bet {
+  display: inline-block;
+  width: 5%;
 }
 </style>

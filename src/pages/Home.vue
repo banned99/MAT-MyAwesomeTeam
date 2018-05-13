@@ -116,6 +116,10 @@ table, th, td {
   border-radius: 10px;
   border: 0px;
 }
+#SignoutBt:hover {
+  background-color: rgba(255,255,255,0.5);
+  cursor: pointer;
+}
 .add-product{
   display: inline-block;
   position: relative;

@@ -30,7 +30,7 @@
     </form>
   </div> -->
 
-  <div class="WrapJoin">
+  <div class="Wrap">
 
     <!-- <form @submit.prevent class="ei">
       <div class="form--field">
@@ -163,8 +163,9 @@ export default {
 <style scoped>
 /* @import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 @import '../../node_modules/bootstrap-vue/dist/bootstrap-vue.css'; */
-.WrapJoin {
-  display: inline;
+.Wrap {
+  display: inline-block;
+  width: 30%!important;
 }
  .v--modal-box{
   background-color: #fff3e0 !important;
@@ -363,7 +364,7 @@ a {
   font-weight: bold;
   background-color: #ffa000;
   color: rgba(255,255,255,1);
-  width: 30%;
+  width: 100%;
   height: 50px;
   border-radius: 10px;
   border: 0px;

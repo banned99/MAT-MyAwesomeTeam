@@ -26,7 +26,7 @@
     </form>
   </div> -->
 
-  <div class="wrap-big">
+  <div class="wrap">
     <!-- vue-modaltor -->
     <vue-modaltor  :visible="open" @hide="hideModal">
       <form @submit.prevent="createClick" class="formfull">
@@ -146,8 +146,9 @@ export default {
 </script>
 
 <style scoped>
-.wrap-big {
+.wrap {
   display: inline;
+  width: 30%;
 }
 .formfull {
   color: #000;
