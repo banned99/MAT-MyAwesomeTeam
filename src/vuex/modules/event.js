@@ -193,13 +193,13 @@ const actions = {
       acceptBy: 'create',
       team: {
         name: 'event heads',
-        role: 'head'
+        role: 'Head'
       }
     }
     templates.teamTemplate.name = 'event heads'
     templates.teamTemplate.data.desc = 'Event Head Team'
     templates.teamMemberTemplate.user = payload.event.owner
-    templates.teamMemberTemplate.role = 'head'
+    templates.teamMemberTemplate.role = 'Head'
     templates.teamTemplate.data.members[payload.event.owner.uid] = (templates.teamMemberTemplate)
     commit('addEventStaff', templates.staffMemberTemplate)
     commit('addEventTeam', templates.teamTemplate)
