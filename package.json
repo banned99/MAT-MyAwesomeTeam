@@ -23,6 +23,7 @@
     "vue-bootstrap-datetimepicker": "^4.1.3",
     "vue-js-modal": "^1.3.13",
     "vue-light-timeline": "^0.12.8",
+    "vue-modaltor": "^1.2.9",
     "vue-nav-tabs": "^0.5.7",
     "vue-router": "^3.0.1",
     "vuedialog": "^1.0.0",

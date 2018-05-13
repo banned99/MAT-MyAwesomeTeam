@@ -31,36 +31,6 @@
   </div> -->
 
   <div class="WrapJoin">
-    <modal name="formJoin">
-      <form @submit.prevent class="formJoin">
-        <div class="form--field">
-          <label>Event Token *</label>
-          <input type="text" class="form--element" v-model="token" placeholder="Token" required="" autofocus>
-        </div>
-        <button @click="searchByToken" class="submit-button" :disabled="!checkToken">Search</button>
-        <div v-if="attemptSearch === true">
-          <div class="form--field" v-if="getSearchResult !== null">
-            <label>Event Name</label>
-            <p>{{ getSearchResult.name }}</p>
-            <label>Description</label>
-            <p v-if="getSearchResult.desc">{{ getSearchResult.desc }}</p>
-            <p v-else>---- No description ----</p>
-            <label>Event Date</label>
-            <p>{{ getSearchResult.date.start }} to {{ getSearchResult.date.end }}</p>
-            <label>Owner</label>
-            <p>{{ getSearchResult.owner.name }}</p>
-            <p class="cancel" v-if="alreadyJoin">You have already joined this event.</p>
-            <p class="cancel" v-if="alreadyRequest">You have already requested to join this event. Please wait for response.</p>
-            <button @click="requestToJoin" class="submit-button" :disabled="alreadyJoin || alreadyRequest">Submit Request</button>
-          </div>
-          <div class="form--field" v-else>
-            <p>--------- Event not found. Please re-check token. ---------</p>
-          </div>
-        </div>
-        <button id="button-cancel" class="cancel"><span @click="cancel()">Cancel</span></button>
-      </form>
-    </modal>
-    <button type="button" name="button" class="show-joinEvent" @click="show">EVENT JOIN</button>
 
     <!-- <form @submit.prevent class="ei">
       <div class="form--field">
@@ -89,11 +59,42 @@
       </div>
       <button id="button-cancel" class="cancel"><span @click="cancel()">Cancel</span></button>
     </form> -->
+    <vue-modaltor  :visible="open" @hide="hideModal">
+      <form @submit.prevent class="formJoin">
+        <div class="form--field">
+          <label>Event Token *</label>
+          <input type="text" class="form--element" v-model="token" placeholder="Token" required="" autofocus>
+        </div>
+        <button @click="searchByToken" class="submit-button" :disabled="!checkToken">Search</button>
+        <div v-if="attemptSearch === true">
+          <div class="form--field" v-if="getSearchResult !== null">
+            <label>Event Name</label>
+            <p>{{ getSearchResult.name }}</p>
+            <label>Description</label>
+            <p v-if="getSearchResult.desc">{{ getSearchResult.desc }}</p>
+            <p v-else>---- No description ----</p>
+            <label>Event Date</label>
+            <p>{{ getSearchResult.date.start }} to {{ getSearchResult.date.end }}</p>
+            <label>Owner</label>
+            <p>{{ getSearchResult.owner.name }}</p>
+            <p class="cancel" v-if="alreadyJoin">You have already joined this event.</p>
+            <p class="cancel" v-if="alreadyRequest">You have already requested to join this event. Please wait for response.</p>
+            <button @click="requestToJoin" class="submit-button" :disabled="alreadyJoin || alreadyRequest">Submit Request</button>
+          </div>
+          <div class="form--field" v-else>
+            <p>--------- Event not found. Please re-check token. ---------</p>
+          </div>
+        </div>
+        <button id="button-cancel" class="cancel"><span @click="cancel()">Cancel</span></button>
+      </form>
+    </vue-modaltor>
+    <button @click="open=true" class="show-joinEvent">Join Event</button>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import Modals from '../components/Modals'
 
 var tokenRE = /^([0-9]|[a-z])+([0-9a-z]+)$/i
 
@@ -103,7 +104,8 @@ export default {
     return {
       token: '',
       formOpen: false,
-      attemptSearch: false
+      attemptSearch: false,
+      open: false
     }
   },
   computed: {
@@ -146,7 +148,14 @@ export default {
     },
     show () {
       this.$modal.show('formJoin')
+    },
+    hideModal () {
+      this.open = false
+      this.resetForm()
     }
+  },
+  components: {
+    Modals
   }
 }
 </script>

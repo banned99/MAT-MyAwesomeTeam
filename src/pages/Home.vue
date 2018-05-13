@@ -27,7 +27,8 @@ export default {
   data: () => {
     return {
       name: '',
-      user: {}
+      user: {},
+      open: false
     }
   },
   created () {
@@ -58,6 +59,7 @@ export default {
     },
     hideModal () {
       this.$modal.hide('first-login-form')
+      this.open = false
     },
     updateUser: function () {
       this.updateDisplayName({name: this.name})
@@ -66,6 +68,9 @@ export default {
     },
     toProfile: function () {
       this.$router.push('user/' + this.getUserUID)
+    },
+    close () {
+      this.$emit('close')
     }
   },
   components: {
@@ -75,7 +80,7 @@ export default {
   }
 }
 </script>
-<style type="css" media="screen">
+<style lang="css" media="screen">
 body {
   background-color: #484848 !important;
 }

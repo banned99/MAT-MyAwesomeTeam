@@ -34,5 +34,4 @@ export default {
 <style lang="css" scoped>
 @import '../assets/css/bootstrap.css';
 @import '../../node_modules/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css';
-
 </style>

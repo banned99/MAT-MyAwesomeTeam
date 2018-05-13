@@ -5,7 +5,10 @@
 
       </div>
     </light-timeline>
-    <modal name='formFlowCreate'>
+
+    <br>
+    <!-- Show modaltor -->
+    <vue-modaltor  :visible="open" @hide="hideModal">
       <form class="form-window">
         <!-- date start to end -->
         <!-- <div class="form--container -inline">
@@ -24,17 +27,17 @@
         </div>
         <div class="div-bt">
           <button type="submit" class="submit-button" @click="random($event)">Create</button>
-          <button class="cancel" @click="hide">Cancel</button>
+          <button class="cancel" @click="hideModal">Cancel</button>
         </div>
       </form>
-    </modal>
-    <br>
-    <button type="button" name="button" class="log_bt" @click='show'>ADD</button>
+    </vue-modaltor>
+    <button @click="open=true" class="log_bt">ADD</button>
   </div>
 </template>
 
 <script>
 import inModalFlow from '../components/inModalFlow'
+import Modals from '../components/Modals'
 export default {
   name: 'flow',
   data: () => {
@@ -73,7 +76,8 @@ export default {
         }
       ],
       date: '',
-      desc: ''
+      desc: '',
+      open: false
     }
   },
   methods: {
@@ -100,19 +104,25 @@ export default {
       })
       this.date = ''
       this.desc = ''
-      this.$modal.hide('formFlowCreate')
+      this.open = false
+      this.resetForm()
+    },
+    hideModal () {
+      this.open = false
+      this.resetForm()
     }
   },
-  components: { inModalFlow
+  components: { inModalFlow,
+    Modals
   }
 }
 </script>
-<style>
+<style lang="css">
 .line-container{
   margin:auto !important;
   width: 90%;
   height: 400px;
-  overflow: scroll;
+  overflow: auto;
 }
 .item-tag,.item-content{
   color: white !important;
@@ -160,5 +170,17 @@ text-transform:uppercase;
 }
 .v--modal-box .v--modal{
   width: 50% !important;
+}
+ /*Modal*/
+ .modal-wrapper {
+    display: flex;
+    align-items:center;
+    justify-content:center;
+    height:100%;
+}
+
+.modal-container{
+    display:inline-block;
+    width:auto;
 }
 </style>

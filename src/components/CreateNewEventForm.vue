@@ -27,23 +27,24 @@
   </div> -->
 
   <div class="wrap-big">
-    <modal name="formCreate" class="modal-ah">
+    <!-- vue-modaltor -->
+    <vue-modaltor  :visible="open" @hide="hideModal">
       <form @submit.prevent="createClick" class="formfull">
-        <div class="form--field">
+        <div class="form-ev-tt">
           <label>Event Title *</label>
           <input type="text" class="form--element" v-model="event.name" placeholder="Title" required="">
         </div>
-        <div class="form--container -inline">
-          <div class="form--field -short">
+        <div class="form-ev-date">
+          <div class="form-st-date">
             <label>Event Start Date *</label>
-            <input type="date" class="form--element" v-model="event.date.start" placeholder="Start Date" required="" :min="new Date().toISOString()" max="31/12/2999">
+            <input type="date" class="ele" v-model="event.date.start" placeholder="Start Date" required="" :min="new Date().toISOString()" max="31/12/2999">
           </div>
-          <div class="form--field -short">
+          <div class="form-end-date">
             <label>Event End Date *</label>
-            <input type="date" class="form--element" v-model="event.date.end" placeholder="End Date" required="" :min="new Date().toISOString()" max="31/12/2999">
+            <input type="date" class="ele" v-model="event.date.end" placeholder="End Date" required="" :min="new Date().toISOString()" max="31/12/2999">
           </div>
         </div>
-        <div class="form--field">
+        <div class="form-ev-desc">
           <label>Event Description</label>
           <textarea class="form--element textarea" v-model="event.desc" placeholder="Description">
           </textarea>
@@ -53,14 +54,15 @@
           <button class="cancel" @click="cancel()">Cancel</button>
         </div>
       </form>
-    </modal>
-    <button type="button" name="button" class="show-createEvent" @click="show">CREATE EVENT</button>
+    </vue-modaltor>
+  <button @click="open=true" class="show-createEvent">Create Event</button>
   </div>
 
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import Modals from '../components/Modals'
 
 export default {
   name: 'createneweventform',
@@ -87,7 +89,8 @@ export default {
         voiceHistory: [],
         fileHistory: []
       },
-      token: ''
+      token: '',
+      open: false
     }
   },
   created () {
@@ -122,7 +125,7 @@ export default {
       }
     },
     cancel: function () {
-      this.formOpen = false
+      this.open = false
       this.resetForm()
     },
     show () {
@@ -130,7 +133,14 @@ export default {
     },
     hide () {
       this.$modal.hide('formCreate')
+    },
+    hideModal () {
+      this.open = false
+      this.resetForm()
     }
+  },
+  components: {
+    Modals
   }
 }
 </script>
@@ -143,6 +153,7 @@ export default {
   color: #000;
   width: 100% !important;
   margin-left: auto;
+  text-align: center;
 }
 .add-product {
   transition: all 0.3s ease;
@@ -358,8 +369,8 @@ a {
   .modal-ah {
     width: 100% !important;
   }
-  .form--field.-short {
-    width: 100% !important;
+  .formfull{
+    text-align: center;
   }
 }
 /*Modal*/

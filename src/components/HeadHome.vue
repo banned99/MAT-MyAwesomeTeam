@@ -40,7 +40,7 @@ export default {
 }
 </script>
 
-<style lang="css" >
+<style lang="css" scoped>
 .header-bar {
   position: fixed;
   margin-top: -40px;

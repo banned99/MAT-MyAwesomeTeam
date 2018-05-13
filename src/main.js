@@ -11,12 +11,17 @@ import LightTimeline from 'vue-light-timeline'
 import BootstrapVue from 'bootstrap-vue'
 import VueTabs from 'vue-nav-tabs'
 import 'vue-nav-tabs/themes/vue-tabs.css'
+import VueModalTor from 'vue-modaltor'
 
+Vue.use(VueModalTor)
 Vue.use(VModal)
 Vue.use(VueFire)
 Vue.use(LightTimeline)
 Vue.use(BootstrapVue)
 Vue.use(VueTabs)
+Vue.component('modal', {
+  template: '#modal-template'
+})
 
 Vue.config.productionTip = false
 Vue.prototype.$firebase = firebase.initializeApp(firebaseConfig)
