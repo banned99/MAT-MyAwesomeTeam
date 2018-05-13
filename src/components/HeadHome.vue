@@ -95,7 +95,8 @@ export default {
 }
 
 .lb {
-  margin-left: 15px;
+  margin-left: 12px;
+  margin-top: 10px;
 	cursor: pointer;
 	font-size: 2rem;
   color: white;

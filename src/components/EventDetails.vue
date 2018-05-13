@@ -1,6 +1,6 @@
 <template>
   <div id="inPage">
-    <h1>Event Details</h1>
+    <h1 class="Head-detail-page">Event Details</h1>
     <div>
       <label>Event Name</label>
       <p v-show="!editing">{{ getEvent.name }}</p>
@@ -16,20 +16,20 @@
       <label>Date</label>
       <p v-if="!editing">{{ getEvent.date.start }} to {{ getEvent.date.end }}</p>
       <div v-if="editing">
-        <input type="date" v-model="event.date.start" :min="new Date().toISOString()" max="31/12/2099"/>
+        <input class="in-date" type="date" v-model="event.date.start" :min="new Date().toISOString()" max="31/12/2099"/>
         to
-        <input type="date" v-model="event.date.end" :min="new Date().toISOString()" max="31/12/2099" />
+        <input class="in-date" type="date" v-model="event.date.end" :min="new Date().toISOString()" max="31/12/2099" />
       </div>
     </div>
-    <div>
+    <div class="create-date">
       <label>Create Date</label>
       <p>{{ getEvent.createDate }}</p>
     </div>
-    <div>
+    <div class="Owner">
       <label>Owner</label>
       <p>{{ getEvent.owner.name }}</p>
     </div>
-    <div>
+    <div class="total-staff">
       <label>Total Staffs</label>
       {{ Object.keys(getEvent.staffs).length }}
     </div>
@@ -38,10 +38,10 @@
       {{ getEvent.teams ? Object.keys(getEvent.teams).length : 0 }}
     </div><br>
     <div v-if="!isFinished">
-      <button @click="toggleEdit" v-show="!editing">Edit</button>
-      <button @click="attemptDelete" v-show="!editing">Delete</button>
-      <button @click="confirmEdit" v-show="editing">Confirm</button>
-      <button @click="cancelEdit" v-show="editing">Cancel</button>
+      <button class="EvDetails-button" @click="toggleEdit" v-show="!editing">Edit</button>
+      <button class="EvDetails-button" @click="attemptDelete" v-show="!editing">Delete</button>
+      <button class="EvDetails-button" @click="confirmEdit" v-show="editing">Confirm</button>
+      <button class="EvDetails-button" @click="cancelEdit" v-show="editing">Cancel</button>
     </div>
   </div>
 </template>
@@ -124,7 +124,26 @@ export default {
 </script>
 
 <style type="text/css" scoped>
-button {
-  color: black!important;
+.EvDetails-button {
+  font-weight: bold;
+  background-color: #ffa000;
+  color: rgba(255,255,255,1);
+  width: 30%;
+  height: 50px;
+  border-radius: 10px;
+  border: 0px;
 }
+.EvDetails-button:hover {
+  background-color: rgba(255, 255, 255, 1);
+  cursor: pointer;
+  color: black;
+}
+.in-date {
+  width: 45%;
+}
+.Head-detail-page {
+  font-weight: bolder;
+  color: rgba(244,244,244,1);
+}
+
 </style>
