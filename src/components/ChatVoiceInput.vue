@@ -3,6 +3,7 @@
   <div id="audioContainer" style="display: none;" ></div>
   <div id="streamController">
     <button class="bt" @touchstart="startRec" @touchend="endRec" @mousedown="startRec" @mouseup="endRec">&#xf130;</button>
+    <a href="#" @touchstart="startRec" @touchend="endRec" @mousedown="startRec" @mouseup="endRec" class="bt">&#xf130;</a>
   </div>
 </div>
 </template>
@@ -100,6 +101,14 @@ export default {
     display: block;
     font-family: awesome;
     color: #fff;
+    cursor: pointer;
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome and Opera */
   }
   .bt:hover {
     cursor:pointer;
