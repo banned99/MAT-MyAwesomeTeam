@@ -192,7 +192,7 @@ const actions = {
   },
   updateJoinedEventTeam: ({commit}, payload) => {
     console.log(payload)
-    payload.members.forEach((member) => {
+    Object.values(payload.members).forEach((member) => {
       firebase.database().ref('users')
         .child(member.user.uid)
         .child('eventsJoined')

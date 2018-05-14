@@ -1,10 +1,6 @@
 <template lang="html">
   <div class="flow-window">
-    <light-timeline :items='items'>
-      <div class="TEST">
-
-      </div>
-    </light-timeline>
+    <light-timeline :items='items'></light-timeline>
 
     <br>
     <!-- Show modaltor -->
@@ -17,7 +13,9 @@
             <input type="date" class="form--element" v-model="date" placeholder="Start Date" required="" :min="new Date().toISOString()" max="31/12/2999">
           </div>
         </div> -->
-        <inModalFlow v-on:sendConfig="changeDate($event)" />
+        <div class="box">
+          <date-picker v-model="date" :config="config"></date-picker>
+        </div>
         <!-- Description -->
         <div class="form--field">
           <label>Event Description</label>
@@ -36,8 +34,9 @@
 </template>
 
 <script>
-import inModalFlow from '../components/inModalFlow'
+import datePicker from 'vue-bootstrap-datetimepicker'
 import Modals from '../components/Modals'
+
 export default {
   name: 'flow',
   data: () => {
@@ -76,7 +75,11 @@ export default {
       ],
       date: '',
       desc: '',
-      open: false
+      open: false,
+      config: {
+        format: 'DD-MM-YYYY h:mm',
+        useCurrent: false
+      }
     }
   },
   methods: {
@@ -111,12 +114,19 @@ export default {
       this.resetForm()
     }
   },
-  components: { inModalFlow,
+  components: { datePicker,
     Modals
   }
 }
 </script>
-<style lang="css">
+
+<style rel="stylesheet" type="text/css">
+</style>
+
+<style lang="css" scoped>
+@import '../assets/css/bootstrap.css';
+@import '../../node_modules/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css';
+
 .line-container{
   margin:auto !important;
   width: 90%;

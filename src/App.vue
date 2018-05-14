@@ -14,8 +14,6 @@ global.vuex = Vuex
 export default {
   store,
   name: 'app',
-  created () {
-  },
   computed: {
     ...mapGetters(['getAppName'])
     // isAuthenticated () {

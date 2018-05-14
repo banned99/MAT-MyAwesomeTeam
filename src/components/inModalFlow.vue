@@ -1,8 +1,5 @@
 <template lang="html">
-  <div class="box">
-    <date-picker v-model="date" :config="config"></date-picker>
-    <button type="button" v-on:click="sendConfig">SAVE</button>
-  </div>
+
 </template>
 
 <script>
