@@ -45,7 +45,7 @@ export default {
   position: fixed;
   margin-top: -40px;
   width: 100%;
-  height: 45px;
+  height: 3em;
   background-color: #212121;
   text-align: justify;
   z-index: 1;
@@ -95,8 +95,8 @@ export default {
 }
 
 .lb {
-  margin-left: 12px;
-  margin-top: 10px;
+  margin-left: 1em;
+  margin-top: 1.5em;
 	cursor: pointer;
 	font-size: 2rem;
   color: white;
