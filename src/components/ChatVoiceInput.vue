@@ -2,8 +2,7 @@
 <div id="voice" v-if="!isFinished">
   <div id="audioContainer" style="display: none;" ></div>
   <div id="streamController">
-    <p class="bt" @touchstart="startRec" @touchend="endRec" @mousedown="startRec" @mouseup="endRec">&#xf130;</p>
-    <!-- <button class="bt" @click="mute">Mute Sound</button> -->
+    <button class="bt" @touchstart="startRec" @touchend="endRec" @mousedown="startRec" @mouseup="endRec">&#xf130;</button>
   </div>
 </div>
 </template>
