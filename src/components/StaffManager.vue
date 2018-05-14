@@ -3,7 +3,7 @@
     <h1>Manage Team & Staffs</h1>
     <TeamTable v-for="(team, index) in getEventTeams" :key="team.key" :team="team" :index="index"/>
     <UnassignedTeamTable />
-    <modal name="addTeamModal" :clickToClose="true">
+    <vue-modaltor  :visible="open" @hide="hideModal" name="addTeamModal" :clickToClose="true">
       <div class="modal-addstaff">
         <h1>Add new Team</h1>
         <p v-if="!validateName.teamName">Enter team name!</p>
@@ -17,8 +17,8 @@
         <button type="button" @click="addNewTeam()" :disabled="!isValid">Submit</button>
         <button type="button" @click="cancelAddTeam()">Cancel</button>
       </div>
-    </modal>
-    <button @click="showAddTeamModal()">Add Team</button>
+    </vue-modaltor>
+    <button @click="open=true" class="show">ADD</button>
   </div>
 </template>
 
@@ -26,6 +26,7 @@
 import TeamTable from '../components/TeamTable'
 import UnassignedTeamTable from '../components/UnassignedTeamTable'
 import { mapGetters, mapActions } from 'vuex'
+import Modals from '../components/Modals'
 
 export default {
   name: 'staffmanager',
@@ -33,7 +34,8 @@ export default {
     return {
       teamName: '',
       desc: '',
-      head: ''
+      head: '',
+      open: false
     }
   },
   computed: {
@@ -52,11 +54,9 @@ export default {
   },
   methods: {
     ...mapActions(['addTeam', 'updateJoinedEventTeam']),
-    showAddTeamModal () {
-      this.$modal.show('addTeamModal')
-    },
     hideModal () {
-      this.$modal.hide('addTeamModal')
+      this.open = false
+      this.resetForm()
     },
     cancelAddTeam () {
       this.teamName = ''
@@ -75,7 +75,8 @@ export default {
   },
   components: {
     TeamTable,
-    UnassignedTeamTable
+    UnassignedTeamTable,
+    Modals
   }
 }
 </script>

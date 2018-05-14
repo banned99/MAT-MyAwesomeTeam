@@ -42,7 +42,6 @@ import { mapGetters } from 'vuex'
 import ActiveEventListItem from '../components/ActiveEventListItem'
 import CreateNewEventForm from '../components/CreateNewEventForm'
 import JoinEventForm from '../components/JoinEventForm'
-import modalbutton from '../components/modalbutton'
 
 export default {
   name: 'activeeventlist',
@@ -50,7 +49,7 @@ export default {
     ...mapGetters(['getActiveEvents'])
   },
   components: {
-    ActiveEventListItem, CreateNewEventForm, JoinEventForm, modalbutton
+    ActiveEventListItem, CreateNewEventForm, JoinEventForm
   }
 }
 </script>

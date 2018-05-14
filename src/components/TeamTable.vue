@@ -113,8 +113,11 @@ export default {
 </script>
 
 <style scoped>
-@import '../assets/css/tablestyle.css';
+/* @import '../assets/css/tablestyle.css'; */
 .page-team {
+  text-align: center;
+}
+th {
   text-align: center;
 }
 </style>

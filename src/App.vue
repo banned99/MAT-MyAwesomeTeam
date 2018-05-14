@@ -40,6 +40,7 @@ export default {
 }
 body {
   margin: 0;
+  background:url('assets/images/bg.jpg') no-repeat 0% 87% fixed;
 }
 
 #app {

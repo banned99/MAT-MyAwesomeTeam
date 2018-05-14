@@ -6,6 +6,9 @@
         <div class="box">
           <p class="text">M A T</p>
         </div>
+        <div class="event-token">
+          <p class="tokenText">Event ID: {{ getEventID }}</p>
+        </div>
       <nav class="ham-page">
         <ul class="ham-page page" @click="toHome()">Home</ul>
         <ul class="ham-page page" @click="toProfile()">Profile</ul>
@@ -37,7 +40,7 @@ export default {
       this.$router.push('/home')
     },
     toProfile: function () {
-      this.$router.push('user/' + this.getUserUID)
+      this.$router.push('../user/' + this.getUserUID)
     }
   }
 }
@@ -120,5 +123,18 @@ export default {
   animation-duration: 2s;
   margin-left: 0;
   opacity: 0.9;
+}
+.event-token {
+  position: fixed;
+  display: block;
+  text-align: right;
+  width: 25%;
+  height: 10%;
+  top: 1em;
+  right: 2em;
+}
+.tokenText {
+  font-size: 1em;
+  color: white;
 }
 </style>

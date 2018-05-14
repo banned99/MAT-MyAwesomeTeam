@@ -1,6 +1,6 @@
 <template>
   <div>
-    <HeadHome />
+    <HeadEventHome />
     <div class="WrapTab">
     <vue-tabs>
      <v-tab title="Info">
@@ -8,14 +8,13 @@
        <EventDetails :priority="isOwner || isPriorized" :isFinished="isFinished"/>
        <RequestList :priority="isOwner || isPriorized" v-if="!isFinished"/>
      </v-tab>
-
      <v-tab title="Chat">
        <Chatter :isFinished="isFinished"/>
      </v-tab>
      <v-tab title="Flow">
        <Flow />
      </v-tab>
-     <v-tab title="Team Manage">
+     <v-tab title="Manage">
        <StaffManager :priority="isOwner || isPriorized" v-if="!isFinished"/>
      </v-tab>
      <v-tab title="Milestone">
@@ -30,14 +29,13 @@
 import Vue from 'vue'
 import EventMinorDetails from '../components/EventMinorDetails'
 import EventDetails from '../components/EventDetails'
-// import ShowTimeline from '../components/ShowTimeline'
 import Chatter from '../components/Chatter'
 import StaffManager from '../components/StaffManager'
 import RequestList from '../components/RequestList'
 import { mapActions, mapGetters } from 'vuex'
 import firebase from 'firebase'
 import Flow from '../components/Flow'
-import HeadHome from '../components/HeadHome'
+import HeadEventHome from '../components/HeadEventHome'
 import TabEventHome from '../components/TabEventHome'
 import Tltest from '../components/Tltest'
 
@@ -73,7 +71,7 @@ export default {
     StaffManager,
     Chatter,
     Flow,
-    HeadHome,
+    HeadEventHome,
     TabEventHome,
     Tltest
   }

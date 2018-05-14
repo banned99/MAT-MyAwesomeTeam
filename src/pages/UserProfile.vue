@@ -9,7 +9,7 @@
     <label class="lb-name">Display Name</label><br>
     <p class="this-name" v-if="!editing">{{ getDisplayName }}</p>
     <input class="inp-name" type="text" v-if="editing" v-model="name">
-    <p class="fa-cog" @click="toggleEditing" v-if="!editing">&#xf013;</p>
+    <button class="fa-cog" @click="toggleEditing" v-if="!editing">&#xf013;</button>
     <button class="editbt" @click="save" v-if="editing" :disabled="!validateName">Save</button>
     <button class="editbt" @click="cancel" v-if="editing">Cancel</button>
     <div class="empty-space"></div>
