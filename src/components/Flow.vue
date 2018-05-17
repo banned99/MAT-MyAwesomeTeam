@@ -1,22 +1,12 @@
 <template lang="html">
   <div class="flow-window">
-    <light-timeline :items='items'></light-timeline>
-
+    <!-- <light-timeline :items='items'></light-timeline>
     <br>
-    <!-- Show modaltor -->
     <vue-modaltor  :visible="open" @hide="hideModal">
       <form class="form-window">
-        <!-- date start to end -->
-        <!-- <div class="form--container -inline">
-          <div class="form--field -short">
-            <label>Event Start Date *</label>
-            <input type="date" class="form--element" v-model="date" placeholder="Start Date" required="" :min="new Date().toISOString()" max="31/12/2999">
-          </div>
-        </div> -->
         <div class="box">
           <date-picker v-model="date" :config="config"></date-picker>
         </div>
-        <!-- Description -->
         <div class="form--field">
           <label>Event Description</label>
           <textarea class="form--element textarea" v-model="desc" placeholder="Description">
@@ -29,7 +19,78 @@
         </div>
       </form>
     </vue-modaltor>
-    <button @click="open=true" class="log_bt">ADD</button>
+    <button @click="open=true" class="log_bt">ADD</button> -->
+
+    <section id="conference-timeline">
+    <div class="timeline-start">Start</div>
+    <div class="conference-center-line"></div>
+    <div class="conference-timeline-content">
+      <!-- Article -->
+      <div class="timeline-article">
+        <div class="content-left-container">
+          <div class="content-left">
+            <p>When I orbited the Earth in a spaceship, I saw for the first time how beautiful our planet is. Mankind, let us preserve and increase this beauty, and not destroy it! <span class="article-number">01</span></p>
+          </div>
+          <span class="timeline-author">John Doe</span>
+        </div>
+        <div class="content-right-container">
+          <div class="content-right">
+            <p>When I orbited the Earth in a spaceship, I saw for the first time how beautiful our planet is. <span class="article-number">02</span></p>
+          </div>
+          <span class="timeline-author">John Doe</span>
+        </div>
+        <div class="meta-date">
+          <span class="date">18</span>
+          <span class="month">APR</span>
+        </div>
+      </div>
+      <!-- // Article -->
+
+      <!-- Article -->
+      <div class="timeline-article">
+        <div class="content-left-container">
+          <div class="content-left">
+            <p>When I orbited the Earth in a spaceship, I saw for the first time how beautiful our planet is. Mankind, let us preserve and increase this beauty, and not destroy it! <span class="article-number">00:30q</span></p>
+          </div>
+          <span class="timeline-author">John Doe</span>
+        </div>
+        <div class="content-right-container">
+          <div class="content-right">
+            <p>When I orbited the Earth in a spaceship, I saw for the first time how beautiful our planet is. <span class="article-number">02</span></p>
+          </div>
+          <span class="timeline-author">John Doe</span>
+        </div>
+        <div class="meta-date">
+          <span class="date">18</span>
+          <span class="month">APR</span>
+        </div>
+      </div>
+      <!-- // Article -->
+
+      <!-- Article -->
+      <div class="timeline-article">
+        <div class="content-left-container">
+          <div class="content-left">
+            <p>When I orbited the Earth in a spaceship, I saw for the first time how beautiful our planet is. Mankind, let us preserve and increase this beauty, and not destroy it! <span class="article-number">01</span></p>
+          </div>
+          <span class="timeline-author">John Doe</span>
+        </div>
+        <div class="content-right-container">
+          <div class="content-right">
+            <p>When I orbited the Earth in a spaceship, I saw for the first time how beautiful our planet is. <span class="article-number">02</span></p>
+          </div>
+          <span class="timeline-author">John Doe</span>
+        </div>
+        <div class="meta-date">
+          <span class="date">18</span>
+          <span class="month">APR</span>
+        </div>
+      </div>
+      <!-- // Article -->
+    </div>
+    <div class="timeline-end">End</div>
+  </section>
+  <!-- // Vertical Timeline -->
   </div>
 </template>
 
@@ -45,7 +106,6 @@ export default {
         {
           tag: '30-09-2018 06:30',
           content: 'ตื่นนอนตอนเช้ากิจกรรมนันทนาการกิจกรรมนันทนาการกิจกรรมนันทนาการ',
-          contents: 'eiei',
           color: '#f00'
         },
         {
@@ -139,6 +199,7 @@ export default {
   width: 72px !important;
 }
 .flow-window{
+  overflow: auto;
   margin: auto;
   width: 84%;
   height: 400px;
@@ -193,4 +254,7 @@ text-transform:uppercase;
     display:inline-block;
     width:auto;
 }
+</style>
+<style media="screen" scoped>
+  @import '../assets/css/Flow.css'
 </style>

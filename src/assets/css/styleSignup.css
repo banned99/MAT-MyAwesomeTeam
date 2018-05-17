@@ -28,7 +28,6 @@ nav.horizontal ul li{	display: inline-block;}/* horizontal menu */
 img{max-width:100%;}
 /*end reset*/
 body {
-    background:url('../images/bg.jpg') no-repeat 0% 87% fixed;
     background-size: cover;
 	font-family: 'Lato', sans-serif;
 	text-align:center;
@@ -78,7 +77,7 @@ body {
     top: 75px;
 }
 .icon3 {
-	 top: 138px; 
+	 top: 138px;
 }
 .icon4 {
     top: 201px;

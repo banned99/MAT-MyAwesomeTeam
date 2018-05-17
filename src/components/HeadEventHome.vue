@@ -1,41 +1,24 @@
 <template lang="html">
-    <!-- <div class="header-bar">
+  <div class="wrap">
+    <div class="header-bar">
         <label class="lb" for="menu-toggle">☰</label>
         <input class="ip" id="menu-toggle" type="checkbox">
         <div class="box">
           <p class="text">M A T</p>
         </div>
+        <div class="event-token">
+          <p class="tokenText">Event ID: {{ getEventID }}</p>
+        </div>
       <nav class="ham-page">
         <ul class="ham-page page" @click="toHome()">Home</ul>
         <ul class="ham-page page" @click="toProfile()">Profile</ul>
         <ul class="ham-page page" @click="signOut()">Sign Out</ul>
-      </nav> -->
-  <!-- </div> -->
-</template>
-<template>
-  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-    <header class="mdl-layout__header">
-      <!-- <div aria-expanded="false" role="button" tabindex="0" class="mdl-layout__drawer-button">
-        <i class="material-icons">toc</i>
-      </div> -->
-      <div class="mdl-layout__header-row">
-        <span class="mdl-layout-title">CropChat</span>
-      </div>
-    </header>
-    <div class="mdl-layout__drawer">
-      <span class="mdl-layout-title">CropChat</span>
-      <nav class="mdl-navigation">
-        <router-link class="mdl-navigation__link" to="/" @click.native="hideMenu">Home</router-link>
-        <router-link class="mdl-navigation__link" to="/post" @click.native="hideMenu">Post a picture</router-link>
       </nav>
+
     </div>
-    <main class="mdl-layout__content">
-      <div class="page-content">
-        <router-view></router-view>
-      </div>
-    </main>
   </div>
 </template>
+
 <script>
 import { mapGetters, mapActions } from 'vuex'
 
@@ -57,44 +40,13 @@ export default {
       this.$router.push('/home')
     },
     toProfile: function () {
-      this.$router.push('user/' + this.getUserUID)
-    },
-    hideMenu: function () {
-      document.getElementsByClassName('mdl-layout__drawer')[0].classList.remove('is-visible')
-      document.getElementsByClassName('mdl-layout__obfuscator')[0].classList.remove('is-visible')
+      this.$router.push('../user/' + this.getUserUID)
     }
   }
 }
 </script>
-<style>
-  @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
-  @import url('https://code.getmdl.io/1.2.1/material.blue-red.min.css');
-  /* fallback */
-/* @font-face {
-  font-family: 'Material Icons';
-  font-style: normal;
-  font-weight: 400;
-  src: url(https://fonts.gstatic.com/s/materialicons/v37/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2) format('woff2');
-}
 
-.material-icons {
-  font-family: 'Material Icons';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
-  display: inline-block;
-  white-space: nowrap;
-  word-wrap: normal;
-  direction: ltr;
-  -webkit-font-feature-settings: 'liga';
-  -webkit-font-smoothing: antialiased;
-} */
-</style>
 <style lang="css" scoped>
-
 .header-bar {
   position: fixed;
   width: 100%;
@@ -135,6 +87,7 @@ export default {
     margin-top: -30px;
     display: inline;
     width: 100%;
+
 }
 .text {
   width: 60px;
@@ -169,5 +122,18 @@ export default {
   animation-duration: 2s;
   margin-left: 0;
   opacity: 0.9;
+}
+.event-token {
+  position: fixed;
+  display: block;
+  text-align: right;
+  width: 25%;
+  height: 10%;
+  top: 1em;
+  right: 2em;
+}
+.tokenText {
+  font-size: 0.75em;
+  color: white;
 }
 </style>

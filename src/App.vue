@@ -38,6 +38,7 @@ export default {
 }
 body {
   margin: 0;
+  background:url('assets/images/bg.jpg') no-repeat 0% 87% fixed;
 }
 
 #app {
@@ -47,10 +48,10 @@ body {
   color: #2c3e50;
 }
 
-main {
+/* main {
   text-align: center;
   margin-top: 40px;
-}
+} */
 
 /* header {
   margin: 0;
