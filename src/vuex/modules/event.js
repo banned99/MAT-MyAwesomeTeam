@@ -471,8 +471,6 @@ const actions = {
         members: state.event.teams[payload.index].members ? state.event.teams[payload.index].members : []
       })
     Object.values(state.event.teams[payload.index].members).forEach(member => {
-      // let index = state.event.staffs.indexOf(state.event.staffs.find(el => member.user.uid === el.uid))
-      // console.log(index)
       let staffValue = Object.values(state.event.staffs).indexOf(Object.values(state.event.staffs).find(el => el.uid === member.user.uid))
       let staffIndex = Object.keys(state.event.staffs)[staffValue]
       firebase.database().ref('events')
