@@ -18,7 +18,7 @@
        <StaffManager :priority="isOwner || isPriorized" v-if="!isFinished"/>
      </v-tab>
      <v-tab title="Milestone">
-       <Tltest />
+       <Milestone />
      </v-tab>
   </vue-tabs>
     </div>
@@ -37,7 +37,7 @@ import firebase from 'firebase'
 import Flow from '../components/Flow'
 import HeadEventHome from '../components/HeadEventHome'
 import TabEventHome from '../components/TabEventHome'
-import Tltest from '../components/Tltest'
+import Milestone from '../components/Milestone'
 
 Vue.use(firebase)
 
@@ -73,7 +73,7 @@ export default {
     Flow,
     HeadEventHome,
     TabEventHome,
-    Tltest
+    Milestone
   }
 }
 </script>
