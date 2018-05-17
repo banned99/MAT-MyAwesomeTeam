@@ -19,7 +19,8 @@
      </v-tab>
      <v-tab title="Milestone">
        <!-- <Tltest /> -->
-       <MileStoneTest />
+       <!-- <MileStoneTest /> -->
+       <Milestone />
      </v-tab>
   </vue-tabs>
     </div>
@@ -38,6 +39,7 @@ import HeadEventHome from '../components/HeadEventHome'
 import TabEventHome from '../components/TabEventHome'
 import Tltest from '../components/Tltest'
 import MileStoneTest from '../components/MileStoneTest'
+import Milestone from '../components/Milestone'
 
 export default {
   name: 'eventhome',
@@ -72,7 +74,8 @@ export default {
     HeadEventHome,
     TabEventHome,
     Tltest,
-    MileStoneTest
+    MileStoneTest,
+    Milestone
   }
 }
 </script>

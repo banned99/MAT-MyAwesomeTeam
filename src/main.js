@@ -12,9 +12,7 @@ import BootstrapVue from 'bootstrap-vue'
 import VueTabs from 'vue-nav-tabs'
 import 'vue-nav-tabs/themes/vue-tabs.css'
 import VueModalTor from 'vue-modaltor'
-import Material from 'material-design-lite'
 
-Vue.use(Material)
 Vue.use(VueModalTor)
 Vue.use(VModal)
 Vue.use(VueFire)
