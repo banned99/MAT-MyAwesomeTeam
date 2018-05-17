@@ -87,7 +87,7 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-@import '../assets/css/Flow.sass'
+@import '../assets/css/Milestone.sass'
 </style>
 <style lang="css" scoped>
   @import '../assets/css/bootstrap.css';

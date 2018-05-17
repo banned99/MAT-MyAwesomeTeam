@@ -77,7 +77,14 @@ export default {
   }
 }
 </script>
-
+<style media="screen">
+.WrapTab {
+  display: block;
+  position:  fixed;
+  width:  100%;
+  top: 45px;
+  }
+</style>
 <style scoped>
 .WrapTab {
   width: 100%;

@@ -13,14 +13,13 @@ exports.assetsPath = function (_path) {
 
 exports.cssLoaders = function (options) {
   options = options || {}
-
   const cssLoader = {
     loader: 'css-loader',
     options: {
       minimize: process.env.NODE_ENV === 'production',
       sourceMap: options.sourceMap
     }
-  }
+}
 
   // generate loader string to be used with extract text plugin
   function generateLoaders (loader, loaderOptions) {
@@ -48,13 +47,14 @@ exports.cssLoaders = function (options) {
 
   // https://vue-loader.vuejs.org/en/configurations/extract-css.html
   return {
+    sass: generateLoaders('sass', { indentedSyntax: true, includePaths: [path.resolve(__dirname, '../node_modules/compass-mixins/lib')] }),
+    scss: generateLoaders('sass', { includePaths: [path.resolve(__dirname, '../node_modules/compass-mixins/lib')] }),
     css: generateLoaders(),
     postcss: generateLoaders(),
     less: generateLoaders('less'),
-    sass: generateLoaders('sass', { indentedSyntax: true }),
-    scss: generateLoaders('sass'),
     stylus: generateLoaders('stylus'),
     styl: generateLoaders('stylus')
+
   }
 }
 

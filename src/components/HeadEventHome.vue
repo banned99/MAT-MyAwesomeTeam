@@ -49,7 +49,6 @@ export default {
 <style lang="css" scoped>
 .header-bar {
   position: fixed;
-  margin-top: -40px;
   width: 100%;
   height: 3em;
   background-color: #212121;
@@ -134,7 +133,7 @@ export default {
   right: 2em;
 }
 .tokenText {
-  font-size: 1em;
+  font-size: 0.75em;
   color: white;
 }
 </style>

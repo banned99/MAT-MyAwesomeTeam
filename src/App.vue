@@ -48,10 +48,10 @@ body {
   color: #2c3e50;
 }
 
-main {
+/* main {
   text-align: center;
   margin-top: 40px;
-}
+} */
 
 /* header {
   margin: 0;

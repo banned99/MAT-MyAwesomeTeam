@@ -3,8 +3,7 @@
   <HeadHome />
   <ActiveEventList /> <br />
   <button id="SignoutBt" @click="signOut">SignOut</button> <br/>
-  <!-- <button @click="toProfile">Profile</button> <br> -->
-  <vue-modaltor  :visible="open" clickToClose="false" name="first-login-form">
+  <vue-modaltor  :visible="open" name="first-login-form">
     <div class="box-entername">
       <h1 style="text-align:center">One more step!</h1>
       <h3 style="text-align:center">Please enter your name.</h3><br>
@@ -14,7 +13,6 @@
     </div>
   </vue-modaltor>
   <br>
-  <!-- <Tltest /> -->
 </div>
 </template>
 
@@ -60,13 +58,14 @@ export default {
     updateUser: function () {
       this.updateDisplayName({name: this.name})
       this.userUpdateProfile({name: this.name})
-      this.hideModal()
+      this.open = false
     },
     toProfile: function () {
       this.$router.push('user/' + this.getUserUID)
     },
-    close () {
-      this.$emit('close')
+    cancel: function () {
+      this.open = false
+      this.resetForm()
     }
   },
   components: {
@@ -77,12 +76,17 @@ export default {
   }
 }
 </script>
-<style lang="css" scoped="">
+<style lang="css" scoped>
   @import '../assets/css/tablestyle.css';
+  h1,h3{
+    text-align: left !important;
+    font-weight: bolder;
+  }
 </style>
 <style lang="css" media="screen">
 body {
   background-color: #484848 !important;
+  text-align: center;
 }
 .reg-mo {
   text-align: center;
@@ -98,6 +102,10 @@ body {
   border: 0px;
 }
 #SignoutBt:hover {
+  background-color: rgba(255,255,255,0.5);
+  cursor: pointer;
+}
+.subm:hover {
   background-color: rgba(255,255,255,0.5);
   cursor: pointer;
 }
