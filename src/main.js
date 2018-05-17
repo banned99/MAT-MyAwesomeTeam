@@ -46,23 +46,23 @@ const unsubscibe = firebase.auth().onAuthStateChanged((user) => {
           this.$router.push('/signin')
         }
       })
-      const messaging = firebase.messaging()
-      messaging.usePublicVapidKey('BGY7ie6cKgeZsCczW_5Ol24p7tLMqTfU5Hfb4M2hi0h1vKSaXNsV_fEmtGOZIBwEVrVqq-rq3yxbk2AgZuwPGDQ')
-      messaging.requestPermission().then(() => {
-        console.log('Noti permission granted')
-        messaging.getToken().then(currentToken => {
-          if (currentToken) {
-            // sendTokenToServer()
-            console.log('test', currentToken)
-          } else {
-            console.log('no token')
-          }
-        })
-      }).catch(err => console.log('Noti permission is not granted', err.message))
+      // const messaging = firebase.messaging()
+      // messaging.usePublicVapidKey('BGY7ie6cKgeZsCczW_5Ol24p7tLMqTfU5Hfb4M2hi0h1vKSaXNsV_fEmtGOZIBwEVrVqq-rq3yxbk2AgZuwPGDQ')
+      // messaging.requestPermission().then(() => {
+      //   console.log('Noti permission granted')
+      //   messaging.getToken().then(currentToken => {
+      //     if (currentToken) {
+      //       // sendTokenToServer()
+      //       console.log('test', currentToken)
+      //     } else {
+      //       console.log('no token')
+      //     }
+      //   })
+      // }).catch(err => console.log('Noti permission is not granted', err.message))
 
-      messaging.onMessage(payload => {
-        console.log('Message received. ', payload)
-      })
+      // messaging.onMessage(payload => {
+      //   console.log('Message received. ', payload)
+      // })
     }
   })
   unsubscibe()
