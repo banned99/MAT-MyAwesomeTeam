@@ -3,8 +3,7 @@
   <div id="audioContainer" style="display: none;" ></div>
   <div id="streamController">
     <button class="bt" @touchstart="startRec" @touchend="endRec" @mousedown="startRec" @mouseup="endRec">&#xf130;</button>
-    <a href="#" @touchstart="startRec" @touchend="endRec" @mousedown="startRec" @mouseup="endRec" class="bt">&#xf130;</a>
-  </div>
+</div>
 </div>
 </template>
 

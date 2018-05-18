@@ -1,5 +1,5 @@
 <template lang="html">
-    <!-- <div class="header-bar">
+    <div class="header-bar">
         <label class="lb" for="menu-toggle">☰</label>
         <input class="ip" id="menu-toggle" type="checkbox">
         <div class="box">
@@ -9,15 +9,13 @@
         <ul class="ham-page page" @click="toHome()">Home</ul>
         <ul class="ham-page page" @click="toProfile()">Profile</ul>
         <ul class="ham-page page" @click="signOut()">Sign Out</ul>
-      </nav> -->
-  <!-- </div> -->
+      </nav>
+  </div>
 </template>
-<template>
+<!-- <template>
   <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <header class="mdl-layout__header">
-      <!-- <div aria-expanded="false" role="button" tabindex="0" class="mdl-layout__drawer-button">
-        <i class="material-icons">toc</i>
-      </div> -->
+
       <div class="mdl-layout__header-row">
         <span class="mdl-layout-title">CropChat</span>
       </div>
@@ -35,7 +33,7 @@
       </div>
     </main>
   </div>
-</template>
+</template> -->
 <script>
 import { mapGetters, mapActions } from 'vuex'
 
@@ -94,7 +92,6 @@ export default {
 } */
 </style>
 <style lang="css" scoped>
-
 .header-bar {
   position: fixed;
   width: 100%;
@@ -135,6 +132,7 @@ export default {
     margin-top: -30px;
     display: inline;
     width: 100%;
+
 }
 .text {
   width: 60px;
@@ -169,5 +167,18 @@ export default {
   animation-duration: 2s;
   margin-left: 0;
   opacity: 0.9;
+}
+.event-token {
+  position: fixed;
+  display: block;
+  text-align: right;
+  width: 25%;
+  height: 10%;
+  top: 1em;
+  right: 2em;
+}
+.tokenText {
+  font-size: 0.75em;
+  color: white;
 }
 </style>
