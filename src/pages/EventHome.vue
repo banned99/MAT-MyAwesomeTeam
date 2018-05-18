@@ -18,6 +18,8 @@
        <StaffManager :priority="isOwner || isPriorized" v-if="!isFinished"/>
      </v-tab>
      <v-tab title="Milestone">
+       <!-- <Tltest /> -->
+       <!-- <MileStoneTest /> -->
        <Milestone />
      </v-tab>
   </vue-tabs>
@@ -26,20 +28,18 @@
 </template>
 
 <script>
-import Vue from 'vue'
 import EventMinorDetails from '../components/EventMinorDetails'
 import EventDetails from '../components/EventDetails'
 import Chatter from '../components/Chatter'
 import StaffManager from '../components/StaffManager'
 import RequestList from '../components/RequestList'
 import { mapActions, mapGetters } from 'vuex'
-import firebase from 'firebase'
 import Flow from '../components/Flow'
 import HeadEventHome from '../components/HeadEventHome'
 import TabEventHome from '../components/TabEventHome'
+import Tltest from '../components/Tltest'
+import MileStoneTest from '../components/MileStoneTest'
 import Milestone from '../components/Milestone'
-
-Vue.use(firebase)
 
 export default {
   name: 'eventhome',
@@ -73,6 +73,8 @@ export default {
     Flow,
     HeadEventHome,
     TabEventHome,
+    Tltest,
+    MileStoneTest,
     Milestone
   }
 }
