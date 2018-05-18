@@ -70,10 +70,10 @@
 export default {
   name: 'milestone',
   props: {
-    milestone: {
-      type: Object,
-      required: true
-    }
+    // milestone: {
+    //   type: Object,
+    //   required: true
+    // }
   }
 }
 </script>

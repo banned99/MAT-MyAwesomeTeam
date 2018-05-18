@@ -38,6 +38,7 @@ export default {
         name: this.getDisplayName,
         message: this.textMessage
       })
+      this.textMessage = ''
     }
   },
   components: {

@@ -59,10 +59,13 @@ export default {
       this.resetForm()
     },
     cancelAddTeam () {
+      this.hideModal()
+      this.resetForm()
+    },
+    resetForm () {
       this.teamName = ''
       this.desc = ''
       this.head = ''
-      this.hideModal()
     },
     addNewTeam () {
       let members = []
