@@ -5,7 +5,7 @@
       <FlowTable v-for="(flow, key) in getEventFlow" :key="key" :flow="flow" :date="key"/>
       <button @click="open = true">Add Flow</button>
     </div>
-    
+
     <vue-modaltor  :visible="open" @hide="hide" name="Add Flow">
       <div class="box-entername">
         <h1 style="text-align:center">Add Flow</h1>
@@ -147,94 +147,14 @@ export default {
     }
   },
   components: {
-<<<<<<< HEAD
-    Modals
-=======
     Modals,
     FlowTable
->>>>>>> dafe3ce23fea9fae6931cabe88e0c8bb6f21779a
   }
 }
 </script>
 
-<<<<<<< HEAD
-<style lang="css" scoped>
-
-.line-container{
-  margin:auto !important;
-  width: 90%;
-  height: 400px;
-  overflow: auto;
-}
-.item-tag,.item-content{
-  color: white !important;
-  width: 72px !important;
-}
-.flow-window{
-  overflow: auto;
-  margin: auto;
-  width: 84%;
-  height: 400px;
-  display: block;
-  position: relative;
-  border: 2px solid
-}
-.line-item::after{
-  position: absolute;
-  content: "";
-  left: -1rem;
-  top: 0;
-  width: 2px;
-  height: 100%;
-  background-color: #e4e1fe;
-}
-.line-container::after{
-  background-color: rgba(0, 0, 0, 0.0) !important;
-}
-.line-item:hover{
-  background-color: rgba(255, 0, 0, 0.5);
-  cursor: pointer;
-}
-.log_bt{
-  font-size: 15px;
-  font-weight: 700;
-  color: #fff;
-  padding: 13px 0;
-  background: #FF6C2F;
-  display: inline-block;
-  width: 100%;
-outline:none;
-border:2px solid #FF6C2F;
-cursor:pointer;
-text-transform:uppercase;
-}
-.form-window {
-  background-color: #484848;
-}
-.v--modal-box .v--modal{
-  width: 50% !important;
-}
- /*Modal*/
- .modal-wrapper {
-    display: flex;
-    align-items:center;
-    justify-content:center;
-    height:100%;
-}
-
-.modal-container{
-    display:inline-block;
-    width:auto;
-}
-</style>
-
-<style media="screen" scoped>
-  @import '../assets/css/Flow.css';
-</style>
-=======
 <style scoped>
 * {
   color: black;
 }
 </style>
->>>>>>> dafe3ce23fea9fae6931cabe88e0c8bb6f21779a

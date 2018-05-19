@@ -51,9 +51,6 @@ export default {
 }
 </script>
 
-<<<<<<< HEAD
-<style lang="sass" scope>
-=======
 <style scoped>
 @import '../assets/css/bootstrap.min.css';
 /* Timeline */
@@ -232,5 +229,4 @@ export default {
   bottom: 0px;
   left: 43px;
 }
->>>>>>> dafe3ce23fea9fae6931cabe88e0c8bb6f21779a
 </style>
