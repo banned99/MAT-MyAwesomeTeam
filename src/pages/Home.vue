@@ -77,7 +77,7 @@ export default {
 }
 </script>
 <style lang="css" scoped>
-@import '../assets/css/tablestyle.css';
+/* @import '../assets/css/tablestyle.css'; */
 /* body {
   background-color: #484848 !important;
   text-align: center;

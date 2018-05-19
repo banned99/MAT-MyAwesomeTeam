@@ -1,6 +1,6 @@
 <template>
   <tr @click="toEventHome(index)">
-    <td>{{ event.name }}</td>
+    <td class="ev-name">{{ event.name }}</td>
     <td>{{ event.date.start }} <br>-<br> {{ event.date.end }}</td>
     <td>{{ event.team.name }}</td>
     <td>{{ event.team.role }}</td>
@@ -38,5 +38,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+@import '../assets/css/tablestyle.css';
+td {
+  border-bottom: 1px solid #fff !important;
+}
+.ev-name {
+  font-weight: bolder;
+}
 </style>
