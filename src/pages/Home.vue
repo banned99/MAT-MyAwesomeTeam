@@ -22,7 +22,6 @@
 import { mapActions, mapGetters } from 'vuex'
 import ActiveEventList from '../components/ActiveEventList'
 import WebHeader from '../components/WebHeader'
-import Tltest from '../components/Tltest'
 import Modals from '../components/Modals'
 
 export default {
@@ -73,7 +72,6 @@ export default {
   components: {
     ActiveEventList,
     WebHeader,
-    Tltest,
     Modals
   }
 }

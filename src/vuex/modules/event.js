@@ -18,11 +18,9 @@ const state = {
     staffs: {},
     teams: {},
     requests: [],
-    milestone: [],
+    milestone: {},
     flow: {},
     chatHistory: [],
-    voiceHistory: [],
-    fileHistory: [],
     lastStaffIndex: 0
   },
   searchResult: {
@@ -91,7 +89,7 @@ const mutations = {
     state.event.staffs = payload
   },
   addEventStaff: (state, payload) => {
-    state.event.staffs[payload.key] = (payload)
+    state.event.staffs[payload.uid] = payload
   },
   setEventTeams: (state, payload) => {
     state.event.teams = payload
@@ -183,10 +181,10 @@ const templates = {
 
 const actions = {
   createNewEvent: ({commit, dispatch}, payload) => {
-    let dateRE = /(\d{4})-(\d{2})-(\d{2})/g
+    // let dateRE = /(\d{4})-(\d{2})-(\d{2})/g
     // let dateTimeRE = /(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2}) (\[APM]{2})/g
-    payload.event.date.start = payload.event.date.start.replace(dateRE, '$2/$3/$1')
-    payload.event.date.end = payload.event.date.end.replace(dateRE, '$2/$3/$1')
+    // payload.event.date.start = payload.event.date.start.replace(dateRE, '$2/$3/$1')
+    // payload.event.date.end = payload.event.date.end.replace(dateRE, '$2/$3/$1')
     // payload.event.createDate = payload.event.createDate.replace(dateTimeRE, '$3/$2/$1 $4:$5:$6 $7')
     commit('setEventToken', payload.token)
     commit('setEvent', payload.event)
@@ -415,6 +413,11 @@ const actions = {
       .set(templates.chatHistoryTemplate)
       .then(() => {
         // console.log('current index' + state.chatHistory.length)
+        firebase.database().ref('events')
+          .child(state.currentEventToken)
+          .child('chatHistory').once('value', snapshot => {
+            commit('setEventChatHistory', snapshot.val())
+          })
       })
       .catch(err => console.log(err.message))
   },
@@ -661,22 +664,26 @@ const actions = {
     }
   },
   addFlow ({commit}, payload) {
-    firebase.database().ref('events').child(state.currentEventToken).child('flow').set(payload)
+    firebase.database().ref('events').child(state.currentEventToken).child('flow').set(payload).then(() => {
+      firebase.database().ref('events').child(state.currentEventToken).child('flow').once('value', snapshot => {
+        commit('setEventFlow', snapshot.val())
+      })
+    })
   },
   editFlowItem ({commit}, payload) {
     firebase.database().ref('events')
       .child(state.currentEventToken)
       .child('flow')
       .child(payload.date)
-      .child(new Date(`1970-01-01T${payload.data.time}:00.000Z`).getTime())
-      .set(payload.data)
+      .child(payload.index)
+      .remove()
 
     firebase.database().ref('events')
       .child(state.currentEventToken)
       .child('flow')
       .child(payload.date)
-      .child(payload.index)
-      .remove()
+      .child(new Date(`1970-01-01T${payload.data.time}:00.000Z`).getTime())
+      .set(payload.data)
   },
   deleteFlowItem ({commit}, payload) {
     firebase.database().ref('events')
@@ -692,6 +699,34 @@ const actions = {
       .child('flow')
       .child(payload)
       .remove()
+  },
+  addMilestone ({commit}, payload) {
+    firebase.database().ref('events')
+      .child(state.currentEventToken)
+      .child('milestone')
+      .child(payload.index)
+      .set(payload.data).then(() => {
+        firebase.database().ref('events')
+          .child(state.currentEventToken)
+          .child('milestone')
+          .once('value', snapshot => {
+            commit('setEventMilestone', snapshot.val())
+          })
+      })
+  },
+  deleteMilestone ({commit}, payload) {
+    firebase.database().ref('events')
+      .child(state.currentEventToken)
+      .child('milestone')
+      .child(payload)
+      .remove()
+  },
+  editMilestone ({commit}, payload) {
+    firebase.database().ref('events')
+      .child(state.currentEventToken)
+      .child('milestone')
+      .child(payload.index)
+      .update(payload.data)
   }
 }
 

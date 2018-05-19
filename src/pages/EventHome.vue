@@ -19,7 +19,7 @@
      </v-tab>
      <v-tab title="Milestone">
        <!-- <Tltest /> -->
-       <MileStoneTest />
+       <Milestone />
        <!-- <Milestone /> -->
      </v-tab>
   </vue-tabs>
@@ -38,8 +38,6 @@ import { mapActions, mapGetters } from 'vuex'
 import Flow from '../components/Flow'
 import WebHeader from '../components/WebHeader'
 import TabEventHome from '../components/TabEventHome'
-import Tltest from '../components/Tltest'
-import MileStoneTest from '../components/MileStoneTest'
 import Milestone from '../components/Milestone'
 
 export default {
@@ -74,8 +72,6 @@ export default {
     Flow,
     WebHeader,
     TabEventHome,
-    Tltest,
-    MileStoneTest,
     Milestone
   }
 }
