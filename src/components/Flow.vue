@@ -91,9 +91,6 @@ export default {
   },
   methods: {
     ...mapActions(['addFlow']),
-    show () {
-      this.open = true
-    },
     hide () {
       this.open = false
       this.cancel()

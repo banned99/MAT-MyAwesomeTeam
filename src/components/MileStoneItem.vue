@@ -3,23 +3,110 @@
     <div class="timeline-badge primary"><i class="glyphicon glyphicon-check"></i></div>
     <div class="timeline-panel">
       <div class="timeline-heading">
-        <h4 class="timeline-title">Mussum ipsum cacilds 1</h4>
-        <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small></p>
+        <div v-if="!editing">
+          <h4 class="timeline-title">{{ milestone.title }}</h4>
+          <button @click="editing = true">Edit</button>
+          <button @click="del">Delete</button>
+        </div>
+        <div v-if="editing">
+          <input type="text" v-model="data.title">
+          <button @click="edit" :disabled="!isValid">Confirm</button>
+          <button @click="cancel">Cancel</button>
+        </div>
+        <p v-if="!editing"><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{ milestone.due }}</small></p>
+        <p v-if="editing"><small class="text-muted"><i class="glyphicon glyphicon-time"></i><input type="date" v-model="data.due"></small></p>
       </div>
-      <div class="timeline-body">
-        <p>Mussum ipsum cacilds, vidis litro abertis. Consetis faiz elementum girarzis, nisi eros gostis.</p>
+      <div v-if="!editing" class="timeline-body">
+        <p>{{ milestone.desc }}</p>
+        <p><small class="text-muted"><i class="glyphicon glyphicon-user"></i> {{ milestone.team }}</small></p>
+      </div>
+      <div v-if="editing" class="timeline-body">
+        <p><textarea v-model="data.desc"></textarea></p>
+        <p>
+          <small class="text-muted"><i class="glyphicon glyphicon-user"></i>
+            <select v-model="data.team" >
+              <option v-for="name in getTeamNames" :key="name.key" :value="name">{{ name }}</option>
+            </select>
+          </small>
+        </p>
       </div>
     </div>
   </li>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
   name: 'milestoneitem',
+  data () {
+    return {
+      editing: false,
+      data: {
+        title: '',
+        due: '',
+        desc: '',
+        team: ''
+      }
+    }
+  },
   props: {
-    task: {
+    milestone: {
       required: true,
       type: Object
+    },
+    index: {
+      required: true,
+      type: String
+    }
+  },
+  mounted () {
+    this.data.title = this.milestone.title
+    this.data.due = this.milestone.due
+    this.data.desc = this.milestone.desc
+    this.data.team = this.milestone.team
+  },
+  computed: {
+    ...mapGetters(['getTeamNames']),
+    isValid () {
+      let validation = this.validateForm
+      return Object.keys(validation).every((key) => validation[key])
+    },
+    validateForm () {
+      return {
+        title: !!this.data.title.trim(),
+        desc: !!this.data.desc.trim(),
+        due: !!this.data.due.trim(),
+        team: !!this.data.team.trim()
+      }
+    }
+  },
+  methods: {
+    ...mapActions(['deleteMilestone', 'editMilestone']),
+    edit () {
+      if (!this.isValid) return
+
+      if (confirm('Are you sure to Edit this card?')) {
+        this.editMilestone({
+          index: this.index,
+          data: this.data
+        })
+        this.editing = false
+      }
+    },
+    cancel () {
+      this.editing = false
+      this.data = {
+        title: '',
+        desc: '',
+        due: '',
+        team: ''
+      }
+    },
+    del () {
+      if (confirm('Are you sure to DELETE this card?')) {
+        this.deleteMilestone(this.index)
+      }
     }
   }
 }

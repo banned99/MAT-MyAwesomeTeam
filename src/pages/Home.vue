@@ -1,6 +1,5 @@
 <template>
 <div class="content">
-  <HeadHome />
   <ActiveEventList /> <br />
   <button id="SignoutBt" @click="signOut">SignOut</button> <br/>
   <vue-modaltor  :visible="open" name="first-login-form">
@@ -19,8 +18,6 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import ActiveEventList from '../components/ActiveEventList'
-import HeadHome from '../components/HeadHome'
-import Tltest from '../components/Tltest'
 import Modals from '../components/Modals'
 
 export default {
@@ -70,8 +67,6 @@ export default {
   },
   components: {
     ActiveEventList,
-    HeadHome,
-    Tltest,
     Modals
   }
 }

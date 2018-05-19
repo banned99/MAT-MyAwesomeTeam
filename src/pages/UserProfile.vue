@@ -1,6 +1,5 @@
 <template>
   <div class="wrappa">
-    <HeadHome />
     <div class="head-dis-name">
       <h2 class="dis-name">{{ getDisplayName }}</h2>
     </div>
@@ -20,7 +19,6 @@
 <script>
 import JoinedEventList from '../components/JoinedEventList'
 import { mapActions, mapGetters } from 'vuex'
-import HeadHome from '../components/HeadHome'
 
 export default {
   name: 'userprofile',
@@ -55,7 +53,7 @@ export default {
     }
   },
   components: {
-    JoinedEventList, HeadHome
+    JoinedEventList
   }
 }
 </script>

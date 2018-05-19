@@ -7,15 +7,16 @@
         </div>
         <div style="display:inline-block;width:100%;overflow-y:auto;">
           <ul class="timeline timeline-horizontal">
-            <MileStoneTestItem v-for="task in sortTaskByDue" :key="task['.key']" :task="task"/>
-            <li class="timeline-item">
+            <!-- <MileStoneItem v-if="onlyMyTeam" v-for="milestone in getMyTeamMilestone" :key="milestone['.key']" :milestone="milestone"/> -->
+            <MileStoneItem v-if="!onlyMyTeam" v-for="(milestone, key) in getEventMilestone" :key="key" :milestone="milestone" :index="key"/>
+            <li v-if="Object.keys(getEventMilestone).length < 1" class="timeline-item">
               <div class="timeline-badge primary"><i class="glyphicon glyphicon-check"></i></div>
               <div class="timeline-panel">
                 <div class="timeline-heading">
-                  <h4 class="timeline-title">Add New Task</h4>
+                  <h4 class="timeline-title">No Task</h4>
                 </div>
                 <div class="timeline-body">
-                  <p>Mussum ipsum cacilds, vidis litro abertis. Consetis faiz elementum girarzis, nisi eros gostis.</p>
+                  <p>No task right now.</p>
                 </div>
               </div>
             </li>
@@ -23,30 +24,89 @@
         </div>
       </div>
     </div>
+    <button @click="show = true">Add Milestone</button>
+    <vue-modaltor  :visible="show" @hide="cancel" name="Add Milestone">
+      <div class="box-entername">
+        <h1 style="text-align:center">Add Milestone</h1>
+        <label>Title</label>
+        <input type="text" v-model="title"> <br>
+        <label>Description</label>
+        <textarea v-model="desc"></textarea> <br>
+        <label>Select Team: </label>
+        <select v-model="team">
+          <option v-for="name in getTeamNames" :key="name.id" :value="name">{{ name }}</option>
+        </select>
+        <label>Due: </label>
+        <input type="date" v-model="due">
+        <button @click="submit">Confirm</button>
+        <button @click="cancel">Cancel</button>
+      </div>
+    </vue-modaltor>
   </div>
 </template>
 
 <script>
-import MileStoneTestItem from '../components/MileStoneTestItem'
-import { mapGetters } from 'vuex'
+import MileStoneItem from '../components/MilestoneItem'
+import Modals from '../components/Modals'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'milestone',
+  data: () => {
+    return {
+      show: false,
+      desc: '',
+      team: '',
+      title: '',
+      due: '',
+      onlyMyTeam: false
+    }
+  },
   computed: {
-    ...mapGetters(['getEventMilestone']),
-    sortTaskByDue () {
-      let sortedObject = {}
-      let originalKeys = Object.keys(this.getEventMilestone)
-      let originalValues = Object.values(this.getEventMilestone)
-      let sortedValue = originalValues
-      sortedValue.sort((a, b) => a.due - b.due).forEach(el => {
-        sortedObject[originalKeys[originalValues.findIndex(el)]] = el
+    ...mapGetters(['getEventMilestone', 'getTeamNames', 'getEventDate'])
+    // sortTaskByDue () {
+    //   let sortedObject = {}
+    //   let originalKeys = Object.keys(this.getEventMilestone)
+    //   let originalValues = Object.values(this.getEventMilestone)
+    //   let sortedValue = originalValues
+    //   sortedValue.sort((a, b) => a.due - b.due).forEach(el => {
+    //     sortedObject[originalKeys[originalValues.findIndex(el)]] = el
+    //   })
+    //   return sortedObject
+    // },
+    // getMyTeamMilestone () {
+    //   let myTeamMilestone = {}
+    //   Object.keys(this.getEventMilestone).filter(key => {
+    //     return this.getEventMilestone[key].team === this.getUserTeam
+    //   }).forEach(key => { myTeamMilestone[key] = this.getEventMilestone[key] })
+    //   return myTeamMilestone
+    // }
+  },
+  methods: {
+    ...mapActions(['addMilestone']),
+    submit () {
+      this.addMilestone({
+        index: new Date().getTime(),
+        data: {
+          title: this.title,
+          desc: this.desc,
+          team: this.team,
+          due: this.due
+        }
       })
-      return sortedObject
+      this.cancel()
+    },
+    cancel () {
+      this.desc = ''
+      this.team = ''
+      this.title = ''
+      this.due = ''
+      this.show = false
     }
   },
   components: {
-    MileStoneTestItem
+    MileStoneItem,
+    Modals
   }
 }
 </script>
