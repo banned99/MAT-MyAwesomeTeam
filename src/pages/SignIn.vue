@@ -80,8 +80,7 @@ export default {
   }
 }
 </script>
-<style media="screen" scoped>
-@import '../assets/css/style.css';
+<style lang="css" scoped>
 .img-logo {
   margin-bottom: 100px;
 }
@@ -131,5 +130,8 @@ body{
       top: 11px;
       left: 11px;
   }
-} */
+}*/
+</style>
+<style lang="css" scoped>
+  @import '../assets/css/style.css';
 </style>

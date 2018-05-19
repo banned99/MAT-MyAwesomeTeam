@@ -12,7 +12,10 @@ import BootstrapVue from 'bootstrap-vue'
 import VueTabs from 'vue-nav-tabs'
 import 'vue-nav-tabs/themes/vue-tabs.css'
 import VueModalTor from 'vue-modaltor'
+import './assets/css/bootstrap.css'
+import VueChatScroll from 'vue-chat-scroll'
 
+Vue.use(VueChatScroll)
 Vue.use(VueModalTor)
 Vue.use(VModal)
 Vue.use(VueFire)
@@ -22,8 +25,6 @@ Vue.use(VueTabs)
 Vue.component('modal', {
   template: '#modal-template'
 })
-
-require('material-design-lite')
 
 Vue.config.productionTip = false
 Vue.prototype.$firebase = firebase.initializeApp(firebaseConfig)

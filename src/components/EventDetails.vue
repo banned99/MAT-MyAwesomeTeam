@@ -1,45 +1,49 @@
 <template>
-  <div id="inPage">
-    <h1 class="Head-detail-page">Event Details</h1>
+<div id="inPage">
 <div class="bigbox">
+  <label class="Head-detail-page">Details</label>
   <div class="box evname">
-    <label>Event Name</label>
+    <label class="h-label">Event Name</label>
     <p v-show="!editing">{{ getEvent.name }}</p>
     <input type="text" v-model="event.name" v-show="editing" />
   </div>
   <div class="box desc">
-    <label>Description</label>
+    <label class="h-label">Description</label>
     <p v-if="!editing && !!getEvent.desc.trim()">{{ getEvent.desc }}</p>
     <p v-if="!editing && !getEvent.desc.trim()">------- No description. -------</p>
     <textarea v-model="event.desc" cols="30" rows="10" v-show="editing" ></textarea>
   </div>
-  <div class="box date">
-    <label>Date</label>
-    <p v-if="!editing">{{ getEvent.date.start }} to {{ getEvent.date.end }}</p>
-    <div v-if="editing">
-      <input class="in-date" type="date" v-model="event.date.start" :min="new Date().toISOString()" max="31/12/2099"/>
-      to
-      <input class="in-date" type="date" v-model="event.date.end" :min="new Date().toISOString()" max="31/12/2099" />
+    <div class="box date">
+      <label class="h-label">Date</label>
+      <p v-if="!editing">{{ getEvent.date.start }} to {{ getEvent.date.end }}</p>
+      <div v-if="editing">
+        <input class="in-date" type="date" v-model="event.date.start" :min="new Date().toISOString()" max="31/12/2099"/>
+        to
+        <input class="in-date" type="date" v-model="event.date.end" :min="new Date().toISOString()" max="31/12/2099" />
+      </div>
     </div>
-  </div>
-  <div class="box create-date">
-    <label>Create Date</label>
-    <p>{{ getEvent.createDate }}</p>
-  </div>
+    <div class="box create-date">
+      <label class="h-label">Create Date</label>
+      <p>{{ getEvent.createDate }}</p>
+    </div>
+
   <div class="box Owner">
-    <label>Owner</label>
+    <label class="h-label">Events Head</label>
     <p>{{ getEvent.owner.name }}</p>
   </div>
-  <div class="box total-staff">
-    <label>Total Staffs</label>
-    {{ Object.keys(getEvent.staffs).length }}
+  <div class="bb-total">
+    <div class="box total-staff">
+      <label class="h-label">Total Staffs</label>
+      {{ Object.keys(getEvent.staffs).length }}
+    </div>
+    <div class="box totalteam">
+      <label class="h-label">Total Teams</label>
+      {{ getEvent.teams ? Object.keys(getEvent.teams).length : 0 }}
+    </div>
   </div>
-  <div class="box totalteam">
-    <label>Total Teams</label>
-    {{ getEvent.teams ? Object.keys(getEvent.teams).length : 0 }}
-  </div><br>
+  <br>
 </div>
-    <div v-if="!isFinished">
+    <div class="bt-box" v-if="!isFinished">
       <button class="EvDetails-button" @click="toggleEdit" v-show="!editing">Edit</button>
       <button class="EvDetails-button" @click="attemptDelete" v-show="!editing">Delete</button>
       <button class="EvDetails-button" @click="confirmEdit" v-show="editing">Confirm</button>
@@ -148,12 +152,7 @@ export default {
 .in-date {
   width: 45%;
 }
-.Head-detail-page {
-  font-weight: bolder;
-  color: rgba(244,244,244,1);
-}
 .box {
-  margin-left: 20px;
   font-size: 20px;
   color: white;
 }
@@ -164,27 +163,44 @@ export default {
   display: inline;
 }
 .box.date {
-  font-size: 1em;
-  width: 40%;
-  text-align: center;
-  display: inline-block;
+  padding: 0.5em;
+  text-align: left;
+  border-bottom: 1px solid #fff;
 }
 .box.create-date {
-  font-size: 1em !important;
-  width: 40%;
-  text-align: center;
-  display: inline-block;
+  padding: 0.5em;
+  text-align: left;
+  border-bottom: 1px solid #fff;
 }
 .box.evname {
-  border: 2px solid white;
+    padding: 0.5em;
+    text-align: left;
+    border-bottom: 1px solid #fff;
 }
 .box.desc {
-  border: 2px solid white;
+  padding: 0.5em;
+  text-align: left;
+  border-bottom: 1px solid #fff;
 }
-.bigbox {
-  width: 90%;
+.box.Owner {
+  padding: 0.5em;
+  text-align: left;
+  border-bottom: 1px solid #fff;
+}
+.bb-total {
+  padding-top: 3em;
+  text-align: center;
+}
+.Head-detail-page {
   margin: auto;
-  padding-bottom: 20px;
+  font-size: 2em;
+  color: #fff;
 }
-
+.bt-box {
+  text-align: center;
+}
+.h-label{
+  font-size: 1em;
+  font-weight: bolder;
+}
 </style>

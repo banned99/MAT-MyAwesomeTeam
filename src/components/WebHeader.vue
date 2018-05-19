@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div class="wrap">
     <div class="header-bar">
         <label class="lb" for="menu-toggle">☰</label>
@@ -7,23 +7,23 @@
           <p class="text">M A T</p>
         </div>
         <div class="event-token">
-          <p class="tokenText">Event ID: {{ getEventID }}</p>
+          <p class="tokenText" v-if="getEventID">Event ID: {{ getEventID }}</p>
         </div>
       <nav class="ham-page">
-        <ul class="ham-page page" @click="toHome()">Home</ul>
-        <ul class="ham-page page" @click="toProfile()">Profile</ul>
-        <ul class="ham-page page" @click="signOut()">Sign Out</ul>
+        <ul class="ham page" @click="toHome()">Home</ul>
+        <ul class="ham page" @click="toProfile()">Profile</ul>
+        <SignOutModal />
       </nav>
-
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import SignOutModal from '../components/SignOutModal'
 
 export default {
-  name: 'headhome',
+  name: 'webheader',
   computed: {
     ...mapGetters(['getUserUID', 'getEventToken']),
     getEventID: function () {
@@ -42,11 +42,14 @@ export default {
     toProfile: function () {
       this.$router.push('../user/' + this.getUserUID)
     }
+  },
+  components: {
+    SignOutModal
   }
 }
 </script>
 
-<style lang="css" scoped>
+<style scoped>
 .header-bar {
   position: fixed;
   width: 100%;
@@ -57,37 +60,39 @@ export default {
 }
 .wrap {
   text-align: center;
+  display: block;
 }
 .backbt {
   margin: auto;
 }
 .ham-page {
   padding-bottom: 5px;
-  background-color: #ffd149;
+  background-color: #212121;
   width: 300px; /*Should modify it's*/
   border-radius: 4px;
+  height: 1080px;
 }
-.ham-page.page {
+.ham.page {
   color: white;
-  font-size: 48px;
+  font-size: 2em;
   text-align: center;
+  cursor: pointer;
+  padding-top: 2em;
 }
 .ham-page.page:hover {
   background-color: rgba(255,255,255,0.1);
   cursor: pointer;
 }
-.ham-page.page.empty:hover {
+.ham.page.empty:hover {
   background-color: rgba(255,255,255,0);
   cursor: default;
 }
-.ham-page.page.empty {
+.ham.page.empty {
   opacity: 0;
 }
 .box {
-    margin-top: -30px;
     display: inline;
     width: 100%;
-
 }
 .text {
   width: 60px;
@@ -127,8 +132,8 @@ export default {
   position: fixed;
   display: block;
   text-align: right;
-  width: 25%;
-  height: 10%;
+  width: 50%;
+  height: 3%;
   top: 1em;
   right: 2em;
 }

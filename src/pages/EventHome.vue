@@ -1,6 +1,6 @@
 <template>
   <div>
-    <HeadEventHome />
+    <WebHeader />
     <div class="WrapTab">
     <vue-tabs>
      <v-tab title="Info">
@@ -24,6 +24,7 @@
      </v-tab>
   </vue-tabs>
     </div>
+
   </div>
 </template>
 
@@ -35,7 +36,7 @@ import StaffManager from '../components/StaffManager'
 import RequestList from '../components/RequestList'
 import { mapActions, mapGetters } from 'vuex'
 import Flow from '../components/Flow'
-import HeadEventHome from '../components/HeadEventHome'
+import WebHeader from '../components/WebHeader'
 import TabEventHome from '../components/TabEventHome'
 import Tltest from '../components/Tltest'
 import MileStoneTest from '../components/MileStoneTest'
@@ -71,7 +72,7 @@ export default {
     StaffManager,
     Chatter,
     Flow,
-    HeadEventHome,
+    WebHeader,
     TabEventHome,
     Tltest,
     MileStoneTest,
@@ -79,7 +80,7 @@ export default {
   }
 }
 </script>
-<style media="screen">
+<style media="screen" scoped>
 .WrapTab {
   display: block;
   position:  fixed;
@@ -90,12 +91,20 @@ export default {
 <style scoped>
 .WrapTab {
   width: 100%;
-  height: 400px;
+  height: 100%;
+  overflow: scroll;
 }
 .vue-tabs .nav > li {
   width: 20%;
 }
+
 button {
   color: black!important;
+}
+</style>
+<style media="screen">
+.vue-tabs .nav > li > a {
+  padding: 8px 0.8em !important;
+  margin-right: 0em !important;
 }
 </style>

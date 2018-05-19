@@ -95,7 +95,6 @@
 </template>
 
 <script>
-import datePicker from 'vue-bootstrap-datetimepicker'
 import Modals from '../components/Modals'
 
 export default {
@@ -175,18 +174,13 @@ export default {
       this.resetForm()
     }
   },
-  components: { datePicker,
+  components: {
     Modals
   }
 }
 </script>
 
-<style rel="stylesheet" type="text/css">
-</style>
-
 <style lang="css" scoped>
-@import '../assets/css/bootstrap.css';
-@import '../../node_modules/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css';
 
 .line-container{
   margin:auto !important;
@@ -255,6 +249,7 @@ text-transform:uppercase;
     width:auto;
 }
 </style>
+
 <style media="screen" scoped>
-  @import '../assets/css/Flow.css'
+  @import '../assets/css/Flow.css';
 </style>

@@ -79,5 +79,4 @@ export default {
 </script>
 
 <style lang="sass" scope>
-  @import '../assets/css/Milestone.sass'
 </style>

@@ -1,8 +1,9 @@
 <template>
-  <div>
-    <h5>{{ message.name }}</h5>
-    <p>{{ message.message }} {{ message.timestamp }}</p>
+  <div class="chat-line">
+    <h5 class="name">{{ message.name }} {{ message.timestamp }}</h5>
+    <p class="chat-text">{{ message.message }}</p>
   </div>
+</ul>
 </template>
 
 <script>
@@ -17,6 +18,22 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="css" scoped>
+  .chat-line {
+    text-align: left;
+  }
+  /* .chat-line {
+    bottom: 0;
+    text-align: right;
+  }
+  .name {
+  color: 73e8ff
+  }
+  */
+  .name {
+    color: #76ff03;
+  }
+  .chat-text {
+    color: #fff;
+  }
 </style>

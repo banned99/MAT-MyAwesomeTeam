@@ -2,7 +2,7 @@
   <tr>
     <td>{{ member.user.name }}</td>
     <td>{{ member.role }}</td>
-    <td v-if="!editing"><button @click="editing = true">Edit</button></td>
+    <td v-if="!editing"><button class="bt edit" @click="editing = true">Edit</button></td>
     <td v-if="editing">Team:
       <select v-model="team">
         <option :selected="name === teamName" v-for="name in getTeamNames" :key="name.key" :value="name">{{ name[0].toUpperCase() + name.substr(1)  }}</option>
@@ -20,10 +20,10 @@
         <option value="true">Yes</option>
       </select>
     </td>
-    <td v-if="editing"><button :disabled="!isValid || same" @click="updateStaff()">Submit</button></td>
-    <td v-if="editing"><button @click="cancel()">Cancel</button></td>
-    <td v-if="!editing"><button @click="unassign()">Unassign</button></td>
-    <td v-if="!editing"><button @click="kickThisUser()">Kick</button></td>
+    <td  v-if="editing"><button class="bt submit" :disabled="!isValid || same" @click="updateStaff()">Submit</button></td>
+    <td v-if="editing"><button class="bt edit" @click="cancel()">Cancel</button></td>
+    <td v-if="!editing"><button class="bt unassign" @click="unassign()">unassign</button></td>
+    <td v-if="!editing"><button class="bt kick" @click="kickThisUser()">Kick</button></td>
   </tr>
 </template>
 
@@ -106,5 +106,16 @@ a {
 a:hover {
   color: rgba(255, 0, 0, 0.5);
   cursor: pointer;
+}
+.bt {
+  vertical-align:center;
+  text-align: center;
+  font-weight: bold;
+  background-color: #ffa000;
+  color: rgba(255,255,255,1);
+  height: 2em;
+  border-radius: 10px;
+  border: 0px;
+  margin: auto;
 }
 </style>

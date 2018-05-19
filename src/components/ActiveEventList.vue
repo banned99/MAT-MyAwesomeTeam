@@ -1,6 +1,6 @@
 <template>
-<div>
-  <h2 class="headtext">Active Events</h2>
+<div class="list-wrapper">
+  <p class="headtext">Active Events</p>
   <div class="tbl-header">
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
@@ -53,7 +53,7 @@ export default {
   }
 }
 </script>
-<style media="screen">
+<style media="screen" scoped>
 .em-space {
   height: 20px;
 }
@@ -72,10 +72,17 @@ tr:hover {
   font-size: 2em;
 }
 .box-button-home {
+  text-align: center;
   display: block;
 }
 .space-bet {
   display: inline-block;
   width: 5%;
+}
+.headtext {
+  top: 6em;
+}
+th {
+  text-align: center !important;
 }
 </style>

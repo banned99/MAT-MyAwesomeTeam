@@ -160,11 +160,9 @@ export default {
 }
 </script>
 
-<style scoped>
-/* @import '../../node_modules/bootstrap/dist/css/bootstrap.css';
-@import '../../node_modules/bootstrap-vue/dist/bootstrap-vue.css'; */
+<style lang="css" scoped>
 .Wrap {
-  display: inline-block;
+  display: inline-flex;
   width: 30%!important;
 }
  .v--modal-box{
@@ -245,6 +243,10 @@ export default {
   right: 6px;
 }
 .submit-button:hover {
+  background-color: #217dbb;
+  cursor: pointer;
+}
+.submit-button:active {
   background-color: #217dbb;
   cursor: pointer;
 }
@@ -370,6 +372,11 @@ a {
   border: 0px;
 }
 .show-joinEvent:hover {
+  background-color: rgba(255, 255, 255, 1);
+  cursor: pointer;
+  color: black;
+}
+.show-joinEvent:active {
   background-color: rgba(255, 255, 255, 1);
   cursor: pointer;
   color: black;

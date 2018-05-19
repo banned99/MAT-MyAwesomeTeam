@@ -1,17 +1,19 @@
 <template>
   <div class="wrappa">
-    <HeadHome />
+    <WebHeader />
     <div class="head-dis-name">
       <h2 class="dis-name">{{ getDisplayName }}</h2>
     </div>
     <div class="empty-space"></div>
-    <img src="../assets/images/m.png"> <br>
-    <label class="lb-name">Display Name</label><br>
-    <p class="this-name" v-if="!editing">{{ getDisplayName }}</p>
-    <input class="inp-name" type="text" v-if="editing" v-model="name">
-    <button class="fa-cog" @click="toggleEditing" v-if="!editing">&#xf013;</button>
-    <button class="editbt" @click="save" v-if="editing" :disabled="!validateName">Save</button>
-    <button class="editbt" @click="cancel" v-if="editing">Cancel</button>
+    <div class="edit-name-wrap">
+      <img src="../assets/images/m.png"> <br>
+      <label class="lb-name">Display Name</label><br>
+      <p class="this-name" v-if="!editing">{{ getDisplayName }}</p>
+      <input class="inp-name" type="text" v-if="editing" v-model="name">
+      <button class="fa-cog" @click="toggleEditing" v-if="!editing">&#xf013;</button>
+      <button class="editbt" @click="save" v-if="editing" :disabled="!validateName">Save</button>
+      <button class="editbt" @click="cancel" v-if="editing">Cancel</button>
+    </div>
     <div class="empty-space"></div>
     <JoinedEventList />
   </div>
@@ -20,7 +22,7 @@
 <script>
 import JoinedEventList from '../components/JoinedEventList'
 import { mapActions, mapGetters } from 'vuex'
-import HeadHome from '../components/HeadHome'
+import WebHeader from '../components/WebHeader'
 
 export default {
   name: 'userprofile',
@@ -36,7 +38,7 @@ export default {
   computed: {
     ...mapGetters(['getDisplayName']),
     validateName () {
-      return !!this.name.trim() && !this.name === this.getDisplayName
+      return !!this.name.trim() && !(this.name === this.getDisplayName)
     }
   },
   methods: {
@@ -44,6 +46,7 @@ export default {
     save () {
       this.updateDisplayName({name: this.name})
       this.userUpdateProfile({name: this.name})
+      console.log(this.name)
       this.cancel()
     },
     toggleEditing () {
@@ -55,7 +58,7 @@ export default {
     }
   },
   components: {
-    JoinedEventList, HeadHome
+    JoinedEventList, WebHeader
   }
 }
 </script>

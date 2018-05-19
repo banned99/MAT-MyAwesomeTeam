@@ -1,19 +1,19 @@
 <template>
   <tr>
     <td>{{ staff.displayName }}</td>
-    <td>Team: 
+    <td>Team:
       <select v-model="team" name="team">
         <option value="" selected>Choose team</option>
         <option v-for="name in getTeamNames" :key="name.key" :value="name">{{ name[0].toUpperCase() + name.substr(1) }}</option>
       </select>
     </td>
-    <td>Role: 
+    <td>Role:
       <select v-model="role">
         <option value="Member" selected>Member</option>
         <option value="Sub Head">Sub Head</option>
       </select>
     </td>
-    <td>Priority: 
+    <td>Priority:
       <select v-model="prio" name="prio">
         <option value="false" selected>No</option>
         <option value="true">Yes</option>

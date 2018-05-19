@@ -87,15 +87,10 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-@import '../assets/css/Milestone.sass'
-</style>
-<style lang="css" scoped>
-  @import '../assets/css/bootstrap.css';
 </style>
 <style lang="css" type="text/css">
 .timlim & #timeline & .timeline{
   width: 100%;
-  overflow-x: auto;
 }
 th {
   border-left: 1px solid white;

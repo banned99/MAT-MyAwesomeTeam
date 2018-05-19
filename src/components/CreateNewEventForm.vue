@@ -147,8 +147,8 @@ export default {
 
 <style scoped>
 .wrap {
-  display: inline;
-  width: 30%;
+  display: inline-flex;
+  width: 30% !important;
 }
 .formfull {
   color: #000;
@@ -237,7 +237,10 @@ export default {
   background-color: #217dbb;
   cursor: pointer;
 }
-
+.submit-button:active {
+  background-color: #217dbb;
+  cursor: pointer;
+}
 .featured-note {
   color: #949494;
   font-size: 12px;
@@ -356,12 +359,17 @@ a {
   font-weight: bold;
   background-color: #ffa000;
   color: rgba(255,255,255,1);
-  width: 30%;
+  width: 100%;
   height: 50px;
   border-radius: 10px;
   border: 0px;
 }
 .show-createEvent:hover {
+  background-color: rgba(255, 255, 255, 1);
+  cursor: pointer;
+  color: black;
+}
+.show-createEvent:active {
   background-color: rgba(255, 255, 255, 1);
   cursor: pointer;
   color: black;

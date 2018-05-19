@@ -31,8 +31,11 @@ export default {
 }
 </script>
 
-<style>
+<style lang="css" scoped>
 tr.headTr:hover{
   background-color: rgba(0,0,0,0) !important;
 }
+</style>
+<style media="screen" scoped>
+  @import '../assets/css/tablestyle.css'
 </style>
