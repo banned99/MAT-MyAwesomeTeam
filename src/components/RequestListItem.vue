@@ -1,9 +1,16 @@
 <template>
   <div class="card">
-    <label>From: {{ request.requester.name }}</label>
-    <label>Request Date: {{ request.requester.timestamp }}</label>
-    <button @click="acceptRequest">Accept</button>
-    <button @click="declineRequest">Decline</button>
+    <div class="big-box">
+      <label>From: {{ request.requester.name }}</label>
+      <label>Request Date: {{ request.requester.timestamp }}</label>
+    </div>
+    <div class="bb-box">
+      <div class="bt-box">
+        <button class="bt" @click="acceptRequest">Accept</button>
+        <div class="space"></div>
+        <button class="bt" @click="declineRequest">Decline</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -64,10 +71,29 @@ export default {
 
 <style scoped>
 .card {
-  display: inline-block;
-  border: 1px solid black;
+  width: 100%;
+  color: #fff;
+  display: block;
   margin: 10px;
   padding: 10px;
+  border-bottom: 2px solid white;
+}
+.bt {
+  background-color: #29b6f6;
+  color: #fff !important;
+  border: 0;
+  padding: 1px;
+}
+.space {
+  width: 10px;
+}
+.bb-box {
+  text-align: right !important;
+}
+.bt-box {
+  display: inline-flex;
+}
+.big-box {
+  display:inline-block;
 }
 </style>
-

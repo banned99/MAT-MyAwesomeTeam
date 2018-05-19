@@ -75,7 +75,6 @@ export default {
 </script>
 
 <style scoped>
-@import '../assets/css/styleSignup.css';
 .textLink {
   color: red;
 }
@@ -89,4 +88,12 @@ export default {
   width: auto;
   height: 60px;
 }
+</style>
+<style media="screen" scoped>
+  .errors {
+    color:red;
+  }
+</style>
+<style lang="css" scoped>
+  @import '../assets/css/styleSignup.css';
 </style>

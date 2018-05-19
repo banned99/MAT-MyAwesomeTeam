@@ -7,12 +7,11 @@ table{
  }
 .tbl-content{
   height:300px;
-  overflow-x:auto;
   margin-top: 0px;
   border: 1px solid rgba(255,255,255,0.3);
 }
 th{
-  padding: 20px 15px;
+  padding: 1em 5px;
   text-align: center;
   font-weight: 500;
   font-size: 12px;
@@ -20,7 +19,7 @@ th{
   text-transform: uppercase;
 }
 td{
-  padding: 13px;
+  padding: 0px;
   text-align: center;
   vertical-align:middle;
   font-weight: 300;

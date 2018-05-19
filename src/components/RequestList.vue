@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <h2>Pending Join Requests</h2>
+  <div class="wrapper">
+    <p class="head-request">Pending Join Requests</p>
     <RequestListItem v-if="getPendingJoinRequests" v-for="(request, index) in getPendingJoinRequests" :key="index" :request="request" :index="index"/>
-    <p v-if="getPendingJoinRequests.length === 0">
+    <p class="text-nopend" v-if="getPendingJoinRequests.length === 0">
       ---- No pending requests. ----
     </p>
   </div>
@@ -25,5 +25,17 @@ export default {
 <style media="screen" scoped>
   p,h2 {
     color: white;
+    text-align: center;
+  }
+  .wrapper {
+    width: 70%;
+    text-align: left;
+    margin: auto;
+    padding-bottom: 5em;
+  }
+  .head-request {
+    padding-top: 3em;
+    font-size: 2em;
+    font-weight: bolder;
   }
 </style>

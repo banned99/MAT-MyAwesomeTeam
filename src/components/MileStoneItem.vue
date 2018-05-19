@@ -112,7 +112,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="css" scoped>
 /* Timeline */
 .timeline,
 .timeline-horizontal {

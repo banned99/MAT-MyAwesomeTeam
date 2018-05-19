@@ -20,11 +20,13 @@
       </tr>
       <TeamTableRow v-for="member in team.members" :key="member.key" :member="member"/>
     </table> -->
-    <div v-if="!editing">
-      <label>{{ index[0].toUpperCase() + index.substring(1) }}</label>
-      <p>{{ team.desc }}</p>
-      <button @click="editing = true">Edit</button>
-      <button @click="deleteATeam()">Delete</button>
+    <div class="bb-edit">
+      <div class="box-edit-team" v-if="!editing">
+        <label>{{ index[0].toUpperCase() + index.substring(1) }}</label>
+        <p>{{ team.desc }}</p>
+        <button class="bt-edit" @click="editing = true">Edit</button>
+        <button class="bt-del" @click="deleteATeam()">Delete</button>
+      </div>
     </div>
     <div v-if="editing">
       <input type="text" v-model="newTeamName" placeholder="Team Name"> <br>
@@ -38,6 +40,7 @@
           <tr class="headTr">
               <th>Name</th>
               <th>Role</th>
+              <th>Option</th>
               <th>Option</th>
               <th>Option</th>
           </tr>
@@ -112,12 +115,38 @@ export default {
 }
 </script>
 
-<style scoped>
-/* @import '../assets/css/tablestyle.css'; */
+<style lang="css" scoped>
 .page-team {
   text-align: center;
 }
 th {
   text-align: center;
 }
+.bt-edit,.bt-del {
+  font-weight: bold;
+  background-color: #03a9f4;
+  color: rgba(255,255,255,1);
+  width: 100%;
+  height: 50px;
+  border-radius: 10px;
+  border: 0px;
+}
+.box-edit-team {
+  display: block;
+  border: 0.5px solid white;
+  width: 70%;
+  margin: auto;
+  color: white;
+}
+.bb-edit {
+  padding-bottom: 3em;
+  text-align: center;
+}
+td,th {
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+</style>
+<style lang="css" scoped>
+  @import '../assets/css/tablestyle.css';
 </style>

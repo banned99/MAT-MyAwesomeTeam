@@ -2,8 +2,8 @@
 <div id="voice" v-if="!isFinished">
   <div id="audioContainer" style="display: none;" ></div>
   <div id="streamController">
-    <button class="bt" @touchstart="startRec" @touchend="endRec" @mousedown="startRec" @mouseup="endRec">&#xf130;</button>
-</div>
+    <a class="bt" @touchstart="startRec" @touchend="endRec" @mousedown="startRec" @mouseup="endRec">&#xf130;</a>
+  </div>
 </div>
 </template>
 
@@ -97,6 +97,10 @@ export default {
 
 <style scoped>
   .bt {
+    text-align: center;
+    padding-top: 1em;
+    margin: auto;
+    font-size: 3em;
     display: block;
     font-family: awesome;
     color: #fff;
@@ -112,5 +116,12 @@ export default {
   .bt:hover {
     cursor:pointer;
     color: rgba(255,255,255,0.8);
+  }
+  .bt:active {
+    color: rgba(255,255,255,0.8);
+  }
+  #streamController {
+    width: 100%;
+    height: 100%;
   }
 </style>

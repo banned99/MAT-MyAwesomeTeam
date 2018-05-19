@@ -28,7 +28,7 @@ nav.horizontal ul li{	display: inline-block;}/* horizontal menu */
 img{max-width:100%;}
 /*end reset*/
 body {
-    background-size: cover;
+  background-size: cover;
 	font-family: 'Lato', sans-serif;
 	text-align:center;
 }
