@@ -19,8 +19,8 @@
      </v-tab>
      <v-tab title="Milestone">
        <!-- <Tltest /> -->
-       <!-- <MileStoneTest /> -->
-       <Milestone />
+       <MileStoneTest />
+       <!-- <Milestone /> -->
      </v-tab>
   </vue-tabs>
     </div>

@@ -47,7 +47,8 @@ const router = new Router({
         requiredAuth: true
       }
     }
-  ]
+  ],
+  mode: 'history'
 })
 
 const match = (to, from, next) => {

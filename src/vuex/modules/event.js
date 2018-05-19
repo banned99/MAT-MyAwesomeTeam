@@ -184,11 +184,12 @@ const templates = {
 const actions = {
   createNewEvent: ({commit, dispatch}, payload) => {
     let dateRE = /(\d{4})-(\d{2})-(\d{2})/g
-    let dateTimeRE = /(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2}) (\[APM]{2})/g
-    payload.event.date.start = payload.event.date.start.replace(dateRE, '$3/$2/$1')
-    payload.event.date.end = payload.event.date.end.replace(dateRE, '$3/$2/$1')
-    payload.event.createDate = payload.event.createDate.replace(dateTimeRE, '$3/$2/$1 $4:$5:$6 $7')
-    console.log(payload.event.date, payload.event.createDate)
+    // let dateTimeRE = /(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2}) (\[APM]{2})/g
+    payload.event.date.start = payload.event.date.start.replace(dateRE, '$2/$3/$1')
+    payload.event.date.end = payload.event.date.end.replace(dateRE, '$2/$3/$1')
+    // payload.event.createDate = payload.event.createDate.replace(dateTimeRE, '$3/$2/$1 $4:$5:$6 $7')
+    commit('setEventToken', payload.token)
+    commit('setEvent', payload.event)
     templates.staffMemberTemplate = {
       uid: payload.event.owner.uid,
       displayName: payload.event.owner.name,
@@ -205,13 +206,12 @@ const actions = {
     templates.teamMemberTemplate.user = payload.event.owner
     templates.teamMemberTemplate.role = 'Head'
     templates.teamTemplate.data.members[payload.event.owner.uid] = (templates.teamMemberTemplate)
+    templates.teamTemplate.data.lastMemberIndex = 1
     commit('addEventStaff', templates.staffMemberTemplate)
     commit('addEventTeam', templates.teamTemplate)
-    commit('setEventLastStaffIndex', 0)
+    commit('setEventLastStaffIndex', 1)
     firebase.database().ref('events').child(payload.token).set(state.event)
       .then(() => {
-        commit('setEventToken', payload.token)
-        commit('setEvent', payload.event)
         console.log('Event Created')
         router.push('/event/' + payload.token)
       })
@@ -228,6 +228,7 @@ const actions = {
 
     firebase.database().ref('events').child(payload).on('child_changed', snapshot => {
       commit('setEvent' + snapshot.key[0].toUpperCase() + snapshot.key.slice(1), snapshot.val())
+      console.log(snapshot.key, snapshot.val())
     })
   },
   deleteEvent ({commit, dispatch}, payload) {
@@ -658,9 +659,39 @@ const actions = {
         .child(teamIndex)
         .remove()
     }
-  // },
-  // addFlow ({commit}, payload) {
-  //   firebase.database().ref('events').child(state.currentEventToken).child('flow').child(payload)
+  },
+  addFlow ({commit}, payload) {
+    firebase.database().ref('events').child(state.currentEventToken).child('flow').set(payload)
+  },
+  editFlowItem ({commit}, payload) {
+    firebase.database().ref('events')
+      .child(state.currentEventToken)
+      .child('flow')
+      .child(payload.date)
+      .child(new Date(`1970-01-01T${payload.data.time}:00.000Z`).getTime())
+      .set(payload.data)
+
+    firebase.database().ref('events')
+      .child(state.currentEventToken)
+      .child('flow')
+      .child(payload.date)
+      .child(payload.index)
+      .remove()
+  },
+  deleteFlowItem ({commit}, payload) {
+    firebase.database().ref('events')
+      .child(state.currentEventToken)
+      .child('flow')
+      .child(payload.date)
+      .child(payload.index)
+      .remove()
+  },
+  deleteFlowByDate ({commit}, payload) {
+    firebase.database().ref('events')
+      .child(state.currentEventToken)
+      .child('flow')
+      .child(payload)
+      .remove()
   }
 }
 

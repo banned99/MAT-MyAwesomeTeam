@@ -147,6 +147,9 @@ const actions = {
       .catch((err) => console.log(err.message))
   },
   addEventFromCreate: ({commit}, payload) => {
+    let dateRE = /(\d{4})-(\d{2})-(\d{2})/g
+    payload.event.date.start = payload.event.date.start.replace(dateRE, '$2/$3/$1')
+    payload.event.date.end = payload.event.date.end.replace(dateRE, '$2/$3/$1')
     templates.joinedEventTemplate.name = payload.event.name
     templates.joinedEventTemplate.date = payload.event.date
     templates.joinedEventTemplate.team.name = 'event heads'

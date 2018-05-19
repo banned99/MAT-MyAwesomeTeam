@@ -1,185 +1,163 @@
-<template lang="html">
-  <div class="flow-window">
-    <!-- <light-timeline :items='items'></light-timeline>
-    <br>
-    <vue-modaltor  :visible="open" @hide="hideModal">
-      <form class="form-window">
-        <div class="box">
-          <date-picker v-model="date" :config="config"></date-picker>
-        </div>
-        <div class="form--field">
-          <label>Event Description</label>
-          <textarea class="form--element textarea" v-model="desc" placeholder="Description">
-          </textarea>
-
-        </div>
-        <div class="div-bt">
-          <button type="submit" class="submit-button" @click="random($event)">Create</button>
-          <button class="cancel" @click="hideModal">Cancel</button>
-        </div>
-      </form>
-    </vue-modaltor>
-    <button @click="open=true" class="log_bt">ADD</button> -->
-
-    <section id="conference-timeline">
-    <div class="timeline-start">Start</div>
-    <div class="conference-center-line"></div>
-    <div class="conference-timeline-content">
-      <!-- Article -->
-      <div class="timeline-article">
-        <div class="content-left-container">
-          <div class="content-left">
-            <p>When I orbited the Earth in a spaceship, I saw for the first time how beautiful our planet is. Mankind, let us preserve and increase this beauty, and not destroy it! <span class="article-number">01</span></p>
-          </div>
-          <span class="timeline-author">John Doe</span>
-        </div>
-        <div class="content-right-container">
-          <div class="content-right">
-            <p>When I orbited the Earth in a spaceship, I saw for the first time how beautiful our planet is. <span class="article-number">02</span></p>
-          </div>
-          <span class="timeline-author">John Doe</span>
-        </div>
-        <div class="meta-date">
-          <span class="date">18</span>
-          <span class="month">APR</span>
-        </div>
-      </div>
-      <!-- // Article -->
-
-      <!-- Article -->
-      <div class="timeline-article">
-        <div class="content-left-container">
-          <div class="content-left">
-            <p>When I orbited the Earth in a spaceship, I saw for the first time how beautiful our planet is. Mankind, let us preserve and increase this beauty, and not destroy it! <span class="article-number">00:30q</span></p>
-          </div>
-          <span class="timeline-author">John Doe</span>
-        </div>
-        <div class="content-right-container">
-          <div class="content-right">
-            <p>When I orbited the Earth in a spaceship, I saw for the first time how beautiful our planet is. <span class="article-number">02</span></p>
-          </div>
-          <span class="timeline-author">John Doe</span>
-        </div>
-        <div class="meta-date">
-          <span class="date">18</span>
-          <span class="month">APR</span>
-        </div>
-      </div>
-      <!-- // Article -->
-
-      <!-- Article -->
-      <div class="timeline-article">
-        <div class="content-left-container">
-          <div class="content-left">
-            <p>When I orbited the Earth in a spaceship, I saw for the first time how beautiful our planet is. Mankind, let us preserve and increase this beauty, and not destroy it! <span class="article-number">01</span></p>
-          </div>
-          <span class="timeline-author">John Doe</span>
-        </div>
-        <div class="content-right-container">
-          <div class="content-right">
-            <p>When I orbited the Earth in a spaceship, I saw for the first time how beautiful our planet is. <span class="article-number">02</span></p>
-          </div>
-          <span class="timeline-author">John Doe</span>
-        </div>
-        <div class="meta-date">
-          <span class="date">18</span>
-          <span class="month">APR</span>
-        </div>
-      </div>
-      <!-- // Article -->
+<template>
+  <div>
+    <div>
+      <h1>Flow</h1>
+      <FlowTable v-for="(flow, key) in getEventFlow" :key="key" :flow="flow" :date="key"/>
+      <button @click="open = true">Add Flow</button>
     </div>
-    <div class="timeline-end">End</div>
-  </section>
-  <!-- // Vertical Timeline -->
+    
+    <vue-modaltor  :visible="open" @hide="hide" name="Add Flow">
+      <div class="box-entername">
+        <h1 style="text-align:center">Add Flow</h1>
+        <select v-model="selectedDate">
+          <option v-for="date in mapFlowDate" :key="date.key" :value="date">{{ date }}</option>
+        </select>
+        <table>
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Task</th>
+              <th>Team</th>
+            </tr>
+          </thead>
+          <tbody v-if="!!selectedDate.trim()">
+            <tr v-for="value in flow[selectedDate]" :key="value.key">
+              <td>{{ value.time }}</td>
+              <td>{{ value.task }}</td>
+              <td>{{ value.team }}</td>
+            </tr>
+            <tr>
+              <td><input type="time" v-model="time" /></td>
+              <td><input type="text" v-model="task" /></td>
+              <td>
+                <select v-model="team">
+                  <option v-for="team in getTeamNames" :key="team.id" :value="team">
+                    {{ team[0].toUpperCase() + team.slice(1) }}
+                  </option>
+                </select>
+              </td>
+              <td><button @click="push" :disabled="!isValidate">Add</button></td>
+            </tr>
+          </tbody>
+        </table>
+        <button @click="submit">Confirm</button>
+        <button @click="cancel">Cancel</button>
+      </div>
+    </vue-modaltor>
   </div>
 </template>
 
 <script>
 import Modals from '../components/Modals'
+import FlowTable from '../components/FlowTable'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'flow',
   data: () => {
     return {
-      items: [
-        {
-          tag: '30-09-2018 06:30',
-          content: 'ตื่นนอนตอนเช้ากิจกรรมนันทนาการกิจกรรมนันทนาการกิจกรรมนันทนาการ',
-          color: '#f00'
-        },
-        {
-          tag: '30-09-2018 07:30',
-          content: 'ออกกำลังกายยามเช้ากิจกรรมนันทนาการกิจกรรมนันทนาการกิจกรรมนันทนาการ',
-          color: '#f0f'
-        },
-        {
-          tag: '30-09-2018 08:30',
-          content: 'รับประทานอาหารเช้ากิจกรรมนันทนาการกิจกรรมนันทนาการกิจกรรมนันทนาการ',
-          color: '#ff0'
-        },
-        {
-          tag: '30-09-2018 09:30',
-          content: 'กิจกรรมนันทนาการกิจกรรมนันทนาการกิจกรรมนันทนาการกิจกรรมนันทนาการ',
-          color: '#0ff'
-        },
-        {
-          tag: '30-09-2018 09:30',
-          content: 'กิจกรรมนันทนาการกิจกรรมนันทนาการกิจกรรมนันทนาการกิจกรรมนันทนาการ',
-          color: '#0ff'
-        },
-        {
-          tag: '30-09-2018 09:30',
-          content: 'กิจกรรมนันทนาการกิจกรรมนันทนาการกิจกรรมนันทนาการกิจกรรมนันทนาการ',
-          color: '#0ff'
-        }
-      ],
-      date: '',
-      desc: '',
       open: false,
-      config: {
-        format: 'DD-MM-YYYY h:mm',
-        useCurrent: false
+      flow: {},
+      selectedDate: '',
+      time: '',
+      task: '',
+      team: ''
+    }
+  },
+  computed: {
+    ...mapGetters(['getEventFlow', 'getEventDate', 'getTeamNames']),
+    mapFlowDate () {
+      let dateArray = this.getDates(this.getEventDate.start, this.getEventDate.end).map(x => x.toLocaleDateString().split('/').join('-'))
+      dateArray.forEach(el => {
+        if (!this.getEventFlow[el]) {
+          this.flow[el] = {}
+        } else {
+          this.flow[el] = this.getEventFlow[el]
+        }
+      })
+      return dateArray
+    },
+    isValidate () {
+      let validation = this.validateForm
+      return Object.keys(validation).every((key) => validation[key])
+    },
+    validateForm () {
+      return {
+        time: !!this.time.trim(),
+        task: !!this.task.trim(),
+        team: !!this.team.trim()
       }
     }
   },
   methods: {
+    ...mapActions(['addFlow']),
     show () {
-      this.$modal.show('formFlowCreate')
+      this.open = true
     },
     hide () {
-      this.$modal.hide('formFlowCreate')
-    },
-    changeDate: function (changeDate) {
-      this.date = changeDate
-    },
-    random: function () {
-      let c1
-      let c2
-      let c3
-      c1 = (Math.floor(Math.random() * (255 - 1 + 1)) + 1).toString()
-      c2 = (Math.floor(Math.random() * (255 - 1 + 1)) + 1).toString()
-      c3 = (Math.floor(Math.random() * (255 - 1 + 1)) + 1).toString()
-      this.items.push({
-        tag: this.date,
-        content: this.desc,
-        color: 'rgba(' + c1 + ',' + c2 + ',' + c3 + ', 1)'
-      })
-      this.date = ''
-      this.desc = ''
       this.open = false
-      this.resetForm()
+      this.cancel()
     },
-    hideModal () {
+    cancel () {
       this.open = false
-      this.resetForm()
+      this.flow = {}
+    },
+    submit () {
+      this.addFlow(this.flow)
+      this.cancel()
+    },
+    getDates (startDate, stopDate) {
+      var dateArray = []
+      var currentDate = new Date(startDate)
+      while (currentDate <= new Date(stopDate)) {
+        dateArray.push(currentDate)
+        currentDate = this.addDays(currentDate, 1)
+      }
+      return dateArray
+    },
+    addDays (startDate, days) {
+      var dat = new Date(startDate)
+      dat.setDate(dat.getDate() + days)
+      return dat
+    },
+    push () {
+      this.flow[this.selectedDate][new Date(`1970-01-01T${this.time}:00.000Z`).getTime()] = {
+        time: this.time,
+        task: this.task,
+        team: this.team
+      }
+      this.time = ''
+      this.task = ''
+      this.team = ''
+      // console.log(this.flow)
+      // this.sortFlow()
+    // },
+    // sortFlow () {
+    //   let sortedFlow = {}
+    //   Object.keys(this.flow).map((key, index) => {
+    //     sortedFlow[key] = {}
+    //     Object.keys(this.flow[key]).map((k, i) => {
+    //       var sorted = Object.values(this.flow[key]).sort((a, b) => {
+    //         return new Date(`1970-01-01T${a.time}:00.000Z`) - new Date(`1970-01-01T${b.time}:00.000Z`)
+    //       })
+    //       sortedFlow[key][k] = sorted[i]
+    //     })
+    //   })
+    //   this.flow = sortedFlow
     }
   },
   components: {
+<<<<<<< HEAD
     Modals
+=======
+    Modals,
+    FlowTable
+>>>>>>> dafe3ce23fea9fae6931cabe88e0c8bb6f21779a
   }
 }
 </script>
 
+<<<<<<< HEAD
 <style lang="css" scoped>
 
 .line-container{
@@ -253,3 +231,10 @@ text-transform:uppercase;
 <style media="screen" scoped>
   @import '../assets/css/Flow.css';
 </style>
+=======
+<style scoped>
+* {
+  color: black;
+}
+</style>
+>>>>>>> dafe3ce23fea9fae6931cabe88e0c8bb6f21779a

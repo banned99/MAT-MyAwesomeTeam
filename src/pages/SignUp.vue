@@ -17,7 +17,7 @@
     					<span class="icon5"><i class="fa fa-unlock" aria-hidden="true"></i></span><br>
     				<input  placeholder="Confirm Password" name="Password" class="pass" type="password" v-model="confirmpass" required="">
     					<span class="icon6"><i class="fa fa-unlock" aria-hidden="true"></i></span><br>
-    				<input type="submit" value="sign up"><br>
+    				<input :disabled="!isValid" type="submit" value="sign up"><br>
             <label>Already have an account?</label> <router-link class="textLink" to="/signin">Sign in here!</router-link><br>
             <div class="empty-space"></div>
           </form>
@@ -50,7 +50,7 @@ export default {
       return {
         email: emailRE.test(this.email),
         password: this.pass.length >= 6 && this.pass.trim(),
-        confirmpass: this.pass === this.confirmpass && this.pass.trim()
+        confirmpass: this.pass === this.confirmpass && this.confirmpass.trim()
       }
     },
     isValid: function () {
@@ -63,10 +63,12 @@ export default {
   methods: {
     ...mapActions(['userSignUp', 'clearAuthError']),
     signUp: function () {
-      this.userSignUp({
-        email: this.email,
-        password: this.pass
-      })
+      if (this.isValid) {
+        this.userSignUp({
+          email: this.email,
+          password: this.pass
+        })
+      }
     }
   }
 }
