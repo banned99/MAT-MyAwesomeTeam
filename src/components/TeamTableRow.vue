@@ -120,7 +120,7 @@ a:hover {
   font-size: 8px;
 }
 .tab-text {
-  font-size: 8px;
+  font-size: 12px;
 }
 .sel {
   background-color: rgba(255,255,255,0.3);

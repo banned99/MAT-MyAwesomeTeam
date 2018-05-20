@@ -97,10 +97,12 @@ export default {
 
 <style scoped>
   .bt {
+    border: 0px;
+    background-color: rgba(255,255,255,0);
     text-align: center;
     margin: auto;
     font-size: 2em;
-    padding: 0.5em;
+    padding: 0.25em;
     display: block;
     font-family: awesome;
     color: #fff;

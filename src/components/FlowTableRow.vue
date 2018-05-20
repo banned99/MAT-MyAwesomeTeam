@@ -108,6 +108,7 @@ export default {
 }
 .tab-di {
   padding: 1em;
+  overflow-x: scroll;
 }
 .bt {
   background-color: #f00;

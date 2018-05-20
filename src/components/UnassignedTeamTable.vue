@@ -1,6 +1,6 @@
 <template>
 <div class="wrapper">
-  <label>Unassigned Staffs</label>
+  <label class="lab-uns">Unassigned Staffs</label>
   <table>
     <tr>
       <th>Name</th>
@@ -37,5 +37,10 @@ export default {
 <style lang="css" scoped>
 .wrapper {
   width: 100%;
+}
+.lab-uns {
+  color: white;
+  font-weight: 900;
+  font-size: 2em;
 }
 </style>

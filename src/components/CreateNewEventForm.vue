@@ -51,7 +51,7 @@
         </div>
         <div class="div-bt">
           <button type="submit" class="submit-button">Create</button>
-          <button class="cancel" @click="cancel()">Cancel</button>
+          <button class="submit-button" @click="cancel()">Cancel</button>
         </div>
       </form>
     </vue-modaltor>

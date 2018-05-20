@@ -8,12 +8,12 @@
     <UnassignedTeamTable />
     <vue-modaltor  :visible="open" @hide="hideModal" name="addTeamModal" :clickToClose="true">
       <div class="modal-addstaff">
-        <h1>Add new Team</h1>
+        <h1 class="lab">Add new Team</h1>
         <p v-if="!validateName.teamName">Enter team name!</p>
         <p v-if="!validateName.exist">This team is already exists</p>
-        <label>Team Name: </label><input type="text" class="txt-name" v-model="teamName" required placeholder="Team Name"> <br>
-        <label>Team Description: </label><textarea class="txt-des" v-model="desc" placeholder="Team Description"></textarea><br>
-        <label>Select Team Head</label>
+        <p class="lab">Team Name</p><input type="text" class="txt-name" v-model="teamName" required placeholder="Team Name">
+        <p class="lab">Team Description</p><textarea class="txt-des" v-model="desc" placeholder="Team Description"></textarea>
+        <p class="lab">Select Team Head</p>
         <select v-model="head">
           <option v-for="staff in getUnassignedStaffs" :key="staff.key" :value="staff.uid">{{ staff.displayName }}</option>
         </select>
@@ -113,5 +113,9 @@ h1 {
   height: 30px;
   border-radius: 10px;
   border: 0px;
+}
+.lab {
+  font-weight: 900;
+  
 }
 </style>

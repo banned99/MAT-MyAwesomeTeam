@@ -20,10 +20,10 @@
       </select>
     </td>
     <td>
-      <button :disabled="!isValid" @click="assignStaff">Assign</button>
+      <button class="bt" :disabled="!isValid" @click="assignStaff">Assign</button>
     </td>
     <td>
-      <button @click="kickOut">Kick</button>
+      <button class="bt" @click="kickOut">Kick</button>
     </td>
   </tr>
 </template>
@@ -84,5 +84,13 @@ export default {
 }
 .tab-name{
   padding-right: 1em;
+}
+.bt {
+  font-weight: bold;
+  background-color: #03a9f4;
+  color: rgba(255,255,255,1);
+  height: 30px;
+  border-radius: 10px;
+  border: 0px;
 }
 </style>
