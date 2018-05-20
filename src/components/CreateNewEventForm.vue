@@ -370,7 +370,7 @@ a {
   color: black;
 }
 .show-createEvent:active {
-  background-color: rgba(255, 255, 255, 1);
+  background-color: rgba(255, 0,0, 1);
   cursor: pointer;
   color: black;
 }

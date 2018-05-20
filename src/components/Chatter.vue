@@ -1,7 +1,6 @@
 <template>
 <div>
   <ChatTextInput :isFinished="isFinished"/>
-  <ChatVoiceInput :isFinished="isFinished"/>
 </div>
 </template>
 

@@ -108,7 +108,7 @@ export default {
           this.deleteJoinedEvents({
             token: this.getEventToken
           })
-          this.$router.push('home')
+          this.$router.push('/home')
         }
       }
     },

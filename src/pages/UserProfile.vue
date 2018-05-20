@@ -2,7 +2,7 @@
   <div class="wrappa">
     <WebHeader />
     <div class="head-dis-name">
-      <h2 class="dis-name">{{ getDisplayName }}</h2>
+      <h2 class="dis-name">Profile</h2>
     </div>
     <div class="empty-space"></div>
     <div class="edit-name-wrap">
@@ -79,6 +79,10 @@ body, html {
   margin-left: 10%;
   font-size: 2.5rem;
   font-weight: 400;
+  padding-top: 3em;
+  margin-top: 0px !important;
+  font-size: 2em;
+  font-weight: 800;
 }
 .head-dis-name {
  text-align: left;

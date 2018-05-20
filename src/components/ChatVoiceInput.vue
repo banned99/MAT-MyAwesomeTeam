@@ -2,7 +2,7 @@
 <div id="voice" v-if="!isFinished">
   <div id="audioContainer" style="display: none;" ></div>
   <div id="streamController">
-    <a class="bt" @touchstart="startRec" @touchend="endRec" @mousedown="startRec" @mouseup="endRec">&#xf130;</a>
+    <button class="bt" @touchstart="startRec" @touchend="endRec" @mousedown="startRec" @mouseup="endRec">&#xf130;</button>
   </div>
 </div>
 </template>
@@ -98,9 +98,9 @@ export default {
 <style scoped>
   .bt {
     text-align: center;
-    padding-top: 1em;
     margin: auto;
-    font-size: 3em;
+    font-size: 2em;
+    padding: 0.5em;
     display: block;
     font-family: awesome;
     color: #fff;

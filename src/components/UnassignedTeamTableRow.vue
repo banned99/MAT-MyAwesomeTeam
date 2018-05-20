@@ -1,20 +1,20 @@
 <template>
   <tr>
-    <td>{{ staff.displayName }}</td>
+    <td class="tab-name">{{ staff.displayName }}</td>
     <td>Team:
-      <select v-model="team" name="team">
+      <select class="sel" v-model="team" name="team">
         <option value="" selected>Choose team</option>
         <option v-for="name in getTeamNames" :key="name.key" :value="name">{{ name[0].toUpperCase() + name.substr(1) }}</option>
       </select>
     </td>
     <td>Role:
-      <select v-model="role">
+      <select class="sel" v-model="role">
         <option value="Member" selected>Member</option>
         <option value="Sub Head">Sub Head</option>
       </select>
     </td>
     <td>Priority:
-      <select v-model="prio" name="prio">
+      <select class="sel" v-model="prio" name="prio">
         <option value="false" selected>No</option>
         <option value="true">Yes</option>
       </select>
@@ -76,6 +76,13 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="css" scoped>
+.sel {
+  width: 100%;
+  font-size: 10px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.tab-name{
+  padding-right: 1em;
+}
 </style>

@@ -155,7 +155,7 @@ export default {
   margin-left: -25px;
   background-color: #333;
   border: 3px solid #ffffff;
-  z-index: 100;
+  z-index: 99;
   border-top-right-radius: 50%;
   border-top-left-radius: 50%;
   border-bottom-right-radius: 50%;

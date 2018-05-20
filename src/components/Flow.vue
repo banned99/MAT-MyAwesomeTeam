@@ -1,23 +1,28 @@
 <template>
   <div>
     <div>
-      <h1>Flow</h1>
+      <h1 class="lab-head">Flow</h1>
       <FlowTable v-for="(flow, key) in getEventFlow" :key="key" :flow="flow" :date="key"/>
-      <button @click="open = true">Add Flow</button>
+      <div class="bt-add-flow">
+        <button class="bt-op-md" @click="open = true">Add Flow</button>
+      </div>
     </div>
 
     <vue-modaltor  :visible="open" @hide="hide" name="Add Flow">
       <div class="box-entername">
-        <h1 style="text-align:center">Add Flow</h1>
-        <select v-model="selectedDate">
-          <option v-for="date in mapFlowDate" :key="date.key" :value="date">{{ date }}</option>
-        </select>
-        <table>
+        <h1 class="box head" style="text-align:center">Add Flow</h1>
+        <p class="box warn" style="text-align:center" v-if="selectedDate == ''">Select Date</p>
+        <div class="box-select">
+          <select class="box select" v-model="selectedDate" placeholder="month/day/year">
+            <option class="box opt" v-for="date in mapFlowDate" :key="date.key" :value="date">{{ date }}</option>
+          </select>
+        </div>
+        <table class="box tab">
           <thead>
-            <tr>
-              <th>Time</th>
-              <th>Task</th>
-              <th>Team</th>
+            <tr v-if="selectedDate != ''">
+              <th class="box tab head">Time</th>
+              <th class="box tab head">Task</th>
+              <th class="box tab head">Team</th>
             </tr>
           </thead>
           <tbody v-if="!!selectedDate.trim()">
@@ -26,22 +31,24 @@
               <td>{{ value.task }}</td>
               <td>{{ value.team }}</td>
             </tr>
-            <tr>
-              <td><input type="time" v-model="time" /></td>
-              <td><input type="text" v-model="task" /></td>
-              <td>
-                <select v-model="team">
-                  <option v-for="team in getTeamNames" :key="team.id" :value="team">
-                    {{ team[0].toUpperCase() + team.slice(1) }}
-                  </option>
-                </select>
-              </td>
-              <td><button @click="push" :disabled="!isValidate">Add</button></td>
-            </tr>
+
           </tbody>
         </table>
-        <button @click="submit">Confirm</button>
-        <button @click="cancel">Cancel</button>
+        <div class="tab-input">
+        <p class="p-txt">TIME</p>  <input class="box-input" type="time" v-model="time" />
+        <p class="p-txt">TASK</p>  <input class="box-input" type="text" v-model="task" />
+
+        <p class="p-txt">TEAM</p>    <select class="box-input" v-model="team">
+              <option v-for="team in getTeamNames" :key="team.id" :value="team">
+                {{ team[0].toUpperCase() + team.slice(1) }}
+              </option>
+            </select>
+          <button class="bt add" @click="push" :disabled="!isValidate">Add</button>
+        </div>
+        <div class="box">
+          <button class="bt submit" @click="submit">Confirm</button>
+          <button class="bt cancel" @click="cancel">Cancel</button>
+        </div>
       </div>
     </vue-modaltor>
   </div>
@@ -94,6 +101,7 @@ export default {
     hide () {
       this.open = false
       this.cancel()
+      this.selectedDate = ''
     },
     cancel () {
       this.open = false
@@ -102,6 +110,7 @@ export default {
     submit () {
       this.addFlow(this.flow)
       this.cancel()
+      this.selectedDate = ''
     },
     getDates (startDate, stopDate) {
       var dateArray = []
@@ -150,8 +159,79 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="css" scoped>
 * {
   color: black;
+}
+th td {
+  text-align: center !important;
+  padding: 1em;
+}
+.bt-op-md{
+  background-color: #76ff03;
+  border: 0px;
+  border-radius: 1em;
+  color:black;
+  font-weight: 900;
+}
+.lab-head {
+  color: white;
+  font-weight: 900;
+}
+.bt-add-flow {
+  display: block;
+  padding-bottom: 3em;
+  padding-top: 2em;
+}
+.box {
+  text-align: center;
+}
+.box.select {
+  display: block;
+  margin: auto;
+}
+.bt {
+  background-color: #ff4000;
+  border: 0px;
+  border-radius: 1em;
+  color:black;
+  font-weight: 900;
+}
+.tab-input{
+  width: 100%;
+  padding: 1em;
+  text-align: center;
+  border-top:1px solid black;
+}
+.box-entername {
+  overflow-y: scroll;
+  text-align: center;
+}
+.select{
+  background-color: cornsilk;
+  color: #000;
+}
+.box-select {
+  padding-bottom: 2em;
+}
+.box-input {
+  background-color: cornsilk;
+  color: #000;
+}
+.bt.add{
+  background-color: #2979ff;
+  display: block;
+  margin: auto;
+  margin-top: 1em;
+}
+.box.warn{
+  color:red;
+}
+.box.tab{
+  max-height: 100px;
+  overflow-y: scroll;
+}
+.p-txt {
+  margin: 0;
 }
 </style>

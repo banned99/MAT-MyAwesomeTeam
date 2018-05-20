@@ -54,7 +54,7 @@ export default {
   font-weight: bold;
   background-color: #ffa000;
   color: rgba(255,255,255,1);
-  width: 10%;
+  width: 20%;
   height: 50px;
   border-radius: 10px;
   border: 0px;

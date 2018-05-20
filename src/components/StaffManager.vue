@@ -2,6 +2,9 @@
   <div>
     <h1>Manage Team & Staffs</h1>
     <TeamTable v-for="(team, index) in getEventTeams" :key="team.key" :team="team" :index="index"/>
+    <div class="show-add">
+      <button @click="open=true" class="shows">ADD</button>
+    </div>
     <UnassignedTeamTable />
     <vue-modaltor  :visible="open" @hide="hideModal" name="addTeamModal" :clickToClose="true">
       <div class="modal-addstaff">
@@ -18,7 +21,7 @@
         <button type="button" @click="cancelAddTeam()">Cancel</button>
       </div>
     </vue-modaltor>
-    <button @click="open=true" class="show">ADD</button>
+
   </div>
 </template>
 
@@ -84,7 +87,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="css" scoped>
 .modal-addstaff {
   text-align: center;
 }
@@ -97,5 +100,18 @@ export default {
 }
 h1 {
   color: white;
+}
+.show-add {
+  text-align: right;
+  display: block;
+  padding-bottom: 3em;
+}
+.shows {
+  font-weight: bold;
+  background-color: #03a9f4;
+  color: rgba(255,255,255,1);
+  height: 30px;
+  border-radius: 10px;
+  border: 0px;
 }
 </style>

@@ -37,5 +37,5 @@ tr.headTr:hover{
 }
 </style>
 <style media="screen" scoped>
-  @import '../assets/css/tablestyle.css'
+  @import '../assets/css/tablestyle.css';
 </style>

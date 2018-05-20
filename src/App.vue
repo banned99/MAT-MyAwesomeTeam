@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <main>
+      <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
       <router-view></router-view>
     </main>
   </div>
@@ -37,8 +38,7 @@ export default {
   src: url('assets/fonts/fontawesome-webfont.woff');
 }
 body {
-  margin: 0;
-  background:url('assets/images/bg.jpg') no-repeat 0% 87% fixed;
+  background:url('assets/images/bg.jpg') no-repeat 0% 100% fixed;
 }
 
 #app {
@@ -79,5 +79,13 @@ button {
         -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
+  -webkit-appearance: button;
+}
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  select:focus,
+  textarea:focus,
+  input:focus {
+    font-size: 16px;
+    }
 }
 </style>

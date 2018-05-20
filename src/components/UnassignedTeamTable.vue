@@ -1,10 +1,15 @@
 <template>
-<div>
+<div class="wrapper">
   <label>Unassigned Staffs</label>
   <table>
     <tr>
       <th>Name</th>
       <th>Options</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
     <UnassignedTeamTableRow v-if="!!getUnassignedStaffs" v-for="staff in getUnassignedStaffs" :key="staff.uid" :staff="staff"/>
     <tr v-if="!getUnassignedStaffs || getUnassignedStaffs.length < 1">
@@ -29,6 +34,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="css" scoped>
+.wrapper {
+  width: 100%;
+}
 </style>

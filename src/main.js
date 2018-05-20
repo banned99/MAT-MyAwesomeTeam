@@ -12,7 +12,8 @@ import BootstrapVue from 'bootstrap-vue'
 import VueTabs from 'vue-nav-tabs'
 import 'vue-nav-tabs/themes/vue-tabs.css'
 import VueModalTor from 'vue-modaltor'
-import './assets/css/bootstrap.css'
+import './assets/css/tablestyle.css'
+// import './assets/css/bootstrap.css'
 import VueChatScroll from 'vue-chat-scroll'
 
 Vue.use(VueChatScroll)

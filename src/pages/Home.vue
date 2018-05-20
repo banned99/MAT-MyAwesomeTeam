@@ -14,7 +14,6 @@
     </vue-modaltor>
     <br>
   </div>
-
 </div>
 </template>
 
@@ -30,7 +29,8 @@ export default {
     return {
       name: '',
       user: {},
-      open: false
+      open: false,
+      show: false
     }
   },
   created () {
@@ -67,6 +67,9 @@ export default {
     cancel: function () {
       this.open = false
       this.resetForm()
+    },
+    showdiv: function () {
+      this.show = true
     }
   },
   components: {
@@ -136,9 +139,6 @@ h1,h3{
 th * {
   text-align:center !important;
 }
-.box-entername {
-  text-align: center;
-}
 .entername {
   height: 2em;
   width: 50%;
@@ -149,5 +149,8 @@ th * {
 }
 .content {
   top:0;
+}
+.box-entername {
+  text-align: center;
 }
 </style>
