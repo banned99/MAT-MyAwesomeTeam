@@ -4,14 +4,14 @@
   <label class="Head-detail-page">Details</label>
   <div class="box evname">
     <label class="h-label">Event Name</label>
-    <p v-show="!editing">{{ getEvent.name }}</p>
-    <input type="text" v-model="event.name" v-show="editing" />
+    <p v-if="!editing">{{ getEvent.name }}</p>
+    <input type="text" v-model="event.name" v-if="editing" />
   </div>
   <div class="box desc">
     <label class="h-label">Description</label>
     <p v-if="!editing && !!getEvent.desc.trim()">{{ getEvent.desc }}</p>
     <p v-if="!editing && !getEvent.desc.trim()">------- No description. -------</p>
-    <textarea v-model="event.desc" cols="30" rows="10" v-show="editing" ></textarea>
+    <textarea v-model="event.desc" cols="30" rows="10" v-if="editing" ></textarea>
   </div>
     <div class="box date">
       <label class="h-label">Date</label>
@@ -43,11 +43,11 @@
   </div>
   <br>
 </div>
-    <div class="bt-box" v-if="!isFinished">
-      <button class="EvDetails-button" @click="toggleEdit" v-show="!editing">Edit</button>
-      <button class="EvDetails-button" @click="attemptDelete" v-show="!editing">Delete</button>
-      <button class="EvDetails-button" @click="confirmEdit" v-show="editing">Confirm</button>
-      <button class="EvDetails-button" @click="cancelEdit" v-show="editing">Cancel</button>
+    <div class="bt-box" v-if="!finished">
+      <button class="EvDetails-button" @click="toggleEdit" v-if="!editing && owner">Edit</button>
+      <button class="EvDetails-button" @click="attemptDelete" v-if="!editing && owner">Delete</button>
+      <button class="EvDetails-button" @click="confirmEdit" v-if="editing">Confirm</button>
+      <button class="EvDetails-button" @click="cancelEdit" v-if="editing">Cancel</button>
     </div>
   </div>
 </template>
@@ -83,7 +83,10 @@ export default {
     }
   },
   props: {
-    isFinished: {
+    owner: {
+      type: Boolean
+    },
+    finished: {
       type: Boolean
     }
   },

@@ -3,8 +3,8 @@
     <td class="tab-di">{{ flowItem.time }}</td>
     <td class="tab-di">{{ flowItem.task }}</td>
     <td class="tab-di">{{ flowItem.team }}</td>
-    <td class="tab-di"><button class="bt-e-d" @click="editing = true">Edit</button></td>
-    <td class="tab-di"><button class="bt-e-d" @click="del">Delete</button></td>
+    <td v-if="owner" class="tab-di"><button class="bt-e-d" @click="editing = true">Edit</button></td>
+    <td v-if="owner" class="tab-di"><button class="bt-e-d" @click="del">Delete</button></td>
   </tr>
   <tr v-else>
     <td class="tab-di"><input class="inp time" type="time" v-model="time"></td>
@@ -13,7 +13,7 @@
       <select class="" v-model="team">
         <option class="inp opt" v-for="name in getTeamNames" :key="name.id" :value="name">{{ name[0].toUpperCase() + name.slice(1) }}</option>
       </select>
-    </td class="tab-di">
+    </td>
     <td class="tab-di"><button class="bt ok" @click="edit">OK</button></td>
     <td class="tab-di"><button class="bt cc" @click="cancel">Cancel</button></td>
   </tr>
@@ -29,7 +29,8 @@ export default {
       editing: false,
       team: '',
       task: '',
-      time: ''
+      time: '',
+      now: 0
     }
   },
   computed: {
@@ -44,6 +45,11 @@ export default {
     isValid () {
       let validation = this.validateData
       return Object.keys(validation).every((key) => validation[key])
+    },
+    isNow () {
+      // console.log(this.now)
+      let section = new Date(this.date).getTime() + new Date(`1970-01-01T${this.flowItem.time}:00.000Z`).getTime()
+      return this.now >= section
     }
   },
   mounted () {
@@ -59,6 +65,9 @@ export default {
     date: {
       required: true,
       type: String
+    },
+    owner: {
+      type: Boolean
     }
   },
   methods: {
@@ -78,7 +87,7 @@ export default {
     del () {
       if (confirm('Are you sure to DELETE this flow?\nThis action cannot be undone.')) {
         this.deleteFlowItem({
-          index: new Date(`1970-01-01T${this.flowItem.item}:00.000Z`).getTime(),
+          index: new Date(`1970-01-01T${this.flowItem.time}:00.000Z`).getTime(),
           date: this.date
         })
       }

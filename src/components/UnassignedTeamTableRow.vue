@@ -1,28 +1,28 @@
 <template>
   <tr>
     <td class="tab-name">{{ staff.displayName }}</td>
-    <td>Team:
+    <td v-if="owner || priority">Team:
       <select class="sel" v-model="team" name="team">
         <option value="" selected>Choose team</option>
         <option v-for="name in getTeamNames" :key="name.key" :value="name">{{ name[0].toUpperCase() + name.substr(1) }}</option>
       </select>
     </td>
-    <td>Role:
+    <td v-if="owner || priority">Role:
       <select class="sel" v-model="role">
         <option value="Member" selected>Member</option>
         <option value="Sub Head">Sub Head</option>
       </select>
     </td>
-    <td>Priority:
+    <td v-if="owner">Priority:
       <select class="sel" v-model="prio" name="prio">
         <option value="false" selected>No</option>
         <option value="true">Yes</option>
       </select>
     </td>
-    <td>
+    <td v-if="owner || priority">
       <button class="bt" :disabled="!isValid" @click="assignStaff">Assign</button>
     </td>
-    <td>
+    <td v-if="owner">
       <button class="bt" @click="kickOut">Kick</button>
     </td>
   </tr>
@@ -44,6 +44,12 @@ export default {
     staff: {
       required: true,
       type: Object
+    },
+    owner: {
+      type: Boolean
+    },
+    priority: {
+      type: Boolean
     }
   },
   computed: {
@@ -51,7 +57,6 @@ export default {
     validateData () {
       return {
         team: !!this.team.trim(),
-        prio: !!this.prio.trim(),
         role: !!this.role.trim()
       }
     },
@@ -63,7 +68,7 @@ export default {
   methods: {
     ...mapActions(['assignToTeam', 'updateTeam', 'kickStaff', 'leaveEvent']),
     assignStaff () {
-      this.assignToTeam({uid: this.staff.uid, team: this.team, prio: this.prio, role: this.role})
+      this.assignToTeam({uid: this.staff.uid, team: this.team, prio: this.prio || false, role: this.role})
       this.updateTeam({uid: this.staff.uid, team: this.team, eventId: this.$route.params.eventId, role: this.role})
     },
     kickOut () {

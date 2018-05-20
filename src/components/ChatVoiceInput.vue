@@ -1,5 +1,5 @@
 <template>
-<div id="voice" v-if="!isFinished">
+<div id="voice" v-if="!finished">
   <div id="audioContainer" style="display: none;" ></div>
   <div id="streamController">
     <button class="bt" @touchstart="startRec" @touchend="endRec" @mousedown="startRec" @mouseup="endRec">&#xf130;</button>
@@ -19,73 +19,71 @@ export default {
     }
   },
   props: {
-    isFinished: {
+    finished: {
       type: Boolean
     }
   },
   mounted: function () {
-    var eventId = this.$route.params.eventId
+    if (!this.finished) {
+      var eventId = this.$route.params.eventId
 
-    this.connection = new RTCMultiConnection()
-    this.connection.autoCloseEntireSession = false
-    this.connection.enableLogs = false
-    this.connection.dontOverrideSession = true
-    this.connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/'
+      this.connection = new RTCMultiConnection()
+      this.connection.autoCloseEntireSession = false
+      this.connection.enableLogs = false
+      this.connection.dontOverrideSession = true
+      this.connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/'
 
-    this.connection.session = {
-      audio: true,
-      video: false
-    }
-
-    this.connection.mediaConstraints = {
-      video: false,
-      audio: true
-    }
-
-    this.connection.sdpConstraints.mandatory = {
-      OfferToReceiveAudio: true,
-      OfferToReceiveVideo: false
-    }
-
-    // this.connection.openOrJoin('444444')
-    // this.connection.openOrJoin(eventId, (isRoomExists, roomid) => {
-    //   console.log(isRoomExists ? 'You joined room ' + roomid : 'You created room ' + roomid)
-    // })
-
-    this.connection.checkPresence(eventId, (isRoomExists, roomid) => {
-      if (isRoomExists) {
-        this.connection.join(roomid)
-      } else {
-        this.connection.open(roomid)
+      this.connection.session = {
+        audio: true,
+        video: false
       }
-    })
 
-    this.connection.onstream = function (event) {
-      var audioContainer = document.getElementById('audioContainer')
-      if (event.type === 'local') {
-        event.stream.mute()
+      this.connection.mediaConstraints = {
+        video: false,
+        audio: true
       }
-      audioContainer.appendChild(event.mediaElement)
-    }
 
-    this.connection.onstreamended = this.connection.onleave = this.connection.onclose = (event) => {
-      var audio = document.getElementById(event.streamid)
-      if (!audio) return
-      audio.parentNode.removeChild(audio)
+      this.connection.sdpConstraints.mandatory = {
+        OfferToReceiveAudio: true,
+        OfferToReceiveVideo: false
+      }
+
+      this.connection.checkPresence(eventId, (isRoomExists, roomid) => {
+        if (isRoomExists) {
+          this.connection.join(roomid)
+        } else {
+          this.connection.open(roomid)
+        }
+      })
+
+      this.connection.onstream = function (event) {
+        var audioContainer = document.getElementById('audioContainer')
+        if (event.type === 'local') {
+          event.stream.mute()
+        }
+        audioContainer.appendChild(event.mediaElement)
+      }
+
+      this.connection.onstreamended = this.connection.onleave = this.connection.onclose = (event) => {
+        var audio = document.getElementById(event.streamid)
+        if (!audio) return
+        audio.parentNode.removeChild(audio)
+      }
     }
   },
   beforeDestroy: function () {
-    this.connection.getAllParticipants().forEach((p, index) => {
-      this.connection.disconnectWith(p) // optional but suggested
-    })
-    this.connection.streamEvents.selectFirst().stream.stop()
-    this.connection.close()
-    this.connection.closeSocket()
-    this.connection = null
+    if (this.connection.streamEvents.length >= 1) {
+      this.connection.getAllParticipants().forEach((p, index) => {
+        this.connection.disconnectWith(p)
+      })
+      this.connection.streamEvents.selectFirst().stream.stop()
+      this.connection.close()
+      this.connection.closeSocket()
+      this.connection = null
+    }
   },
   methods: {
     startRec: function () {
-      console.log(this.connection.streamEvents.selectFirst())
       this.connection.streamEvents.selectFirst().stream.unmute()
     },
     endRec: function () {

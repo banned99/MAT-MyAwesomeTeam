@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <p class="head-request">Pending Join Requests</p>
-    <RequestListItem v-if="getPendingJoinRequests" v-for="(request, index) in getPendingJoinRequests" :key="index" :request="request" :index="index"/>
+    <RequestListItem v-if="getPendingJoinRequests" v-for="(request, index) in getPendingJoinRequests" :owner="owner" :key="index" :request="request" :index="index" :priority="priority"/>
     <p class="text-nopend" v-if="getPendingJoinRequests.length === 0">
       ---- No pending requests. ----
     </p>
@@ -14,6 +14,14 @@ import RequestListItem from '../components/RequestListItem'
 
 export default {
   name: 'requestdropdown',
+  props: {
+    owner: {
+      type: Boolean
+    },
+    priority: {
+      type: Boolean
+    }
+  },
   computed: {
     ...mapGetters(['getPendingJoinRequests', 'getDisplayName'])
   },

@@ -17,9 +17,6 @@ export default {
   name: 'app',
   computed: {
     ...mapGetters(['getAppName'])
-    // isAuthenticated () {
-    //   return this.$store.getters.getLoginState && this.$store.getters.getCurrentUser !== undefined
-    // }
   },
   methods: {
     show () {

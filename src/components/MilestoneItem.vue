@@ -3,7 +3,7 @@
     <div class="timeline-badge primary"><i class="glyphicon glyphicon-check"></i></div>
     <div class="timeline-panel">
       <div class="timeline-heading">
-        <div v-if="!editing">
+        <div v-if="!editing && owner && !finished">
           <h4 class="timeline-title">{{ milestone.title }}</h4>
           <button @click="editing = true">Edit</button>
           <button @click="del">Delete</button>
@@ -58,6 +58,12 @@ export default {
     index: {
       required: true,
       type: String
+    },
+    owner: {
+      type: Boolean
+    },
+    finished: {
+      type: Boolean
     }
   },
   mounted () {

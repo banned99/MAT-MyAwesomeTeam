@@ -5,7 +5,7 @@
       <label>Request Date: {{ request.requester.timestamp }}</label>
     </div>
     <div class="bb-box">
-      <div class="bt-box">
+      <div class="bt-box" v-if="owner || priority">
         <button class="bt" @click="acceptRequest">Accept</button>
         <div class="space"></div>
         <button class="bt" @click="declineRequest">Decline</button>
@@ -27,6 +27,12 @@ export default {
     index: {
       type: Number,
       required: true
+    },
+    owner: {
+      type: Boolean
+    },
+    priority: {
+      type: Boolean
     }
   },
   computed: {

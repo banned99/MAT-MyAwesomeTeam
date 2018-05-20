@@ -2,28 +2,28 @@
   <tr>
     <td class="tab-text">{{ member.user.name }}</td>
     <td class="tab-text">{{ member.role }}</td>
-    <td class="tab-text" v-if="!editing"><button class="bt edit" @click="editing = true">Edit</button></td>
-    <td class="tab-text" v-if="editing">Team:
+    <td class="tab-text" v-if="!editing && (owner || priority) && !finished"><button class="bt edit" @click="editing = true">Edit</button></td>
+    <td class="tab-text" v-if="editing && owner">Team:
       <select class="sel" v-model="team">
         <option :selected="name === teamName" v-for="name in getTeamNames" :key="name.key" :value="name">{{ name[0].toUpperCase() + name.substr(1)  }}</option>
       </select>
     </td>
-    <td class="tab-text" v-if="editing">Role:
+    <td class="tab-text" v-if="editing && (owner || priority)">Role:
       <select class="sel" v-model="role">
         <option value="Member" selected>Member</option>
         <option value="Sub Head">Sub Head</option>
       </select>
     </td>
-    <td class="tab-text" v-if="editing">Priority:
+    <td class="tab-text" v-if="editing && owner">Priority:
       <select class="sel" v-model="prio">
         <option value="false" selected>No</option>
         <option value="true">Yes</option>
       </select>
     </td>
-    <td  v-if="editing"><button class="bt submit" :disabled="!isValid || same" @click="updateStaff()">Submit</button></td>
+    <td v-if="editing"><button class="bt submit" :disabled="!isValid || same" @click="updateStaff()">Submit</button></td>
     <td v-if="editing"><button class="bt edit" @click="cancel()">Cancel</button></td>
-    <td v-if="!editing"><button class="bt unassign" @click="unassign()">unassign</button></td>
-    <td v-if="!editing"><button class="bt kick" @click="kickThisUser()">Kick</button></td>
+    <td v-if="!editing && (owner || priority) && !finished" ><button class="bt unassign" @click="unassign()">unassign</button></td>
+    <td v-if="!editing && owner && !finished" ><button class="bt kick" @click="kickThisUser()">Kick</button></td>
   </tr>
 </template>
 
@@ -48,6 +48,15 @@ export default {
     member: {
       required: true,
       type: Object
+    },
+    owner: {
+      type: Boolean
+    },
+    priority: {
+      type: Boolean
+    },
+    finished: {
+      type: Boolean
     }
   },
   mounted () {

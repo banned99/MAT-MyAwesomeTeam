@@ -7,8 +7,8 @@
         </div>
         <div style="display:inline-block;width:100%;overflow-y:auto;">
           <ul class="timeline timeline-horizontal">
-            <!-- <MilestoneItem v-if="onlyMyTeam" v-for="milestone in getMyTeamMilestone" :key="milestone['.key']" :milestone="milestone"/> -->
-            <MilestoneItem v-if="!onlyMyTeam" v-for="(milestone, key) in getEventMilestone" :key="key" :milestone="milestone" :index="key"/>
+            <MilestoneItem v-if="onlyMyTeam" v-for="(milestone, key) in getMyTeamMilestone" :key="key" :milestone="milestone" :index="key" :owner="owner"/>
+            <MilestoneItem v-if="!onlyMyTeam" v-for="(milestone, key) in getAllMilestone" :key="key" :milestone="milestone" :index="key" :owner="owner"/>
             <li v-if="Object.keys(getEventMilestone).length < 1" class="timeline-item">
               <div class="timeline-badge primary"><i class="glyphicon glyphicon-check"></i></div>
               <div class="timeline-panel">
@@ -24,7 +24,9 @@
         </div>
       </div>
     </div>
-    <button class="bt-submit" @click="show = true">Add Milestone</button>
+    <button class="bt-submit" @click="show = true" v-if="owner && !finished">Add Milestone</button>
+    <button v-if="!onlyMyTeam" @click="onlyMyTeam = true">Only my team</button>
+    <button v-if="onlyMyTeam" @click="onlyMyTeam = false">All team</button>
     <vue-modaltor  :visible="show" @hide="cancel" name="Add Milestone">
       <div class="box-entername">
         <h1 style="text-align:center">Add Milestone</h1>
@@ -73,28 +75,39 @@ export default {
       onlyMyTeam: false
     }
   },
+  props: {
+    owner: {
+      type: Boolean
+    },
+    finished: {
+      type: Boolean
+    }
+  },
   computed: {
-    ...mapGetters(['getEventMilestone', 'getTeamNames', 'getEventDate'])
-    // sortTaskByDue () {
-    //   let sortedObject = {}
-    //   let originalKeys = Object.keys(this.getEventMilestone)
-    //   let originalValues = Object.values(this.getEventMilestone)
-    //   let sortedValue = originalValues
-    //   sortedValue.sort((a, b) => a.due - b.due).forEach(el => {
-    //     sortedObject[originalKeys[originalValues.findIndex(el)]] = el
-    //   })
-    //   return sortedObject
-    // },
-    // getMyTeamMilestone () {
-    //   let myTeamMilestone = {}
-    //   Object.keys(this.getEventMilestone).filter(key => {
-    //     return this.getEventMilestone[key].team === this.getUserTeam
-    //   }).forEach(key => { myTeamMilestone[key] = this.getEventMilestone[key] })
-    //   return myTeamMilestone
-    // }
+    ...mapGetters(['getEventMilestone', 'getTeamNames', 'getEventDate', 'getUserTeam']),
+    getAllMilestone () {
+      return this.sortTaskByDue(this.getEventMilestone)
+    },
+    getMyTeamMilestone () {
+      let myTeamMilestone = {}
+      Object.keys(this.getEventMilestone).filter(key => {
+        return this.getEventMilestone[key].team === this.getUserTeam(this.$route.params.eventId)
+      }).forEach(key => { myTeamMilestone[key] = this.getEventMilestone[key] })
+      return this.sortTaskByDue(myTeamMilestone)
+    }
   },
   methods: {
     ...mapActions(['addMilestone']),
+    sortTaskByDue (milestone) {
+      let sortedObject = {}
+      let originalKeys = Object.keys(milestone)
+      let originalValues = Object.values(milestone)
+      let sortedValue = originalValues
+      sortedValue.sort((a, b) => new Date(a.due).getTime() - new Date(b.due).getTime()).forEach(el => {
+        sortedObject[originalKeys[originalValues.findIndex(elem => elem === el)]] = el
+      })
+      return sortedObject
+    },
     submit () {
       this.addMilestone({
         index: new Date().getTime(),

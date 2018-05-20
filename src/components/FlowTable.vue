@@ -4,7 +4,7 @@
       <h4 class="lab-date">{{ new Date(date).toLocaleDateString() }}</h4>
     </div>
     <div class="bt-del-box">
-      <button class="bt-del" @click="attemptDelete">Delete</button>
+      <button v-if="owner" class="bt-del" @click="attemptDelete">Delete</button>
     </div>
     <table>
       <thead>
@@ -16,7 +16,7 @@
         </tr>
       </thead>
       <tbody>
-        <FlowTableRow v-for="(flowItem, key) in flow" :key="key" :flowItem="flowItem" :date="date"/>
+        <FlowTableRow v-for="(flowItem, key) in flow" :key="key" :flowItem="flowItem" :date="date" :owner="owner"/>
       </tbody>
     </table>
   </div>
@@ -35,6 +35,9 @@ export default {
     },
     date: {
       type: String
+    },
+    owner: {
+      type: Boolean
     }
   },
   components: {

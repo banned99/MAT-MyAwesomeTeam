@@ -1,11 +1,11 @@
 <template>
   <div>
     <h1>Manage Team & Staffs</h1>
-    <TeamTable v-for="(team, index) in getEventTeams" :key="team.key" :team="team" :index="index"/>
+    <TeamTable v-for="(team, index) in getEventTeams" :key="team.key" :team="team" :index="index" :priority="priority" :finished="finished" :owner="owner"/>
     <div class="show-add">
-      <button @click="open=true" class="shows">ADD</button>
+      <button @click="open=true" class="show" v-if="owner && !finished">ADD</button>
     </div>
-    <UnassignedTeamTable />
+    <UnassignedTeamTable :owner="owner" :priority="priority" :finished="finished"/>
     <vue-modaltor  :visible="open" @hide="hideModal" name="addTeamModal" :clickToClose="true">
       <div class="modal-addstaff">
         <h1 class="lab">Add new Team</h1>
@@ -21,7 +21,6 @@
         <button type="button" @click="cancelAddTeam()">Cancel</button>
       </div>
     </vue-modaltor>
-
   </div>
 </template>
 
@@ -39,6 +38,17 @@ export default {
       desc: '',
       head: '',
       open: false
+    }
+  },
+  props: {
+    owner: {
+      type: Boolean
+    },
+    priority: {
+      type: Boolean
+    },
+    finished: {
+      type: Boolean
     }
   },
   computed: {

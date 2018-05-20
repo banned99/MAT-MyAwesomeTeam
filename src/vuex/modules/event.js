@@ -47,13 +47,13 @@ const getters = {
   getEventMilestone: state => state.event.milestone,
   getEventFlow: state => state.event.flow,
   getEventStaffs: state => state.event.staffs,
-  getEventPriorizedStaffs: state => Object.values(state.event.staffs).filter(element => element.priority === 'true'),
+  getEventPriorizedStaffs: state => Object.values(state.event.staffs).filter(element => element.priority === true),
   getEventTeams: state => state.event.teams ? state.event.teams : {},
   getSearchResult: state => state.searchResult,
   getEventJoinRequests: state => state.event.requests,
   getPendingJoinRequests: state => !state.event.requests ? [] : state.event.requests.filter(element => element.response.status === 'pending'),
   getChatHistory: state => state.event.chatHistory,
-  getUnassignedStaffs: state => Object.values(state.event.staffs).filter((element) => element.team.name === 'unassigned'),
+  getUnassignedStaffs: state => Object.values(state.event.staffs).filter((element) => element.team.name.toLowerCase() === 'unassigned'),
   getTeamNames: state => state.event.teams ? Object.keys(state.event.teams) : []
 }
 
@@ -181,11 +181,6 @@ const templates = {
 
 const actions = {
   createNewEvent: ({commit, dispatch}, payload) => {
-    // let dateRE = /(\d{4})-(\d{2})-(\d{2})/g
-    // let dateTimeRE = /(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2}) (\[APM]{2})/g
-    // payload.event.date.start = payload.event.date.start.replace(dateRE, '$2/$3/$1')
-    // payload.event.date.end = payload.event.date.end.replace(dateRE, '$2/$3/$1')
-    // payload.event.createDate = payload.event.createDate.replace(dateTimeRE, '$3/$2/$1 $4:$5:$6 $7')
     commit('setEventToken', payload.token)
     commit('setEvent', payload.event)
     templates.staffMemberTemplate = {
@@ -195,7 +190,7 @@ const actions = {
       joinBy: 'create',
       acceptBy: 'create',
       team: {
-        name: 'event heads',
+        name: 'Event heads',
         role: 'Head'
       }
     }
@@ -210,7 +205,6 @@ const actions = {
     commit('setEventLastStaffIndex', 1)
     firebase.database().ref('events').child(payload.token).set(state.event)
       .then(() => {
-        console.log('Event Created')
         router.push('/event/' + payload.token)
       })
       .catch(err => console.log(err.message))
@@ -226,24 +220,24 @@ const actions = {
 
     firebase.database().ref('events').child(payload).on('child_changed', snapshot => {
       commit('setEvent' + snapshot.key[0].toUpperCase() + snapshot.key.slice(1), snapshot.val())
-      console.log(snapshot.key, snapshot.val())
+    })
+
+    firebase.database().ref('events').child(payload).on('child_added', snapshot => {
+      commit('setEvent' + snapshot.key[0].toUpperCase() + snapshot.key.slice(1), snapshot.val())
     })
   },
   deleteEvent ({commit, dispatch}, payload) {
     firebase.database().ref('events').child(payload.eventId).remove()
       .then(() => {
-        console.log('Delete from events done!')
         let staffsInEvent = state.event.staffs
         for (const key in Object.keys(staffsInEvent)) {
           if (staffsInEvent.hasOwnProperty(key)) {
-            console.log(staffsInEvent[key].uid)
             firebase.database().ref('users')
               .child(staffsInEvent[key].uid)
               .child('eventsJoined')
               .child(payload.eventId)
               .remove()
               .then(() => {
-                console.log('User Joined Events deleted!')
                 dispatch('resetEventData')
                 router.replace('/home')
               })
@@ -260,14 +254,13 @@ const actions = {
       desc: payload.event.desc,
       date: payload.event.date
     }).then(() => {
-      console.log('Event updated')
       let staffsInEvent = state.event.staffs
       for (const key in staffsInEvent) {
         if (staffsInEvent.hasOwnProperty(key)) {
           firebase.database().ref('users').child(staffsInEvent[key].uid).child('eventsJoined').child(payload.eventId).update({
             name: payload.event.name,
             date: payload.event.date
-          }).then(() => console.log('User Joined Events updated!'))
+          })
         }
       }
       for (let key in payload.event) {
@@ -280,7 +273,7 @@ const actions = {
     })
   },
   resetEventData ({commit}) {
-    console.log('reset event')
+    firebase.database().ref('events').child(state.currentEventToken).off()
     commit('setEvent',
       {
         name: '',
@@ -340,15 +333,12 @@ const actions = {
     templates.requestToJoinTemplate.requester.uid = payload.user.uid
     templates.requestToJoinTemplate.requester.name = payload.user.name
     templates.requestToJoinTemplate.requester.timestamp = new Date().toLocaleString()
-    console.log(templates.requestToJoinTemplate)
     firebase.database().ref('events')
       .child(payload.token)
       .child('requests')
       .child(state.searchResult.requests.length)
       .set(templates.requestToJoinTemplate)
       .then(() => {
-        console.log('current index: ' + state.searchResult.requests.length)
-        console.log('Join Request added!')
         commit('addJoinRequest', templates.requestToJoinTemplate)
       })
       .catch(err => {
@@ -361,8 +351,8 @@ const actions = {
     templates.staffMemberTemplate.joinBy = 'Search by token'
     templates.staffMemberTemplate.priority = false
     templates.staffMemberTemplate.team = {
-      name: 'unassigned',
-      role: 'member'
+      name: 'Unassigned',
+      role: 'Member'
     }
     templates.staffMemberTemplate.uid = payload.request.requester.uid
 
@@ -382,7 +372,6 @@ const actions = {
       .child(state.event.lastStaffIndex + 1)
       .set(templates.staffMemberTemplate)
       .then(() => {
-        console.log('added to staff members')
         commit('addEventStaff', templates.staffMemberTemplate)
         commit('setEventLastStaffIndex', state.event.lastStaffIndex + 1)
       }).catch(err => console.log(err.message))
@@ -397,7 +386,6 @@ const actions = {
       .child('response')
       .set(payload.response)
       .then(() => {
-        console.log('declined')
         commit('respondJoinRequest', {index: payload.index, response: payload.response})
       }).catch(err => console.log(err.message))
   },
@@ -412,7 +400,6 @@ const actions = {
       .child(state.event.chatHistory.length ? state.event.chatHistory.length : 0)
       .set(templates.chatHistoryTemplate)
       .then(() => {
-        // console.log('current index' + state.chatHistory.length)
         firebase.database().ref('events')
           .child(state.currentEventToken)
           .child('chatHistory').once('value', snapshot => {
@@ -424,7 +411,6 @@ const actions = {
   addTeam ({commit}, payload) {
     let staffValue = Object.values(state.event.staffs).find(user => {
       if (user) {
-        console.log(user)
         return user.uid === payload.data.head
       }
     })
@@ -460,12 +446,11 @@ const actions = {
       .child('staffs')
       .child(staffIndex)
       .child('team')
-      .update({name: payload.name, role: 'Head'}).then(() => {
+      .update({name: payload.name, role: 'Head', priority: true}).then(() => {
         commit('updateStaffTeam', {name: payload.name.toLowerCase(), role: 'Head', index: staffIndex})
       }).catch(err => console.log(err))
   },
   editTeam ({commit}, payload) {
-    console.log(payload)
     firebase.database().ref('events')
       .child(state.currentEventToken)
       .child('teams')
@@ -523,16 +508,14 @@ const actions = {
         .child(staffIndex)
         .child('team')
         .update({
-          name: 'unassigned',
+          name: 'Unassigned',
           role: 'Member'
         }).then(() => {
-          commit('updateStaffTeam', {name: 'unassigned', role: 'Member', index: staffIndex})
+          commit('updateStaffTeam', {name: 'Unassigned', role: 'Member', index: staffIndex})
         })
     })
   },
   assignToTeam ({commit}, payload) {
-    // let member = Object.values(state.event.staffs).find(member => member.uid === payload.uid)
-    // let index = state.event.staffs.indexOf(member)
     let staffValue = Object.values(state.event.staffs).find(user => {
       if (user) {
         return user.uid === payload.uid
@@ -557,17 +540,14 @@ const actions = {
     var teamIndex = -1
     var valueIndex
     if (payload.type === 'updateStaff') {
-      console.log('update')
       let teamMember = Object.values(state.event.teams[payload.team].members).find(member => {
         if (member) {
           return member.user.uid === payload.uid
         }
       })
       valueIndex = Object.values(state.event.teams[payload.team].members).indexOf(teamMember)
-      // teamIndex = state.event.teams[payload.team].members.indexOf(teamMember)
       teamIndex = Object.keys(state.event.teams[payload.team].members)[valueIndex]
     } else {
-      console.log('add')
       teamIndex = state.event.teams[payload.team].lastMemberIndex
     }
 
@@ -579,7 +559,6 @@ const actions = {
       .child(teamIndex)
       .set(templates.teamMemberTemplate)
       .then(() => {
-        // commit('addMemberToTeam', {index: teamIndex, team: payload.team, member: templates.teamMemberTemplate})
         if (payload.type !== 'updateStaff') {
           firebase.database().ref('events')
             .child(state.currentEventToken)
@@ -590,8 +569,6 @@ const actions = {
       })
   },
   unassignFromTeam ({commit}, payload) {
-    // let member = state.event.staffs.find(member => member.uid === payload.uid)
-    // let index = state.event.staffs.indexOf(member)
     let staffValue = Object.values(state.event.staffs).find(user => {
       if (user) {
         return user.uid === payload.uid
@@ -604,10 +581,7 @@ const actions = {
       .child(state.currentEventToken)
       .child('staffs')
       .child(staffIndex)
-      .update({priority: 'false', team: {name: 'unassigned', role: 'Member'}})
-      .then(() => {
-        // commit('updateStaffTeam', {index: index, name: 'unassigned', role: 'Member'})
-      })
+      .update({priority: 'false', team: {name: 'Unassigned', role: 'Member'}})
 
     var teamIndex = -1
     var valueIndex
@@ -624,9 +598,7 @@ const actions = {
       .child(payload.team)
       .child('members')
       .child(teamIndex)
-      .remove().then(() => {
-        // commit('removeStaffFromTeam', {index: teamIndex, team: payload.team})
-      })
+      .remove()
   },
   kickStaff ({commit}, payload) {
     let staffValue = Object.values(state.event.staffs).find(user => {
@@ -691,14 +663,22 @@ const actions = {
       .child('flow')
       .child(payload.date)
       .child(payload.index)
-      .remove()
+      .remove().then(() => {
+        firebase.database().ref('events').child(state.currentEventToken).child('flow').once('value', snapshot => {
+          commit('setEventFlow', snapshot.val() ? snapshot.val() : {})
+        })
+      })
   },
   deleteFlowByDate ({commit}, payload) {
     firebase.database().ref('events')
       .child(state.currentEventToken)
       .child('flow')
       .child(payload)
-      .remove()
+      .remove().then(() => {
+        firebase.database().ref('events').child(state.currentEventToken).child('flow').once('value', snapshot => {
+          commit('setEventFlow', snapshot.val() ? snapshot.val() : {})
+        })
+      })
   },
   addMilestone ({commit}, payload) {
     firebase.database().ref('events')
@@ -719,7 +699,11 @@ const actions = {
       .child(state.currentEventToken)
       .child('milestone')
       .child(payload)
-      .remove()
+      .remove().then(() => {
+        firebase.database().ref('events').child(state.currentEventToken).child('milestone').once('value', snapshot => {
+          commit('setEventMilestone', snapshot.val() ? snapshot.val() : {})
+        })
+      })
   },
   editMilestone ({commit}, payload) {
     firebase.database().ref('events')
