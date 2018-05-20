@@ -1,13 +1,18 @@
 <template>
-  <div>
-    <h4>{{ new Date(date).toLocaleDateString() }}</h4> <button v-if="owner" @click="attemptDelete">Delete</button>
+  <div class="wrap-flow">
+    <div class="lab-date-box">
+      <h4 class="lab-date">{{ new Date(date).toLocaleDateString() }}</h4>
+    </div>
+    <div class="bt-del-box">
+      <button v-if="owner" class="bt-del" @click="attemptDelete">Delete</button>
+    </div>
     <table>
       <thead>
-        <tr>
-          <th>Time</th>
-          <th>Task</th>
-          <th>Team</th>
-          <th colspan="2" v-if="owner">Options</th>
+        <tr class="tab-roll">
+          <th class="tab-head">Time</th>
+          <th class="tab-head">Task</th>
+          <th class="tab-head">Team</th>
+          <th class="tab-head" colspan="2">Options</th>
         </tr>
       </thead>
       <tbody>
@@ -49,6 +54,32 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="css" scoped>
+.tab-head {
+  text-align: center;
+  padding: 1em;
+}
+.tab-roll {
+  background-color: rgba(255,255,255,0.4);
+}
+.bt-del {
+  background-color: #ff9800;
+  color: white;
+  border: 0px;
+  border-radius: 2em;
+}
+.lab-date {
+  color: white;
+  font-size: 1em;
+}
+.bt-del-box {
+  display: inline-block;
+  width: 50%;
+  text-align: left;
+}
+.lab-date-box {
+  display: inline-block;
+  width: 50%;
+  width: 20%
+}
 </style>

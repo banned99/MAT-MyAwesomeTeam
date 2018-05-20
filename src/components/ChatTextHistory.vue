@@ -20,6 +20,7 @@ export default {
 
 <style lang="css" scoped>
   .chat-line {
+    width: 100%;
     text-align: left;
   }
   /* .chat-line {
@@ -31,6 +32,8 @@ export default {
   }
   */
   .name {
+    margin-top: 0;
+    margin-bottom: 0;
     color: #76ff03;
   }
   .chat-text {

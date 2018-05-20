@@ -2,7 +2,7 @@
   <div class="page-team">
     <div class="bb-edit">
       <div class="box-edit-team" v-if="!editing">
-        <label>{{ index[0].toUpperCase() + index.substring(1) }}</label>
+        <label class="head-txt">{{ index[0].toUpperCase() + index.substring(1) }}</label>
         <p>{{ team.desc }}</p>
         <button class="bt-edit" @click="editing = true" v-if="(owner || priority) && !finished">Edit {{!finished}}</button>
         <button class="bt-del" @click="deleteATeam()" v-if="owner && !finished">Delete</button>
@@ -11,16 +11,19 @@
     <div v-if="editing">
       <input v-if="owner" type="text" v-model="newTeamName" placeholder="Team Name"> <br>
       <input v-if="owner || priority" type="text" v-model="newTeamDesc" placeholder="Team Description"> <br>
-      <button @click="editATeam()">Confirm</button>
-      <button @click="cancel()">Cancel</button>
+      <button class="bt-edit" @click="editATeam()">Confirm</button>
+      <button class="bt-edit" @click="cancelEditTeam()">Cancel</button>
     </div>
     <div class="tbl-header">
       <table cellpadding="0" cellspacing="0" border="0">
         <thead>
           <tr class="headTr">
               <th>Name</th>
-              <th>Role</th>
-              <th v-if="owner || priority" colspan="3">Option</th>
+              <th colspan="2">Role</th>
+              <th></th>
+              <th v-if="owner || priority">Option</th>
+              <th></th>
+              <th></th>
           </tr>
         </thead>
         </table>
@@ -113,14 +116,12 @@ th {
   font-weight: bold;
   background-color: #03a9f4;
   color: rgba(255,255,255,1);
-  width: 100%;
-  height: 50px;
+  height: 30px;
   border-radius: 10px;
   border: 0px;
 }
 .box-edit-team {
   display: block;
-  border: 0.5px solid white;
   width: 70%;
   margin: auto;
   color: white;
@@ -132,6 +133,13 @@ th {
 td,th {
   padding-top: 1em;
   padding-bottom: 1em;
+}
+.headTr {
+  font-size: 8px;
+}
+.head-txt {
+  color: white;
+  font-size: 2em;
 }
 </style>
 <style lang="css" scoped>

@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="page-header">
-          <h1>Event Milestone</h1>
+          <h1 class="head-text">Event Milestone</h1>
         </div>
         <div style="display:inline-block;width:100%;overflow-y:auto;">
           <ul class="timeline timeline-horizontal">
@@ -24,24 +24,35 @@
         </div>
       </div>
     </div>
-    <button @click="show = true" v-if="owner && !finished">Add Milestone</button>
+    <button class="bt-submit" @click="show = true" v-if="owner && !finished">Add Milestone</button>
     <button v-if="!onlyMyTeam" @click="onlyMyTeam = true">Only my team</button>
     <button v-if="onlyMyTeam" @click="onlyMyTeam = false">All team</button>
     <vue-modaltor  :visible="show" @hide="cancel" name="Add Milestone">
       <div class="box-entername">
         <h1 style="text-align:center">Add Milestone</h1>
-        <label>Title</label>
-        <input type="text" v-model="title"> <br>
-        <label>Description</label>
-        <textarea v-model="desc"></textarea> <br>
-        <label>Select Team: </label>
-        <select v-model="team">
-          <option v-for="name in getTeamNames" :key="name.id" :value="name">{{ name }}</option>
-        </select>
-        <label>Due: </label>
-        <input type="date" v-model="due">
-        <button @click="submit">Confirm</button>
-        <button @click="cancel">Cancel</button>
+        <div class="box-title">
+          <p>Title</p>
+          <input class="in-text" type="text" v-model="title">
+        </div>
+        <div class="box-desc">
+          <p>Description</p>
+          <textarea class="in-text" v-model="desc"></textarea>
+        </div>
+        <div class="box-selteam">
+          <p>Select Team: </p>
+          <select class="in-text" v-model="team">
+            <option v-for="name in getTeamNames" :key="name.id" :value="name">{{ name }}</option>
+          </select>
+        </div>
+        <div class="box-due">
+          <p>Due: </p>
+          <input class="in-text" type="date" v-model="due">
+        </div>
+        <div class="box-bt">
+          <button class="bt-submit" @click="submit">Confirm</button>
+          <button class="bt-cancel" @click="cancel">Cancel</button>
+        </div>
+
       </div>
     </vue-modaltor>
   </div>
@@ -125,7 +136,7 @@ export default {
 </script>
 
 <style scoped>
-@import '../assets/css/bootstrap.min.css';
+
 /* Timeline */
 .page-header {
   padding-bottom: 0px;
@@ -173,7 +184,7 @@ export default {
   margin-left: -25px;
   background-color: #333;
   border: 3px solid #ffffff;
-  z-index: 100;
+  z-index: 99;
   border-top-right-radius: 50%;
   border-top-left-radius: 50%;
   border-bottom-right-radius: 50%;
@@ -302,4 +313,52 @@ export default {
   bottom: 0px;
   left: 43px;
 }
+</style>
+<style lang="css" scoped>
+  .box-title {
+    font-weight: 900;
+    text-align: center;
+    padding: 0.5em;
+  }
+  .box-desc {
+    font-weight: 900;
+    text-align: center;
+    padding: 0.5em;
+  }
+  .box-selteam {
+    font-weight: 900;
+    text-align: center;
+    padding: 0.5em;
+  }
+  .box-due {
+    font-weight: 900;
+    text-align: center;
+    padding: 0.5em;
+  }
+  .in-text {
+    font-weight: normal !important;
+    border: 0.5px solid rgba(0,0,0,0.5);
+  }
+  .box-bt {
+    text-align: center;
+    display: block;
+  }
+.bt-submit, .bt-cancel{
+  font-weight: bold;
+  background-color: #ffa000;
+  color: rgba(255,255,255,1);
+  height: 50px;
+  border-radius: 10px;
+  border: 0px;
+  width: 30%;
+}
+.bt-submit:active, .bt-cancel:active{
+ top:0.1em;
+}
+.head-text{
+  color: #fff;
+}
+</style>
+<style media="screen" scoped>
+  @import '../assets/css/bootstrap.min.css';
 </style>

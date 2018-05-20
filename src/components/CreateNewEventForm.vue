@@ -1,31 +1,4 @@
 <template>
-  <!-- <div class="add-product" :class="{'open': formOpen}">
-    <div class="button-copy" v-show="!formOpen" @click="formOpen = true">Create Event</div>
-    <form @submit.prevent="createClick">
-      <div class="form--field">
-        <label>Event Title *</label>
-        <input type="text" class="form--element" v-model="event.name" placeholder="Title" required="">
-      </div>
-      <div class="form--container -inline">
-        <div class="form--field -short">
-          <label>Event Start Date *</label>
-          <input type="date" class="form--element" v-model="event.date.start" placeholder="Start Date" required="" :min="new Date().toISOString()" max="31/12/2999">
-        </div>
-        <div class="form--field -short">
-          <label>Event End Date *</label>
-          <input type="date" class="form--element" v-model="event.date.end" placeholder="End Date" required="" :min="new Date().toISOString()" max="31/12/2999">
-        </div>
-      </div>
-      <div class="form--field">
-        <label>Event Description</label>
-        <textarea class="form--element textarea" v-model="event.desc" placeholder="Description">
-        </textarea>
-      </div>
-      <button type="submit" class="submit-button">Create</button>
-      <button class="cancel" @click="cancel()">Cancel</button>
-    </form>
-  </div> -->
-
   <div class="wrap">
     <!-- vue-modaltor -->
     <vue-modaltor  :visible="open" @hide="hideModal">
@@ -370,7 +343,7 @@ a {
   color: black;
 }
 .show-createEvent:active {
-  background-color: rgba(255, 255, 255, 1);
+  background-color: rgba(255, 0,0, 1);
   cursor: pointer;
   color: black;
 }

@@ -1,21 +1,21 @@
 <template>
   <tr v-if="!editing">
-    <td>{{ flowItem.time }}</td>
-    <td>{{ flowItem.task }}</td>
-    <td>{{ flowItem.team }}</td>
-    <td v-if="owner"><button @click="editing = true">Edit</button></td>
-    <td v-if="owner"><button @click="del">Delete</button></td>
+    <td class="tab-di">{{ flowItem.time }}</td>
+    <td class="tab-di">{{ flowItem.task }}</td>
+    <td class="tab-di">{{ flowItem.team }}</td>
+    <td v-if="owner" class="tab-di"><button class="bt-e-d" @click="editing = true">Edit</button></td>
+    <td v-if="owner" class="tab-di"><button class="bt-e-d" @click="del">Delete</button></td>
   </tr>
   <tr v-else>
-    <td><input type="time" v-model="time"></td>
-    <td><input type="text" v-model="task"></td>
-    <td>
-      <select v-model="team">
-        <option v-for="name in getTeamNames" :key="name.id" :value="name">{{ name[0].toUpperCase() + name.slice(1) }}</option>
+    <td class="tab-di"><input class="inp time" type="time" v-model="time"></td>
+    <td class="tab-di"><input class="inp text" type="text" v-model="task"></td>
+    <td class="tab-di">
+      <select class="" v-model="team">
+        <option class="inp opt" v-for="name in getTeamNames" :key="name.id" :value="name">{{ name[0].toUpperCase() + name.slice(1) }}</option>
       </select>
     </td>
-    <td><button @click="edit">OK</button></td>
-    <td><button @click="cancel">Cancel</button></td>
+    <td class="tab-di"><button class="bt ok" @click="edit">OK</button></td>
+    <td class="tab-di"><button class="bt cc" @click="cancel">Cancel</button></td>
   </tr>
 </template>
 
@@ -82,6 +82,7 @@ export default {
           time: this.time
         }
       })
+      this.editing = false
     },
     del () {
       if (confirm('Are you sure to DELETE this flow?\nThis action cannot be undone.')) {
@@ -101,6 +102,26 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="css" scoped>
+.bt-e-d {
+  background-color: #2979ff;
+  color: white;
+  border: 0px;
+  border-radius: 1em;
+}
+.inp {
+  background-color: rgba(255,255,255,0.2);
+  color: #fff;
+  border: 0px;
+  width: 100%;
+}
+.tab-di {
+  padding: 1em;
+}
+.bt {
+  background-color: #f00;
+  color: white;
+  border: 0px;
+  border-radius: 1em;
+}
 </style>

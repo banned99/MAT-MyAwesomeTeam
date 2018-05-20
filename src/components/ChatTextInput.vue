@@ -7,6 +7,7 @@
     <div class="area-text-send" v-if="!finished">
       <textarea id="inputt" class="inputtext" v-model="textMessage" type="text" autocomplete="off"/>
       <button class="send-button" @click="send">Send</button>
+      <ChatVoiceInput :finished="finished" />
     </div>
   </div>
 </template>
@@ -14,6 +15,7 @@
 <script>
 import ChatTextHistory from '../components/ChatTextHistory'
 import { mapGetters, mapActions } from 'vuex'
+import ChatVoiceInput from '../components/ChatVoiceInput'
 
 export default {
   name: 'chattextinput',
@@ -42,7 +44,7 @@ export default {
     }
   },
   components: {
-    ChatTextHistory
+    ChatTextHistory, ChatVoiceInput
   }
 }
 </script>
@@ -55,9 +57,11 @@ export default {
     position: relative;
     height: 300px;
     width: 75%;
-    overflow: auto;
+    overflow-y: scroll;
+    overflow-x: hidden;
     padding-bottom: 2em;
     margin: auto;
+    border: 1px solid #fff;
   }
   .inputtext {
     width: 75%;
@@ -75,7 +79,6 @@ export default {
     background-color: #ffa000;
     color: rgba(255,255,255,1);
     width: 25%;
-    height: 50px;
     border-radius: 10px;
     border: 0px;
   }

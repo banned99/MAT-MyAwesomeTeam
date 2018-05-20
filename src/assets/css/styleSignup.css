@@ -31,6 +31,7 @@ body {
   background-size: cover;
 	font-family: 'Lato', sans-serif;
 	text-align:center;
+  width: 100%;
 }
 /*--header--*/
 .header-w3l{

@@ -1,21 +1,21 @@
 <template>
   <tr>
-    <td>{{ member.user.name }}</td>
-    <td>{{ member.role }}</td>
-    <td v-if="!editing && (owner || priority) && !finished"><button class="bt edit" @click="editing = true">Edit</button></td>
-    <td v-if="editing && owner">Team:
-      <select v-model="team">
+    <td class="tab-text">{{ member.user.name }}</td>
+    <td class="tab-text">{{ member.role }}</td>
+    <td class="tab-text" v-if="!editing && (owner || priority) && !finished"><button class="bt edit" @click="editing = true">Edit</button></td>
+    <td class="tab-text" v-if="editing && owner">Team:
+      <select class="sel" v-model="team">
         <option :selected="name === teamName" v-for="name in getTeamNames" :key="name.key" :value="name">{{ name[0].toUpperCase() + name.substr(1)  }}</option>
       </select>
     </td>
-    <td v-if="editing && (owner || priority)">Role:
-      <select v-model="role">
+    <td class="tab-text" v-if="editing && (owner || priority)">Role:
+      <select class="sel" v-model="role">
         <option value="Member" selected>Member</option>
         <option value="Sub Head">Sub Head</option>
       </select>
     </td>
-    <td v-if="editing && owner">Priority:
-      <select v-model="prio">
+    <td class="tab-text" v-if="editing && owner">Priority:
+      <select class="sel" v-model="prio">
         <option value="false" selected>No</option>
         <option value="true">Yes</option>
       </select>
@@ -126,5 +126,13 @@ a:hover {
   border-radius: 10px;
   border: 0px;
   margin: auto;
+  font-size: 8px;
+}
+.tab-text {
+  font-size: 8px;
+}
+.sel {
+  background-color: rgba(255,255,255,0.3);
+  width:100%;
 }
 </style>
