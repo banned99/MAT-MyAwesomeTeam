@@ -2,8 +2,9 @@
   <div>
     <div>
       <h1>Flow</h1>
-      <FlowTable v-for="(flow, key) in getEventFlow" :key="key" :flow="flow" :date="key"/>
-      <button @click="open = true">Add Flow</button>
+      <FlowTable v-for="(flow, key) in getEventFlow" :key="key" :flow="flow" :date="key" :owner="owner"/>
+      <h3 v-if="!getEventFlow || Object.keys(getEventFlow).length < 1">No flow right now.</h3>
+      <button @click="open = true" v-if="owner && !finished">Add Flow</button>
     </div>
 
     <vue-modaltor  :visible="open" @hide="hide" name="Add Flow">
@@ -62,6 +63,14 @@ export default {
       time: '',
       task: '',
       team: ''
+    }
+  },
+  props: {
+    owner: {
+      type: Boolean
+    },
+    finished: {
+      type: Boolean
     }
   },
   computed: {

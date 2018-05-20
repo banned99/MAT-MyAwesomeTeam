@@ -4,9 +4,9 @@
   <table>
     <tr>
       <th>Name</th>
-      <th>Options</th>
+      <th v-if="owner || priority">Options</th>
     </tr>
-    <UnassignedTeamTableRow v-if="!!getUnassignedStaffs" v-for="staff in getUnassignedStaffs" :key="staff.uid" :staff="staff"/>
+    <UnassignedTeamTableRow v-if="!!getUnassignedStaffs" v-for="staff in getUnassignedStaffs" :key="staff.uid" :staff="staff" :owner="owner" :priority="priority"/>
     <tr v-if="!getUnassignedStaffs || getUnassignedStaffs.length < 1">
       <td colspan="6">------ No Unassigned Staffs ------</td>
     </tr>
@@ -20,6 +20,14 @@ import UnassignedTeamTableRow from '../components/UnassignedTeamTableRow'
 
 export default {
   name: 'unassignedteamtable',
+  props: {
+    owner: {
+      type: Boolean
+    },
+    priority: {
+      type: Boolean
+    }
+  },
   computed: {
     ...mapGetters(['getUnassignedStaffs'])
   },

@@ -61,13 +61,14 @@ const getters = {
   },
   getActiveEvents: (state) => {
     let obj = state.user.eventsJoined ? state.user.eventsJoined : {}
-    let arr = Object.keys(obj).filter((k) => new Date().getTime() < new Date(obj[k].date.end).getTime())
+    let arr = Object.keys(obj).filter((k) => new Date().getTime() <= new Date(obj[k].date.end).getTime() + 86400000)
     let active = {}
     arr.forEach(element => {
       active[element] = obj[element]
     })
     return active
-  }
+  },
+  getUserTeam: state => eventId => state.user.eventsJoined[eventId].team.name
 }
 
 const templates = {

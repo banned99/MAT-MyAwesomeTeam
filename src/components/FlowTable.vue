@@ -1,17 +1,17 @@
 <template>
   <div>
-    <h4>{{ new Date(date).toLocaleDateString() }}</h4> <button @click="attemptDelete">Delete</button>
+    <h4>{{ new Date(date).toLocaleDateString() }}</h4> <button v-if="owner" @click="attemptDelete">Delete</button>
     <table>
       <thead>
         <tr>
           <th>Time</th>
           <th>Task</th>
           <th>Team</th>
-          <th colspan="2">Options</th>
+          <th colspan="2" v-if="owner">Options</th>
         </tr>
       </thead>
       <tbody>
-        <FlowTableRow v-for="(flowItem, key) in flow" :key="key" :flowItem="flowItem" :date="date"/>
+        <FlowTableRow v-for="(flowItem, key) in flow" :key="key" :flowItem="flowItem" :date="date" :owner="owner"/>
       </tbody>
     </table>
   </div>
@@ -30,6 +30,9 @@ export default {
     },
     date: {
       type: String
+    },
+    owner: {
+      type: Boolean
     }
   },
   components: {

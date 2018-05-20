@@ -1,7 +1,7 @@
 <template>
 <div>
-  <ChatTextInput :isFinished="isFinished"/>
-  <ChatVoiceInput :isFinished="isFinished"/>
+  <ChatTextInput :finished="finished"/>
+  <ChatVoiceInput :finished="finished"/>
 </div>
 </template>
 
@@ -12,7 +12,7 @@ import ChatTextInput from './ChatTextInput'
 export default {
   name: 'chatter',
   props: {
-    isFinished: {
+    finished: {
       type: Boolean
     }
   },

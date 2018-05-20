@@ -4,27 +4,24 @@
     <div class="WrapTab">
     <vue-tabs>
      <v-tab title="Info">
-       <!-- <EventMinorDetails /> -->
-       <EventDetails :priority="isOwner || isPriorized" :isFinished="isFinished"/>
-       <RequestList :priority="isOwner || isPriorized" v-if="!isFinished"/>
+       <!-- <EventMinorDetails :owner="isOwner" :priority="isPriorized"/> -->
+       <EventDetails :owner="isOwner" :finished="isFinished"/>
+       <RequestList :owner="isOwner" :priority="isPriorized" v-if="!isFinished"/>
      </v-tab>
      <v-tab title="Chat">
-       <Chatter :isFinished="isFinished"/>
+       <Chatter :finished="isFinished"/>
      </v-tab>
      <v-tab title="Flow">
-       <Flow />
+       <Flow :owner="isOwner" :finished="isFinished"/>
      </v-tab>
      <v-tab title="Manage">
-       <StaffManager :priority="isOwner || isPriorized" v-if="!isFinished"/>
+       <StaffManager :owner="isOwner" :priority="isPriorized" :finished="isFinished"/>
      </v-tab>
      <v-tab title="Milestone">
-       <!-- <Tltest /> -->
-       <Milestone />
-       <!-- <Milestone /> -->
+       <Milestone :owner="isOwner" :finished="isFinished"/>
      </v-tab>
   </vue-tabs>
     </div>
-
   </div>
 </template>
 
@@ -54,10 +51,10 @@ export default {
       return this.getUserUID === this.getEventOwner.uid
     },
     isPriorized: function () {
-      return this.getUserUID === this.getEventPriorizedStaffs.uid
+      return this.getEventPriorizedStaffs.some(el => el.uid === this.getUserUID)
     },
     isFinished: function () {
-      return new Date().getTime() > new Date(this.getEventDate.end).getTime()
+      return new Date().getTime() >= new Date(this.getEventDate.end).getTime() + 86400000
     }
   },
   methods: {

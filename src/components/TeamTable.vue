@@ -1,36 +1,16 @@
 <template>
   <div class="page-team">
-    <!-- <div v-if="!editing">
-      <label>{{ index[0].toUpperCase() + index.substring(1) }}</label>
-      <p>{{ team.desc }}</p>
-      <button @click="editing = true">Edit</button>
-      <button @click="deleteATeam()">Delete</button>
-    </div>
-    <div v-if="editing">
-      <input type="text" v-model="newTeamName" placeholder="Team Name"> <br>
-      <input type="text" v-model="newTeamDesc" placeholder="Team Description"> <br>
-      <button @click="editATeam()">Confirm</button>
-      <button @click="cancelEditTeam()">Cancel</button>
-    </div>
-    <table>
-      <tr>
-        <th>Name</th>
-        <th>Role</th>
-        <th colspan="5">Options</th>
-      </tr>
-      <TeamTableRow v-for="member in team.members" :key="member.key" :member="member"/>
-    </table> -->
     <div class="bb-edit">
       <div class="box-edit-team" v-if="!editing">
         <label>{{ index[0].toUpperCase() + index.substring(1) }}</label>
         <p>{{ team.desc }}</p>
-        <button class="bt-edit" @click="editing = true">Edit</button>
-        <button class="bt-del" @click="deleteATeam()">Delete</button>
+        <button class="bt-edit" @click="editing = true" v-if="(owner || priority) && !finished">Edit {{!finished}}</button>
+        <button class="bt-del" @click="deleteATeam()" v-if="owner && !finished">Delete</button>
       </div>
     </div>
     <div v-if="editing">
-      <input type="text" v-model="newTeamName" placeholder="Team Name"> <br>
-      <input type="text" v-model="newTeamDesc" placeholder="Team Description"> <br>
+      <input v-if="owner" type="text" v-model="newTeamName" placeholder="Team Name"> <br>
+      <input v-if="owner || priority" type="text" v-model="newTeamDesc" placeholder="Team Description"> <br>
       <button @click="editATeam()">Confirm</button>
       <button @click="cancel()">Cancel</button>
     </div>
@@ -40,9 +20,7 @@
           <tr class="headTr">
               <th>Name</th>
               <th>Role</th>
-              <th>Option</th>
-              <th>Option</th>
-              <th>Option</th>
+              <th v-if="owner || priority" colspan="3">Option</th>
           </tr>
         </thead>
         </table>
@@ -50,7 +28,7 @@
     <div class="tbl-content">
       <table cellpadding="0" cellspacing="0" border="0">
     <tbody>
-      <TeamTableRow v-if="member !== undefined" v-for="member in team.members" :key="member.key" :member="member" :teamName="index"/>
+      <TeamTableRow v-if="member !== undefined" v-for="member in team.members" :key="member.key" :member="member" :teamName="index" :owner="owner" :priority="priority" :finished="finished"/>
     </tbody>
   </table>
   </div>
@@ -79,12 +57,21 @@ export default {
     index: {
       required: true,
       type: String
+    },
+    owner: {
+      type: Boolean
+    },
+    priority: {
+      type: Boolean
+    },
+    finished: {
+      type: Boolean
     }
   },
   computed: {
     ...mapGetters(['getUserUID']),
     validateTeamName () {
-      return this.team
+      return this.team.trim()
     }
   },
   methods: {

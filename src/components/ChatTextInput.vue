@@ -4,7 +4,7 @@
     <ul id="chatHistory" v-chat-scroll>
       <ChatTextHistory v-for="message in getChatHistory" :key="message.key" :message="message"/>
     </ul>
-    <div class="area-text-send" v-if="!isFinished">
+    <div class="area-text-send" v-if="!finished">
       <textarea id="inputt" class="inputtext" v-model="textMessage" type="text" autocomplete="off"/>
       <button class="send-button" @click="send">Send</button>
     </div>
@@ -23,7 +23,7 @@ export default {
     }
   },
   props: {
-    isFinished: {
+    finished: {
       type: Boolean
     }
   },

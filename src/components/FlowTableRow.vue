@@ -3,8 +3,8 @@
     <td>{{ flowItem.time }}</td>
     <td>{{ flowItem.task }}</td>
     <td>{{ flowItem.team }}</td>
-    <td><button @click="editing = true">Edit</button></td>
-    <td><button @click="del">Delete</button></td>
+    <td v-if="owner"><button @click="editing = true">Edit</button></td>
+    <td v-if="owner"><button @click="del">Delete</button></td>
   </tr>
   <tr v-else>
     <td><input type="time" v-model="time"></td>
@@ -29,7 +29,8 @@ export default {
       editing: false,
       team: '',
       task: '',
-      time: ''
+      time: '',
+      now: 0
     }
   },
   computed: {
@@ -44,6 +45,11 @@ export default {
     isValid () {
       let validation = this.validateData
       return Object.keys(validation).every((key) => validation[key])
+    },
+    isNow () {
+      // console.log(this.now)
+      let section = new Date(this.date).getTime() + new Date(`1970-01-01T${this.flowItem.time}:00.000Z`).getTime()
+      return this.now >= section
     }
   },
   mounted () {
@@ -59,6 +65,9 @@ export default {
     date: {
       required: true,
       type: String
+    },
+    owner: {
+      type: Boolean
     }
   },
   methods: {
@@ -77,7 +86,7 @@ export default {
     del () {
       if (confirm('Are you sure to DELETE this flow?\nThis action cannot be undone.')) {
         this.deleteFlowItem({
-          index: new Date(`1970-01-01T${this.flowItem.item}:00.000Z`).getTime(),
+          index: new Date(`1970-01-01T${this.flowItem.time}:00.000Z`).getTime(),
           date: this.date
         })
       }
