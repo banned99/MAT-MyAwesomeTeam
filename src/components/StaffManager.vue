@@ -143,7 +143,7 @@ h1 {
   text-align: center;
 }
 .box-select {
-  width: 10em;
+    width: 10em;
     background-color: rgba(0,0,0,0.2);
     text-align: center;
 }
