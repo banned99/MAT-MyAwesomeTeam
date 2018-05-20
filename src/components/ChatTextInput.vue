@@ -7,7 +7,6 @@
     <div class="area-text-send" v-if="!finished">
       <textarea id="inputt" class="inputtext" v-model="textMessage" type="text" autocomplete="off"/>
       <button class="send-button" @click="send">Send</button>
-      <ChatVoiceInput :finished="finished" />
     </div>
   </div>
 </template>

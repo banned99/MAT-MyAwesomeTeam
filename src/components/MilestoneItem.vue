@@ -5,13 +5,9 @@
       <div class="timeline-heading">
         <div v-if="!editing && owner && !finished">
           <h4 class="timeline-title">{{ milestone.title }}</h4>
-          <button @click="editing = true">Edit</button>
-          <button @click="del">Delete</button>
         </div>
-        <div v-if="editing">
+        <div class="ip-inside" v-if="editing">
           <input type="text" v-model="data.title">
-          <button @click="edit" :disabled="!isValid">Confirm</button>
-          <button @click="cancel">Cancel</button>
         </div>
         <p v-if="!editing"><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{ milestone.due }}</small></p>
         <p v-if="editing"><small class="text-muted"><i class="glyphicon glyphicon-time"></i><input type="date" v-model="data.due"></small></p>
@@ -19,6 +15,10 @@
       <div v-if="!editing" class="timeline-body">
         <p>{{ milestone.desc }}</p>
         <p><small class="text-muted"><i class="glyphicon glyphicon-user"></i> {{ milestone.team }}</small></p>
+        <div class="bt-inside">
+          <button class="bt-blue" @click="editing = true">Edit</button>
+          <button class="bt-red" @click="del">Delete</button>
+        </div>
       </div>
       <div v-if="editing" class="timeline-body">
         <p><textarea v-model="data.desc"></textarea></p>
@@ -29,6 +29,10 @@
             </select>
           </small>
         </p>
+        <div class="bt-inside">
+          <button class="bt-blue" @click="edit" :disabled="!isValid">Confirm</button>
+          <button class="bt-blue" @click="cancel">Cancel</button>
+        </div>
       </div>
     </div>
   </li>
@@ -289,5 +293,25 @@ export default {
   top: auto;
   bottom: 0px;
   left: 43px;
+}
+.bt-blue {
+  font-weight: bold;
+  background-color: #03a9f4;
+  color: rgba(255,255,255,1);
+  height: 30px;
+  border-radius: 10px;
+  border: 0px;
+}
+.bt-red {
+  font-weight: bold;
+  background-color: #ffa9f4;
+  color: rgba(255,255,255,1);
+  height: 30px;
+  border-radius: 10px;
+  border: 0px;
+}
+.bt-inside {
+  padding-top: 1em;
+  display: block;
 }
 </style>
