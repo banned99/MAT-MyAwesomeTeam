@@ -3,6 +3,11 @@
     <!-- vue-modaltor -->
     <vue-modaltor  :visible="open" @hide="hideModal">
       <form @submit.prevent="createClick" class="formfull">
+        <div>
+          <label class="errors" v-if="!validateForm.name">Insert Event Name!</label>
+          <label class="errors" v-if="!validateForm.startDate">Start Date cannot be before today.</label>
+          <label class="errors" v-if="!validateForm.endDate">End Date cannot be before than start date and today.</label>
+        </div>
         <div class="form-ev-tt">
           <label>Event Title *</label>
           <input type="text" class="form--element" v-model="event.name" placeholder="Title" required="">
@@ -23,7 +28,7 @@
           </textarea>
         </div>
         <div class="div-bt">
-          <button type="submit" class="submit-button">Create</button>
+          <button type="submit" class="submit-button" :disabled="!isValid">Create</button>
           <button class="submit-button" @click="cancel()">Cancel</button>
         </div>
       </form>
@@ -74,7 +79,20 @@ export default {
     this.token = (this.event.owner.uid.slice(0, 5) + now.toLocaleDateString().split('/').join('') + now.toLocaleTimeString().slice(0, 7).split(':').join(''))
   },
   computed: {
-    ...mapGetters(['getUserUID', 'getDisplayName'])
+    ...mapGetters(['getUserUID', 'getDisplayName']),
+    validateForm: function () {
+      return {
+        name: !!this.event.name.trim(),
+        startDate: new Date(this.event.date.start).getTime() + 86400000 >= new Date().getTime(),
+        endDate: new Date(this.event.date.end).getTime() >= new Date(this.event.date.start).getTime() && new Date(this.event.date.end).getTime() + 86400000 >= new Date().getTime()
+      }
+    },
+    isValid: function () {
+      var validation = this.validateForm
+      return Object.keys(validation).every(function (key) {
+        return validation[key]
+      })
+    }
   },
   methods: {
     ...mapActions(['createNewEvent', 'addEventFromCreate']),
@@ -129,63 +147,6 @@ export default {
   margin-left: auto;
   text-align: center;
 }
-.add-product {
-  transition: all 0.3s ease;
-  background-color: #FFC145;
-  height: 144px;
-  width: 144px;
-  border-radius: 72px;
-  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.07);
-  cursor: pointer;
-  margin: auto;
-  margin-top: 10%;
-}
-@media screen and (max-width: 200px) {
-  .add-product .open{
-    width: auto !important;
-  }
-.add-product .open form{
-  width:auto !important;
-  }
-}
-.add-product.open {
-  background-color: #FAFAFA;
-  border-radius: 5px;
-  width: 400px;
-  height: 398px;
-  cursor: default;
-}
-.add-product.open form {
-  opacity: 1;
-  transition: opacity 0.1s ease;
-  transition-delay: 0.3s;
-  height: auto;
-}
-.add-product .button-copy {
-  text-align: center;
-  line-height: 144px;
-  text-transform: uppercase;
-  font-weight: bold;
-  color: #f7f7f7;
-}
-.add-product form {
-  transition: none;
-  opacity: 0;
-  height: 0;
-  overflow: hidden;
-}
-.add-product .cancel {
-  font-size: 12px;
-  text-align: center;
-  margin-top: 1em;
-}
-.add-product .cancel span {
-  cursor: pointer;
-}
-.add-product .cancel span:hover {
-  text-decoration: underline;
-}
-
 .submit-button {
   display: block;
   background-color: #3498DB;
@@ -214,54 +175,12 @@ export default {
   background-color: #217dbb;
   cursor: pointer;
 }
-.featured-note {
-  color: #949494;
-  font-size: 12px;
-  margin: 4px 0px;
-  line-height: 18px;
-  font-style: italic;
-}
-
-.create-form {
-  outline: none;
-}
-
 label {
   display: block;
   font-size: 14px;
   font-weight: bold;
   user-select: none;
 }
-
-.form--field {
-  width: 420px;
-  margin: 10px 0;
-}
-.form--field.-short {
-  width: 140px;
-}
-
-.form--price {
-  position: absolute;
-  line-height: 38px;
-  width: 16px;
-  color: #C7C7C7;
-  text-align: center;
-}
-.form--price + input {
-  padding-left: 14px;
-}
-
-.form--container {
-  width: 420px;
-}
-.form--container.-inline {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: -12px;
-}
-
 .form--element {
   background-color: #fff;
   border: 1px solid #ECECEC;
@@ -318,6 +237,10 @@ a {
   justify-content: center;
   display: inline-block !important;
 }
+.submit-button:disabled {
+  background-color: #949494;
+  cursor: default;
+}
 .cancel{
   justify-content: center;
   display: inline-block;
@@ -354,6 +277,9 @@ a {
   .formfull{
     text-align: center;
   }
+}
+.errors {
+  color:red;
 }
 /*Modal*/
 </style>

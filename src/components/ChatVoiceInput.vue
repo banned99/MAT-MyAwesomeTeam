@@ -95,8 +95,9 @@ export default {
 
 <style scoped>
   .bt {
-    border: 0px;
-    background-color: rgba(255,255,255,0);
+    border-radius: 50%;
+    width: 2em;
+    background-color: rgba(255,255,255,0.4);
     text-align: center;
     margin: auto;
     font-size: 2em;
@@ -121,6 +122,7 @@ export default {
     color: rgba(255,255,255,0.8);
   }
   #streamController {
+    padding: 1em;
     width: 100%;
     height: 100%;
   }

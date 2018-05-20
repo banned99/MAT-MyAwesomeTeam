@@ -11,8 +11,8 @@
 
     <vue-modaltor  :visible="open" @hide="hide" name="Add Flow">
       <div class="box-entername">
-        <h1 class="box head" style="text-align:center">Add Flow</h1>
-        <p class="box warn" style="text-align:center" v-if="selectedDate == ''">Select Date</p>
+        <h1 class="box head" style="text-align:center;">Add Flow</h1>
+        <p class="box warn" style="text-align:center;" v-if="selectedDate == ''">Select Date</p>
         <div class="box-select">
           <select class="box select" v-model="selectedDate" placeholder="month/day/year">
             <option class="box opt" v-for="date in mapFlowDate" :key="date.key" :value="date">{{ date }}</option>
@@ -114,6 +114,7 @@ export default {
     },
     cancel () {
       this.open = false
+      this.selectedDate = ''
       this.flow = {}
     },
     submit () {
@@ -168,7 +169,7 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style scoped>
 * {
   color: black;
 }

@@ -98,4 +98,10 @@ export default {
   border-radius: 10px;
   border: 0px;
 }
+.bt:disabled {
+  background-color: #949494;
+}
+td {
+  padding: 0.5em;
+}
 </style>

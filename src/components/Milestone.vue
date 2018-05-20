@@ -32,27 +32,43 @@
         <h1 style="text-align:center">Add Milestone</h1>
         <div class="box-title">
           <p>Title</p>
+          <p>Description</p>
+          <div v-if="!validateForm.title">
+            <label class="errors">Title cannot be empty!</label>
+            <br>
+          </div>
           <input class="in-text" type="text" v-model="title">
         </div>
         <div class="box-desc">
           <p>Description</p>
+          <div v-if="!validateForm.desc">
+            <label class="errors">Description cannot be empty!</label>
+            <br>
+          </div>
           <textarea class="in-text" v-model="desc"></textarea>
         </div>
         <div class="box-selteam">
           <p>Select Team: </p>
+          <div v-if="!validateForm.team">
+            <label class="errors">Select team in charge!</label>
+            <br>
+          </div>
           <select class="in-text" v-model="team">
             <option v-for="name in getTeamNames" :key="name.id" :value="name">{{ name }}</option>
           </select>
         </div>
         <div class="box-due">
           <p>Due: </p>
+          <div v-if="!validateForm.due">
+            <label class="errors">Due date cannot be before or equal to today.</label>
+            <br>
+          </div>
           <input class="in-text" type="date" v-model="due">
         </div>
         <div class="box-bt">
-          <button class="bt-submit" @click="submit">Confirm</button>
+          <button class="bt-submit" :disabled="!isValid" @click="submit">Confirm</button>
           <button class="bt-cancel" @click="cancel">Cancel</button>
         </div>
-
       </div>
     </vue-modaltor>
   </div>
@@ -94,6 +110,18 @@ export default {
         return this.getEventMilestone[key].team === this.getUserTeam(this.$route.params.eventId)
       }).forEach(key => { myTeamMilestone[key] = this.getEventMilestone[key] })
       return this.sortTaskByDue(myTeamMilestone)
+    },
+    isValid () {
+      let validation = this.validateForm
+      return Object.keys(validation).every((key) => validation[key])
+    },
+    validateForm () {
+      return {
+        title: !!this.title.trim(),
+        desc: !!this.desc.trim(),
+        due: !!this.due.trim() && new Date(this.due).getTime() >= new Date().getTime(),
+        team: !!this.team.trim()
+      }
     }
   },
   methods: {
@@ -355,8 +383,14 @@ export default {
 .bt-submit:active, .bt-cancel:active{
  top:0.1em;
 }
+.bt-submit:disabled {
+  background-color: #949494;
+}
 .head-text{
   color: #fff;
+}
+.errors {
+  color: red;
 }
 .bt-blue {
   font-weight: bold;

@@ -7,8 +7,11 @@
           <h4 class="timeline-title">{{ milestone.title }}</h4>
         </div>
         <div class="ip-inside" v-if="editing">
+          <h4>Edit Milestone card</h4>
+          <label v-if="!validateForm.title" class="errors">Enter Milestone Title!</label>
           <input type="text" v-model="data.title">
         </div>
+        <label v-if="!validateForm.due && editing" class="errors">Due date cannot be before or equal to today.</label>
         <p v-if="!editing"><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{ milestone.due }}</small></p>
         <p v-if="editing"><small class="text-muted"><i class="glyphicon glyphicon-time"></i><input type="date" v-model="data.due"></small></p>
       </div>
@@ -21,8 +24,10 @@
         </div>
       </div>
       <div v-if="editing" class="timeline-body">
+        <label v-if="!validateForm.desc" class="errors">Enter Milestone Description!</label>
         <p><textarea v-model="data.desc"></textarea></p>
         <p>
+          <label v-if="!validateForm.team" class="errors">Please select team in charge!</label>
           <small class="text-muted"><i class="glyphicon glyphicon-user"></i>
             <select v-model="data.team" >
               <option v-for="name in getTeamNames" :key="name.key" :value="name">{{ name }}</option>
@@ -86,7 +91,7 @@ export default {
       return {
         title: !!this.data.title.trim(),
         desc: !!this.data.desc.trim(),
-        due: !!this.data.due.trim(),
+        due: !!this.data.due.trim() && new Date(this.data.due).getTime() >= new Date().getTime(),
         team: !!this.data.team.trim()
       }
     }
@@ -314,4 +319,6 @@ export default {
   padding-top: 1em;
   display: block;
 }
+.errors {
+  color: red;}
 </style>

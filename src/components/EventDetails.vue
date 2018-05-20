@@ -5,7 +5,11 @@
   <div class="box evname">
     <label class="h-label">Event Name</label>
     <p v-if="!editing">{{ getEvent.name }}</p>
-    <input type="text" v-model="event.name" v-if="editing" />
+    <div v-if="!validateForm.name && editing">
+      <label class="errors">Insert Event Name!</label>
+      <br>
+    </div>
+    <input type="text" v-model="event.name" v-if="editing"/>
   </div>
   <div class="box desc">
     <label class="h-label">Description</label>
@@ -17,8 +21,10 @@
       <label class="h-label">Date</label>
       <p v-if="!editing">{{ getEvent.date.start }} to {{ getEvent.date.end }}</p>
       <div v-if="editing">
-        <input class="in-date" type="date" v-model="event.date.start" :min="new Date().toISOString()" max="31/12/2099"/>
+        <label class="errors" v-if="!validateForm.startDate && editing"><br>Start Date cannot be before today.<br></label>
+        <input class="in-date" type="date" v-model="event.date.start" :min="new Date().toISOString()" max="31/12/2099"/>        
         to
+        <label class="errors" v-if="!validateForm.endDate && editing"><br>End Date cannot be before than start date and today.<br></label>
         <input class="in-date" type="date" v-model="event.date.end" :min="new Date().toISOString()" max="31/12/2099" />
       </div>
     </div>
@@ -46,7 +52,7 @@
     <div class="bt-box" v-if="!finished">
       <button class="EvDetails-button" @click="toggleEdit" v-if="!editing && owner">Edit</button>
       <button class="EvDetails-button" @click="attemptDelete" v-if="!editing && owner">Delete</button>
-      <button class="EvDetails-button" @click="confirmEdit" v-if="editing">Confirm</button>
+      <button class="EvDetails-button" @click="confirmEdit" v-if="editing" :disabled="!isValid">Confirm</button>
       <button class="EvDetails-button" @click="cancelEdit" v-if="editing">Cancel</button>
     </div>
   </div>
@@ -91,7 +97,20 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getEvent', 'getUserUID', 'getEventToken'])
+    ...mapGetters(['getEvent', 'getUserUID', 'getEventToken']),
+    validateForm: function () {
+      return {
+        name: !!this.event.name.trim(),
+        startDate: new Date(this.event.date.start).getTime() + 86400000 >= new Date().getTime(),
+        endDate: new Date(this.event.date.end).getTime() >= new Date(this.event.date.start).getTime() && new Date(this.event.date.end).getTime() + 86400000 >= new Date().getTime()
+      }
+    },
+    isValid: function () {
+      var validation = this.validateForm
+      return Object.keys(validation).every(function (key) {
+        return validation[key]
+      })
+    }
   },
   methods: {
     ...mapActions(['deleteEvent', 'updateEvent', 'deleteJoinedEvents']),
@@ -152,6 +171,10 @@ export default {
   cursor: pointer;
   color: black;
 }
+.EvDetails-button:disabled {
+  background-color: #949494;
+  cursor: default;
+}
 .in-date {
   width: 45%;
 }
@@ -205,5 +228,8 @@ export default {
 .h-label{
   font-size: 1em;
   font-weight: bolder;
+}
+.errors {
+  color:red;
 }
 </style>

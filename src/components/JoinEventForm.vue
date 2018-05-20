@@ -26,7 +26,7 @@
             <p>--------- Event not found. Please re-check token. ---------</p>
           </div>
         </div>
-        <button id="button-cancel" class="submit-button"><span @click="cancel()">Cancel</span></button>
+        <button id="button-cancel" class="submit-button" @click="cancel()">Cancel</button>
       </form>
     </vue-modaltor>
     <button @click="open=true" class="show-joinEvent">Join Event</button>
