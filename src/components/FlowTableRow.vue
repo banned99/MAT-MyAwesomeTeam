@@ -1,5 +1,5 @@
 <template>
-  <tr v-if="!editing">
+  <tr v-if="!editing" v-bind:class="{ active: isNow }">
     <td class="tab-di">{{ flowItem.time }}</td>
     <td class="tab-di">{{ flowItem.task }}</td>
     <td class="tab-di">{{ flowItem.team }}</td>
@@ -47,7 +47,6 @@ export default {
       return Object.keys(validation).every((key) => validation[key])
     },
     isNow () {
-      // console.log(this.now)
       let section = new Date(this.date).getTime() + new Date(`1970-01-01T${this.flowItem.time}:00.000Z`).getTime()
       return this.now >= section
     }
@@ -56,6 +55,9 @@ export default {
     this.team = this.flowItem.team
     this.task = this.flowItem.task
     this.time = this.flowItem.time
+    setInterval(() => {
+      this.now = new Date().getTime()
+    }, 1000)
   },
   props: {
     flowItem: {
@@ -116,13 +118,17 @@ export default {
   width: 100%;
 }
 .tab-di {
-  padding: 1em;
-  overflow-x: scroll;
+  padding: 0.5em;
+  overflow-x: hidden;
 }
 .bt {
   background-color: #f00;
   color: white;
   border: 0px;
   border-radius: 1em;
+}
+.active {
+  background-color: red;
+  color: white;
 }
 </style>

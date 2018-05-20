@@ -126,18 +126,37 @@ const actions = {
                 .update({name: payload.name})
             }
 
-            let staffPos = event.staffs.indexOf(event.staffs.find(value => value.uid === state.user.uid))
+            let staffValue = Object.values(event.staffs).find(user => {
+              if (user) {
+                return user.uid === state.user.uid
+              }
+            })
+            let staffValueIndex = Object.values(event.staffs).indexOf(staffValue)
+            let staffIndex = Object.keys(event.staffs)[staffValueIndex]
+
+            // let staffPos = event.staffs.indexOf(event.staffs.find(value => value.uid === state.user.uid))
             dbRef.child('staffs')
-              .child(staffPos)
+              .child(staffIndex)
               .update({displayName: payload.name})
 
-            let anEvent = event.teams[joined[eventId].team.name].members
-            let teamMemberPos = anEvent.indexOf(anEvent.find(value => value.user.uid === state.user.uid))
-            dbRef.child('teams')
-              .child(joined[eventId].team.name)
-              .child('members').child(teamMemberPos)
-              .child('user')
-              .update({name: payload.name})
+            let anEvent = joined[eventId].team.name.toLowerCase() !== 'unassigned' ? event.teams[joined[eventId].team.name].members : {}
+            // let teamMemberPos = anEvent.indexOf(anEvent.find(value => value.user.uid === state.user.uid))
+            if (Object.keys(anEvent).length >= 1 || joined[eventId].team.name.toLowerCase() !== 'unassigned') {
+              var teamIndex = -1
+              var valueIndex
+              let teamMember = Object.values(anEvent).find(member => {
+                if (member) {
+                  return member.user.uid === state.user.uid
+                }
+              })
+              valueIndex = Object.values(anEvent).indexOf(teamMember)
+              teamIndex = Object.keys(anEvent)[valueIndex]
+              dbRef.child('teams')
+                .child(joined[eventId].team.name)
+                .child('members').child(teamIndex)
+                .child('user')
+                .update({name: payload.name})
+            }
 
             event.chatHistory ? event.chatHistory.filter(value => value.uid === state.user.uid).forEach(element => {
               dbRef.child('chatHistory').child(event.chatHistory.indexOf(element)).update({name: payload.name})

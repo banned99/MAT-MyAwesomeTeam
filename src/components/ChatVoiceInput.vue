@@ -72,15 +72,13 @@ export default {
     }
   },
   beforeDestroy: function () {
-    if (this.connection.streamEvents.length >= 1) {
-      this.connection.getAllParticipants().forEach((p, index) => {
-        this.connection.disconnectWith(p)
-      })
-      this.connection.streamEvents.selectFirst().stream.stop()
-      this.connection.close()
-      this.connection.closeSocket()
-      this.connection = null
-    }
+    this.connection.getAllParticipants().forEach((p, index) => {
+      this.connection.disconnectWith(p)
+    })
+    this.connection.streamEvents.selectFirst().stream.stop()
+    this.connection.close()
+    this.connection.closeSocket()
+    this.connection = null
   },
   methods: {
     startRec: function () {
