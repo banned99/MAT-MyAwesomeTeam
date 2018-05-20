@@ -25,8 +25,8 @@
       </div>
     </div>
     <button class="bt-submit" @click="show = true" v-if="owner && !finished">Add Milestone</button>
-    <button v-if="!onlyMyTeam" @click="onlyMyTeam = true">Only my team</button>
-    <button v-if="onlyMyTeam" @click="onlyMyTeam = false">All team</button>
+    <button class="bt-blue" v-if="!onlyMyTeam" @click="onlyMyTeam = true">Only my team</button>
+    <button class="bt-blue" v-if="onlyMyTeam" @click="onlyMyTeam = false">All team</button>
     <vue-modaltor  :visible="show" @hide="cancel" name="Add Milestone">
       <div class="box-entername">
         <h1 style="text-align:center">Add Milestone</h1>
@@ -174,7 +174,6 @@ export default {
 .timeline,
 .timeline-horizontal {
   list-style: none;
-  padding: 20px;
   position: relative;
 }
 .timeline:before {
@@ -188,7 +187,6 @@ export default {
   margin-left: -1.5px;
 }
 .timeline .timeline-item {
-  margin-bottom: 20px;
   position: relative;
 }
 .timeline .timeline-item:before,
@@ -247,7 +245,6 @@ export default {
   border: 1px solid #777;
   background: #ffffff;
   border-radius: 2px;
-  padding: 20px;
   -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
 }
@@ -289,7 +286,7 @@ export default {
 .timeline-horizontal {
   list-style: none;
   position: relative;
-  padding: 20px 0px 20px 0px;
+  padding: 40px 0px 20px 0px;
   display: inline-block;
 }
 .timeline-horizontal:before {
@@ -308,7 +305,6 @@ export default {
   min-width: 320px;
   float: none !important;
   padding-left: 0px;
-  padding-right: 20px;
   margin: 0 auto;
   vertical-align: bottom;
 }
@@ -391,6 +387,14 @@ export default {
 }
 .errors {
   color: red;
+}
+.bt-blue {
+  font-weight: bold;
+  background-color: #03a9f4;
+  color: rgba(255,255,255,1);
+  height: 30px;
+  border-radius: 10px;
+  border: 0px;
 }
 </style>
 <style media="screen" scoped>

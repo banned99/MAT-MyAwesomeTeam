@@ -1,24 +1,27 @@
 <template>
   <div>
-    <h1>Manage Team & Staffs</h1>
+    <h1 class="lab-head-text">Manage Team & Staffs</h1>
     <TeamTable v-for="(team, index) in getEventTeams" :key="team.key" :team="team" :index="index" :priority="priority" :finished="finished" :owner="owner"/>
     <div class="show-add">
-      <button @click="open=true" class="show" v-if="owner && !finished">ADD</button>
+      <button @click="open=true" class="shows" v-if="owner && !finished">ADD</button>
     </div>
     <UnassignedTeamTable :owner="owner" :priority="priority" :finished="finished"/>
     <vue-modaltor  :visible="open" @hide="hideModal" name="addTeamModal" :clickToClose="true">
       <div class="modal-addstaff">
         <h1 class="lab">Add new Team</h1>
-        <p v-if="!validateName.teamName">Enter team name!</p>
+        <p v-if="!validateName.teamName" style="color:red">Enter team name!</p>
         <p v-if="!validateName.exist">This team is already exists</p>
         <p class="lab">Team Name</p><input type="text" class="txt-name" v-model="teamName" required placeholder="Team Name">
         <p class="lab">Team Description</p><textarea class="txt-des" v-model="desc" placeholder="Team Description"></textarea>
         <p class="lab">Select Team Head</p>
-        <select v-model="head">
+        <select class="box-select" v-model="head">
           <option v-for="staff in getUnassignedStaffs" :key="staff.key" :value="staff.uid">{{ staff.displayName }}</option>
         </select>
-        <button type="button" @click="addNewTeam()" :disabled="!isValid">Submit</button>
-        <button type="button" @click="cancelAddTeam()">Cancel</button>
+        <div class="box-bt">
+          <button class="shows" type="button" @click="addNewTeam()" :disabled="!isValid">Submit</button>
+          <button class="shows" type="button" @click="cancelAddTeam()">Cancel</button>
+        </div>
+
       </div>
     </vue-modaltor>
   </div>
@@ -102,30 +105,46 @@ export default {
   text-align: center;
 }
 .txt-des {
+  border: 1px solid black;
   resize: none;
 }
 .txt-name {
-  width: 80px;
+  border: 1px solid black;
+  width: 10em;
 
 }
 h1 {
   color: white;
 }
 .show-add {
-  text-align: right;
+  text-align: center;
   display: block;
+  padding-top: 2em;
   padding-bottom: 3em;
 }
 .shows {
-  font-weight: bold;
-  background-color: #03a9f4;
-  color: rgba(255,255,255,1);
-  height: 30px;
-  border-radius: 10px;
+  background-color: #76ff03;
   border: 0px;
+  border-radius: 1em;
+  color:black;
+  font-weight: 900;
 }
 .lab {
   font-weight: 900;
-  
+}
+.lab-head-text{
+  text-align: center;
+  font-size: 2em;
+  font-weight: 900;
+}
+.box-bt {
+  padding-top: 2em;
+  display: block;
+  text-align: center;
+}
+.box-select {
+    width: 10em;
+    background-color: rgba(0,0,0,0.2);
+    text-align: center;
 }
 </style>

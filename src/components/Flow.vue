@@ -3,7 +3,7 @@
     <div>
       <h1 class="lab-head">Flow</h1>
       <FlowTable v-for="(flow, key) in getEventFlow" :key="key" :flow="flow" :date="key" :owner="owner"/>
-      <h3 v-if="!getEventFlow || Object.keys(getEventFlow).length < 1">No flow right now.</h3>
+      <h3 class="lab-h3" v-if="!getEventFlow || Object.keys(getEventFlow).length < 1">No flow right now.</h3>
       <div class="bt-add-flow">
         <button class="bt-op-md" @click="open = true" v-if="owner && !finished">Add Flow</button>
       </div>
@@ -243,5 +243,9 @@ th td {
 }
 .p-txt {
   margin: 0;
+}
+.lab-h3{
+  color: #fff;
+  font-weight: bolder;
 }
 </style>

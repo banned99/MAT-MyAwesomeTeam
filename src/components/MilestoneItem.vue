@@ -5,15 +5,11 @@
       <div class="timeline-heading">
         <div v-if="!editing && owner && !finished">
           <h4 class="timeline-title">{{ milestone.title }}</h4>
-          <button @click="editing = true">Edit</button>
-          <button @click="del">Delete</button>
         </div>
-        <div v-if="editing">
+        <div class="ip-inside" v-if="editing">
           <h4>Edit Milestone card</h4>
           <label v-if="!validateForm.title" class="errors">Enter Milestone Title!</label>
           <input type="text" v-model="data.title">
-          <button @click="edit" :disabled="!isValid">Confirm</button>
-          <button @click="cancel">Cancel</button>
         </div>
         <label v-if="!validateForm.due && editing" class="errors">Due date cannot be before or equal to today.</label>
         <p v-if="!editing"><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{ milestone.due }}</small></p>
@@ -22,6 +18,10 @@
       <div v-if="!editing" class="timeline-body">
         <p>{{ milestone.desc }}</p>
         <p><small class="text-muted"><i class="glyphicon glyphicon-user"></i> {{ milestone.team }}</small></p>
+        <div class="bt-inside">
+          <button class="bt-blue" @click="editing = true">Edit</button>
+          <button class="bt-red" @click="del">Delete</button>
+        </div>
       </div>
       <div v-if="editing" class="timeline-body">
         <label v-if="!validateForm.desc" class="errors">Enter Milestone Description!</label>
@@ -34,6 +34,10 @@
             </select>
           </small>
         </p>
+        <div class="bt-inside">
+          <button class="bt-blue" @click="edit" :disabled="!isValid">Confirm</button>
+          <button class="bt-blue" @click="cancel">Cancel</button>
+        </div>
       </div>
     </div>
   </li>
@@ -295,7 +299,26 @@ export default {
   bottom: 0px;
   left: 43px;
 }
-.errors {
-  color: red;
+.bt-blue {
+  font-weight: bold;
+  background-color: #03a9f4;
+  color: rgba(255,255,255,1);
+  height: 30px;
+  border-radius: 10px;
+  border: 0px;
 }
+.bt-red {
+  font-weight: bold;
+  background-color: #ffa9f4;
+  color: rgba(255,255,255,1);
+  height: 30px;
+  border-radius: 10px;
+  border: 0px;
+}
+.bt-inside {
+  padding-top: 1em;
+  display: block;
+}
+.errors {
+  color: red;}
 </style>

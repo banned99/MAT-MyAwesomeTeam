@@ -132,7 +132,7 @@ th {
   color: white;
 }
 .bb-edit {
-  padding-bottom: 3em;
+  padding-top: 3em;
   text-align: center;
 }
 td,th {
