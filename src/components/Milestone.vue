@@ -7,8 +7,8 @@
         </div>
         <div style="display:inline-block;width:100%;overflow-y:auto;">
           <ul class="timeline timeline-horizontal">
-            <!-- <MileStoneItem v-if="onlyMyTeam" v-for="milestone in getMyTeamMilestone" :key="milestone['.key']" :milestone="milestone"/> -->
-            <MileStoneItem v-if="!onlyMyTeam" v-for="(milestone, key) in getEventMilestone" :key="key" :milestone="milestone" :index="key"/>
+            <!-- <MilestoneItem v-if="onlyMyTeam" v-for="milestone in getMyTeamMilestone" :key="milestone['.key']" :milestone="milestone"/> -->
+            <MilestoneItem v-if="!onlyMyTeam" v-for="(milestone, key) in getEventMilestone" :key="key" :milestone="milestone" :index="key"/>
             <li v-if="Object.keys(getEventMilestone).length < 1" class="timeline-item">
               <div class="timeline-badge primary"><i class="glyphicon glyphicon-check"></i></div>
               <div class="timeline-panel">
