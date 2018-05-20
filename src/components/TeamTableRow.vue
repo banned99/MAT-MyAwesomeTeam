@@ -22,7 +22,7 @@
     </td>
     <td v-if="editing"><button class="bt submit" :disabled="!isValid || same" @click="updateStaff()">Submit</button></td>
     <td v-if="editing"><button class="bt edit" @click="cancel()">Cancel</button></td>
-    <td v-if="!editing && (owner || priority) && !finished" ><button class="bt unassign" @click="unassign()">unassign</button></td>
+    <td v-if="!editing && (owner || priority) && !finished" ><button class="bt unassign" @click="unassign()">Unassign</button></td>
     <td v-if="!editing && owner && !finished" ><button class="bt kick" @click="kickThisUser()">Kick</button></td>
   </tr>
 </template>
@@ -89,8 +89,10 @@ export default {
       this.cancel()
     },
     unassign () {
-      this.unassignFromTeam({uid: this.member.user.uid, team: this.teamName})
-      this.updateTeam({uid: this.member.user.uid, team: 'unassigned', eventId: this.$route.params.eventId, role: 'Member'})
+      if (confirm('Are you sure to UNASSIGN this member?')) {
+        this.unassignFromTeam({uid: this.member.user.uid, team: this.teamName})
+        this.updateTeam({uid: this.member.user.uid, team: 'unassigned', eventId: this.$route.params.eventId, role: 'Member'})
+      }
     },
     cancel () {
       this.team = this.teamName
@@ -126,7 +128,10 @@ a:hover {
   border-radius: 10px;
   border: 0px;
   margin: auto;
-  font-size: 8px;
+  font-size: 12px;
+}
+.bt:disabled {
+  background-color: #949494;
 }
 .tab-text {
   font-size: 12px;
@@ -134,5 +139,8 @@ a:hover {
 .sel {
   background-color: rgba(255,255,255,0.3);
   width:100%;
+}
+td {
+  padding: 0.5em;
 }
 </style>

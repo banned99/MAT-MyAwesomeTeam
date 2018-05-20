@@ -41,6 +41,7 @@ export default {
 <style scoped>
 @import '../assets/css/tablestyle.css';
 td {
+  padding: 1em;
   border-bottom: 1px solid #fff !important;
 }
 .ev-name {

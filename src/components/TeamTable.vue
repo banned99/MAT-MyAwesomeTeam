@@ -4,14 +4,15 @@
       <div class="box-edit-team" v-if="!editing">
         <label class="head-txt">{{ index[0].toUpperCase() + index.substring(1) }}</label>
         <p>{{ team.desc }}</p>
-        <button class="bt-edit" @click="editing = true" v-if="(owner || priority) && !finished">Edit {{!finished}}</button>
+        <button class="bt-edit" @click="editing = true" v-if="owner && !finished">Edit</button>
         <button class="bt-del" @click="deleteATeam()" v-if="owner && !finished">Delete</button>
       </div>
     </div>
-    <div v-if="editing">
+    <div class="bb-edit" v-if="editing">
+      <label style="color: red;" v-if="!validateTeamName">Enter team name!</label> <br>
       <input v-if="owner" type="text" v-model="newTeamName" placeholder="Team Name"> <br>
-      <input v-if="owner || priority" type="text" v-model="newTeamDesc" placeholder="Team Description"> <br>
-      <button class="bt-edit" @click="editATeam()">Confirm</button>
+      <input v-if="owner" type="text" v-model="newTeamDesc" placeholder="Team Description"> <br>
+      <button class="bt-edit" :disabled="!validateTeamName" @click="editATeam()">Confirm</button>
       <button class="bt-edit" @click="cancelEditTeam()">Cancel</button>
     </div>
     <div class="tbl-header">
@@ -74,7 +75,7 @@ export default {
   computed: {
     ...mapGetters(['getUserUID']),
     validateTeamName () {
-      return this.team.trim()
+      return !!this.newTeamName.trim()
     }
   },
   methods: {
@@ -119,6 +120,10 @@ th {
   height: 30px;
   border-radius: 10px;
   border: 0px;
+}
+.bt-edit:disabled {
+  background-color: #949494;
+  color: white;
 }
 .box-edit-team {
   display: block;

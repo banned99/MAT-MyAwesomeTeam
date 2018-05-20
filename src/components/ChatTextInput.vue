@@ -7,7 +7,6 @@
     <div class="area-text-send" v-if="!finished">
       <textarea id="inputt" class="inputtext" v-model="textMessage" type="text" autocomplete="off"/>
       <button class="send-button" @click="send">Send</button>
-      <ChatVoiceInput :finished="finished" />
     </div>
   </div>
 </template>
@@ -30,17 +29,22 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getUserUID', 'getDisplayName', 'getChatHistory'])
+    ...mapGetters(['getUserUID', 'getDisplayName', 'getChatHistory']),
+    isMessage () {
+      return !!this.textMessage.trim()
+    }
   },
   methods: {
     ...mapActions(['sendMessage']),
     send () {
-      this.sendMessage({
-        uid: this.getUserUID,
-        name: this.getDisplayName,
-        message: this.textMessage
-      })
-      this.textMessage = ''
+      if (this.isMessage) {
+        this.sendMessage({
+          uid: this.getUserUID,
+          name: this.getDisplayName,
+          message: this.textMessage
+        })
+        this.textMessage = ''
+      }
     }
   },
   components: {
@@ -91,6 +95,5 @@ export default {
   }
   @media (max-width:420px) {
     #ChatTextHistory {width:90%;}
-
   }
 </style>
