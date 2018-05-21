@@ -36,6 +36,7 @@ export default {
 }
 body {
   background:url('assets/images/bg.jpg') no-repeat 0% 100% fixed;
+  background-color: black;
 }
 
 #app {
