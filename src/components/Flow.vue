@@ -239,7 +239,7 @@ th td {
 }
 .box.tab{
   max-height: 100px;
-  overflow-y: scroll;
+  overflow-y: hidden;
 }
 .p-txt {
   margin: 0;

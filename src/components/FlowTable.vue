@@ -12,7 +12,7 @@
           <th class="tab-head">Time</th>
           <th class="tab-head">Task</th>
           <th class="tab-head">Team</th>
-          <th class="tab-head" colspan="2">Options</th>
+          <th v-if="owner" class="tab-head" colspan="2">Options</th>
         </tr>
       </thead>
       <tbody>
@@ -80,6 +80,5 @@ export default {
 .lab-date-box {
   display: inline-block;
   width: 50%;
-  width: 20%
 }
 </style>

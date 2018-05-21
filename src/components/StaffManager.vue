@@ -8,7 +8,7 @@
     <UnassignedTeamTable :owner="owner" :priority="priority" :finished="finished"/>
     <vue-modaltor  :visible="open" @hide="hideModal" name="addTeamModal" :clickToClose="true">
       <div class="modal-addstaff">
-        <h1 class="lab">Add new Team</h1>
+        <h1 class="lab-head">Add new Team</h1>
         <p v-if="!validateName.teamName" style="color:red">Enter team name!</p>
         <p v-if="!validateName.exist">This team is already exists</p>
         <p class="lab">Team Name</p><input type="text" class="txt-name" v-model="teamName" required placeholder="Team Name">
@@ -136,6 +136,9 @@ h1 {
   text-align: center;
   font-size: 2em;
   font-weight: 900;
+}
+.lab-head {
+  color: black;
 }
 .box-bt {
   padding-top: 2em;

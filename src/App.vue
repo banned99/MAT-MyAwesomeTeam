@@ -36,7 +36,11 @@ export default {
 }
 body {
   background:url('assets/images/bg.jpg') no-repeat 0% 100% fixed;
+<<<<<<< HEAD
   background-size: cover;
+=======
+  background-color: black;
+>>>>>>> 66806db16dcb1b4507e02f68cb8551f7c9a18568
 }
 
 #app {

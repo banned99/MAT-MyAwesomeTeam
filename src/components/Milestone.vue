@@ -60,7 +60,7 @@
         <div class="box-due">
           <p>Due: </p>
           <div v-if="!validateForm.due">
-            <label class="errors">Due date cannot be before or equal to today.</label>
+            <label class="errors">Due date cannot be before or equal to today and cannot be after start date.</label>
             <br>
           </div>
           <input class="in-text" type="date" v-model="due">
@@ -119,7 +119,7 @@ export default {
       return {
         title: !!this.title.trim(),
         desc: !!this.desc.trim(),
-        due: !!this.due.trim() && new Date(this.due).getTime() >= new Date().getTime(),
+        due: new Date(this.due).getTime() > new Date().getTime() && new Date(this.due).getTime() <= new Date(this.getEventDate.start).getTime(),
         team: !!this.team.trim()
       }
     }
@@ -309,6 +309,9 @@ export default {
   vertical-align: bottom;
 }
 .timeline-horizontal .timeline-item .timeline-panel {
+  max-height: 400px;
+  min-height: 100px;
+  overflow-y: scroll;
   top: auto;
   bottom: 64px;
   display: inline-block;
