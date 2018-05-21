@@ -35,7 +35,11 @@ export default {
   src: url('assets/fonts/fontawesome-webfont.woff');
 }
 body {
+<<<<<<< HEAD
   background:url('assets/images/bg.jpg') no-repeat 0% 100% fixed;
+=======
+  background:url('assets/images/bg.jpg') repeat 0% 100% fixed;
+>>>>>>> a10a01dca6dc755a23f1797e74cb3cf4dab2b400
   background-size: cover;
 }
 
