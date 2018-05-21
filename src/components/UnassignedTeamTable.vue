@@ -50,6 +50,9 @@ export default {
 <style lang="css" scoped>
 .wrapper {
   width: 100%;
+max-height: 400px;
+overflow-y: auto;
+padding-bottom: 5em;
 }
 .lab-uns {
   display: block;
