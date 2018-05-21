@@ -202,7 +202,6 @@ const actions = {
     templates.teamTemplate.data.lastMemberIndex = 1
     commit('addEventStaff', templates.staffMemberTemplate)
     commit('addEventTeam', templates.teamTemplate)
-    commit('setEventLastStaffIndex', 1)
     firebase.database().ref('events').child(payload.token).set(state.event)
       .then(() => {
         router.push('/event/' + payload.token)
@@ -223,27 +222,28 @@ const actions = {
     })
 
     firebase.database().ref('events').child(payload).on('child_added', snapshot => {
+      console.log(snapshot.key)
       commit('setEvent' + snapshot.key[0].toUpperCase() + snapshot.key.slice(1), snapshot.val())
     })
   },
   deleteEvent ({commit, dispatch}, payload) {
+    let staffsInEvent = state.event.staffs
+    Object.keys(staffsInEvent).forEach(key => {
+      console.log(key)
+      firebase.database().ref('users')
+        .child(key)
+        .child('eventsJoined')
+        .child(payload.eventId)
+        .remove()
+        .then(() => {
+          dispatch('resetEventData')
+          router.replace('/home')
+        })
+        .catch(err => console.log(err.message))
+    })
     firebase.database().ref('events').child(payload.eventId).remove()
       .then(() => {
-        let staffsInEvent = state.event.staffs
-        for (const key in Object.keys(staffsInEvent)) {
-          if (staffsInEvent.hasOwnProperty(key)) {
-            firebase.database().ref('users')
-              .child(staffsInEvent[key].uid)
-              .child('eventsJoined')
-              .child(payload.eventId)
-              .remove()
-              .then(() => {
-                dispatch('resetEventData')
-                router.replace('/home')
-              })
-              .catch(err => console.log(err.message))
-          }
-        }
+
       }).catch(err => {
         console.log(err.message)
       })
@@ -369,14 +369,14 @@ const actions = {
     firebase.database().ref('events')
       .child(state.currentEventToken)
       .child('staffs')
-      .child(state.event.lastStaffIndex + 1)
+      .child(payload.request.requester.uid)
       .set(templates.staffMemberTemplate)
       .then(() => {
         commit('addEventStaff', templates.staffMemberTemplate)
         commit('setEventLastStaffIndex', state.event.lastStaffIndex + 1)
       }).catch(err => console.log(err.message))
-    firebase.database().ref('events').child(state.currentEventToken)
-      .update({lastStaffIndex: state.event.lastStaffIndex})
+    // firebase.database().ref('events').child(state.currentEventToken)
+    //   .update({lastStaffIndex: state.event.lastStaffIndex})
   },
   declineToJoinRequest ({commit}, payload) {
     firebase.database().ref('events')

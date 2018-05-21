@@ -198,11 +198,12 @@ const actions = {
       .catch(err => console.log(err.message))
   },
   addEventFromJoin: ({commit}, payload) => {
+    console.log(payload)
     templates.joinedEventTemplate.name = payload.event.name
     templates.joinedEventTemplate.date = payload.event.date
     templates.joinedEventTemplate.team = {
-      name: 'unassigned',
-      role: 'member'
+      name: 'Unassigned',
+      role: 'Member'
     }
     firebase.database().ref('users')
       .child(payload.request.requester.uid)
