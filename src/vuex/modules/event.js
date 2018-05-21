@@ -21,7 +21,7 @@ const state = {
     milestone: {},
     flow: {},
     chatHistory: [],
-    lastStaffIndex: 0
+    lastStaffIndex: 2
   },
   searchResult: {
     name: '',
@@ -425,7 +425,7 @@ const actions = {
     templates.teamMemberTemplate.user.name = staffValue.displayName
     templates.teamTemplate.data.members = []
     templates.teamTemplate.data.members.push(templates.teamMemberTemplate)
-    templates.teamTemplate.data.lastMemberIndex = 1
+    templates.teamTemplate.data.lastMemberIndex = 2
 
     firebase.database().ref('events')
       .child(state.currentEventToken)

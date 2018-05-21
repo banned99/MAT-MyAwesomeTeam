@@ -35,8 +35,8 @@ export default {
   src: url('assets/fonts/fontawesome-webfont.woff');
 }
 body {
-  background:url('assets/images/bg.jpg') no-repeat 0% 100% fixed;
-  background-color: black;
+  background:url('assets/images/bg.jpg') repeat 0% 100%;
+  background-size: cover;
 }
 
 #app {
