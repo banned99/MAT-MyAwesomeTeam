@@ -16,7 +16,7 @@
     <div class="tbl-content">
       <table cellpadding="0" cellspacing="0" border="0">
     <tbody>
-      <ActiveEventListItem v-if="getActiveEvents" v-for="(event, index) in getActiveEvents" :key="index" :event="event" :index="index"/>
+      <ActiveEventListItem class="tr-content" v-if="getActiveEvents" v-for="(event, index) in getActiveEvents" :key="index" :event="event" :index="index"/>
       <tr v-if="Object.keys(getActiveEvents).length === 0">
         <td colspan="4"> ---- No joined events. Create or Join some! ---- </td>
       </tr>
@@ -65,7 +65,7 @@ export default {
 tr {
   border-left: 1px solid black;
 }
-tr:hover {
+tr.tr-content:hover {
   background-color: rgba(255,255,255,0.1);
   cursor: pointer;
 }

@@ -1,6 +1,7 @@
 <template>
 <div>
-  <h2>Joined Events</h2>
+  <h2 class="head-text">Joined Events</h2>
+  <!--old-->
   <table>
     <tr class="headTr">
         <th>Event Name</th>
@@ -9,7 +10,7 @@
         <th>Position</th>
     </tr>
     <JoinedEventListItem v-if="getEventsJoined" v-for="(event, index) in getEventsJoined" :key="index" :event="event" :index="index"/>
-    <tr v-if="Object.keys(getEventsJoined).length === 0">
+    <tr class="tr-content" v-if="Object.keys(getEventsJoined).length === 0">
       <td colspan="4"> ---- No joined events. ---- </td>
     </tr>
   </table>
@@ -31,11 +32,20 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style media="screen" scoped>
+  @import '../assets/css/tablestyle.css';
 tr.headTr:hover{
   background-color: rgba(0,0,0,0) !important;
 }
-</style>
-<style media="screen" scoped>
-  @import '../assets/css/tablestyle.css';
+tr.tr-content:hover {
+  cursor: pointer !important;
+}
+tr {
+  font-size: 1em;
+}
+.head-text {
+  display: block;
+  font-size: 1.5em;
+  text-align: center;
+}
 </style>

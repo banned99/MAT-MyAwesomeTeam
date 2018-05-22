@@ -76,7 +76,7 @@ body, html {
 }
 .dis-name {
   display: block;
-  margin-left: 10%;
+  text-align: center;
   font-size: 2.5rem;
   font-weight: 400;
   padding-top: 3em;
@@ -111,12 +111,15 @@ body, html {
   font-size: 1.5rem;
 }
 .fa-cog{
-  margin-left: 1rem;
-  cursor: pointer;
-  font-family: awesome;
-  font-size: 23px;
-  font: #fff;
-  display: inline-block;
+    margin-left: 1rem;
+    cursor: pointer;
+    font-family: awesome;
+    font-size: 23px;
+    font: #fff;
+    display: inline-block;
+    background-color: rgba(0,0,0,0.0);
+    color: white;
+    border: 0;
 }
 .inp-name {
   color: black;

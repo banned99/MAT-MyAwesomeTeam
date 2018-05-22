@@ -35,7 +35,12 @@ export default {
   src: url('assets/fonts/fontawesome-webfont.woff');
 }
 body {
+  background-color: rgba(0,0,0,0) !important;
+}
+html {
   background:url('assets/images/bg.jpg') no-repeat 0% 100% fixed;
+  min-height: 100%;
+  min-width: 100%;
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
