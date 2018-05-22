@@ -74,8 +74,8 @@ export default {
   }
   .head-chat {
     color: #fff;
-    font-size: 2rem;
-    font-weight: 100;
+    font-size: 3rem;
+    font-weight: 900;
     padding-bottom: 0.5em;
   }
   .send-button {

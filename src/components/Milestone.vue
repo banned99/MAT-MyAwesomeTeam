@@ -384,8 +384,11 @@ export default {
 }
 .bt-submit:disabled {
   background-color: #949494;
+  padding-bottom: 3em;
 }
 .head-text{
+  font-size: 2.5em;
+  font-weight: 900;
   color: #fff;
 }
 .errors {

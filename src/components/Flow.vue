@@ -186,7 +186,7 @@ th td {
 }
 .lab-head {
   color: white;
-  font-weight: 900;
+  font-weight: bolder;
 }
 .bt-add-flow {
   display: block;
