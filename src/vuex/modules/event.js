@@ -221,10 +221,10 @@ const actions = {
       commit('setEvent' + snapshot.key[0].toUpperCase() + snapshot.key.slice(1), snapshot.val())
     })
 
-    firebase.database().ref('events').child(payload).on('child_added', snapshot => {
-      console.log(snapshot.key)
-      commit('setEvent' + snapshot.key[0].toUpperCase() + snapshot.key.slice(1), snapshot.val())
-    })
+    // firebase.database().ref('events').child(payload).on('child_added', snapshot => {
+    //   console.log(snapshot.key)
+    //   commit('setEvent' + snapshot.key[0].toUpperCase() + snapshot.key.slice(1), snapshot.val())
+    // })
   },
   deleteEvent ({commit, dispatch}, payload) {
     let staffsInEvent = state.event.staffs
