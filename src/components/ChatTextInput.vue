@@ -1,12 +1,12 @@
 <template>
   <div class="wrapper">
-    <h2 class="head-chat">Chat</h2>
+    <h1 class="head-chat">Chat</h1>
     <ul id="chatHistory" v-chat-scroll>
       <ChatTextHistory v-for="message in getChatHistory" :key="message.key" :message="message"/>
     </ul>
     <div class="area-text-send" v-if="!finished">
       <textarea id="inputt" class="inputtext" v-model="textMessage" type="text" autocomplete="off"/>
-      <button class="send-button" @click="send">Send</button>
+      <button class="send-button" @click="send" @keypress.enter="send">Send</button>
     </div>
   </div>
 </template>

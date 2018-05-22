@@ -29,8 +29,7 @@ export default {
     return {
       name: '',
       user: {},
-      open: false,
-      show: false
+      open: false
     }
   },
   created () {
@@ -67,9 +66,6 @@ export default {
     cancel: function () {
       this.open = false
       this.resetForm()
-    },
-    showdiv: function () {
-      this.show = true
     }
   },
   components: {
