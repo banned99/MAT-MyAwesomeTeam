@@ -33,7 +33,7 @@
         </div>
       </form>
     </vue-modaltor>
-  <button @click="open=true" class="show-createEvent">Create Event</button>
+  <button @click="show" class="show-createEvent">Create Event</button>
   </div>
 
 </template>
@@ -72,11 +72,7 @@ export default {
     }
   },
   created () {
-    this.event.owner.uid = this.getUserUID
-    this.event.owner.name = this.getDisplayName
-    let now = new Date()
-    this.event.createDate = now.toLocaleString().split(',').join('')
-    this.token = (this.event.owner.uid.slice(0, 5) + now.toLocaleDateString().split('/').join('') + now.toLocaleTimeString().slice(0, 7).split(':').join(''))
+
   },
   computed: {
     ...mapGetters(['getUserUID', 'getDisplayName']),
@@ -120,10 +116,12 @@ export default {
       this.resetForm()
     },
     show () {
-      this.$modal.show('formCreate')
-    },
-    hide () {
-      this.$modal.hide('formCreate')
+      this.open = true
+      this.event.owner.uid = this.getUserUID
+      this.event.owner.name = this.getDisplayName
+      let now = new Date()
+      this.event.createDate = now.toLocaleString().split(',').join('')
+      this.token = (this.event.owner.uid.slice(0, 5) + now.toLocaleDateString().split('/').join('') + now.toLocaleTimeString().slice(0, 7).split(':').join(''))
     },
     hideModal () {
       this.open = false

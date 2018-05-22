@@ -35,7 +35,7 @@ const actions = {
       .then((user) => {
         let newUser = {
           uid: user.uid,
-          displayName: 'Your Name',
+          displayName: '',
           imgUrl: '',
           eventsJoined: {},
           invites: []

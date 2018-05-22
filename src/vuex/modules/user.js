@@ -5,8 +5,7 @@ const state = {
     uid: '',
     displayName: '',
     imgUrl: '',
-    eventsJoined: {},
-    invites: []
+    eventsJoined: {}
   }
 }
 
@@ -31,12 +30,6 @@ const mutations = {
   },
   removeEventsJoined: (state, payload) => {
     delete state.user.eventsJoined[payload.token]
-  },
-  setInvites: (state, payload) => {
-    state.user.invites = payload
-  },
-  addInvites: (state, payload) => {
-    state.user.invites = payload
   },
   changeTeam: (state, payload) => {
     state.user.eventsJoined[payload.eventId].team = {name: payload.team, role: payload.role}
@@ -104,12 +97,16 @@ const actions = {
       let data = snapshot.val()
       commit('setEventsJoined', data.eventsJoined)
       commit('setImgUrl', data.imgUrl)
-      commit('setInvites', data.invites)
+      commit('setDisplayName', data.displayName)
     })
 
-    firebase.database().ref('users').child(state.user.uid).on('child_changed', snapshot => {
+    firebase.database().ref('users').child(state.user.uid).on('value', snapshot => {
+      let data = snapshot.val()
       // console.log('set' + snapshot.key[0].toUpperCase() + snapshot.key.slice(1), snapshot.val())
-      commit('set' + snapshot.key[0].toUpperCase() + snapshot.key.slice(1), snapshot.val())
+      // commit('set' + snapshot.key[0].toUpperCase() + snapshot.key.slice(1), snapshot.val())
+      commit('setDisplayName', data.displayName)
+      commit('setEventsJoined', data.eventsJoined)
+      commit('setImgUrl', data.imgUrl)
     })
   },
   updateDisplayName: ({commit}, payload) => {
