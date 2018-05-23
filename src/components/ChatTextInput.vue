@@ -66,6 +66,7 @@ export default {
     padding-bottom: 2em;
     margin: auto;
     border: 1px solid #fff;
+    background-color: #fff;
   }
   .inputtext {
     width: 75%;
@@ -83,15 +84,15 @@ export default {
     background-color: #ffa000;
     color: rgba(255,255,255,1);
     width: 25%;
-    border-radius: 10px;
     border: 0px;
   }
   .send-button:active {
-    background-color: rgba(255,255,255,0.5);
+    background-color: rgba(0,0,0,0.5);
   }
   .area-text-send {
     display: inline-flex;
     width: 75%;
+    padding-top: 1em;
   }
   @media (max-width:420px) {
     #ChatTextHistory {width:90%;}

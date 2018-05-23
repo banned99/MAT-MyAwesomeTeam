@@ -58,17 +58,17 @@ export default {
   .name {
     margin-top: 0;
     margin-bottom: 0;
-    color: #76ff03;
+    color: #000;
   }
   .chat-text {
-    color: #fff;
+    color: #000;
   }
   .cl-name1 {
     font-weight: 900;
   }
   .cl-name2 {
     font-weight: 900;
-    color: #fb8c00;
+    color: #000;
   }
   .cl-time1{
     font-size: 8px;

@@ -377,14 +377,13 @@ export default {
   height: 50px;
   border-radius: 10px;
   border: 0px;
-  width: 30%;
+  display: inline-flex;
 }
 .bt-submit:active, .bt-cancel:active{
  top:0.1em;
 }
 .bt-submit:disabled {
   background-color: #949494;
-  padding-bottom: 3em;
 }
 .head-text{
   font-size: 2.5em;
